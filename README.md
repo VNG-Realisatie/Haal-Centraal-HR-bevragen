@@ -1,6 +1,4 @@
-# Haal-Centraal-HR-bevragen
-
-# Productvisie Haal Centraal
+# Haal Centraal HR bevragen
 
 ## Introductie
 Doel van het programma Haal Centraal is om de verstrekking van basisgegevens aan binnengemeentelijke afnemers te outsourcen naar Landelijke Registraties (RvIG, Kadaster, KVK). Dit moet leiden tot een forse reductie van lokale kopieën bij gemeenten. 
@@ -24,4 +22,9 @@ In principe willen we voor iedere activiteit op een lokale kopie een Haal Centra
 Haal Centraal is een G5 initiatief (Amsterdam, Rotterdam, Den Haag, Utrecht en Eindhoven). Het concept is getoetst in de BRK pilot van de gemeente Den Haag met het Kadaster op basis van de RSGB bevragingen standaard (voorloper BRP- en BRK-bevragen). De businesscase is gebaseerd op ervaringscijfers van de gemeente Den Haag en de softwareontwikkeling gedurende de pilot. 
 
 ## HR bevragen
-Deze repository beschrijft het project om tot een API voor het Handelsregister (HR) te komen.
+Deze repository beschrijft het project om tot een API voor de Basisregistratie Handelsregister (HR) te komen.
+
+## Licentie
+Copyright (C) VNG Realisatie 2018
+Licensed under the [EUPL](https://github.com/VNG-Realisatie/Haal-Centraal-BGT-bevragen/blob/master/LICENCE.md)
+
