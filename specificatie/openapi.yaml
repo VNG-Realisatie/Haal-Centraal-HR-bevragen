@@ -16,7 +16,8 @@ paths:
   /correspondentieadressen:
     get:
       operationId: GetCorrespondentieadresEigenaar
-      description: "Raadpleeg de de aanschrijfwijze en het correpondentie-adres van een eigenaar van een bedrijf of organisatie die deelneemt aan het economisch verkeer danwel eigenaar is van een kadastraal onroerende zaak."
+      description: "Zoek de de aanschrijfwijze en het correpondentie-adres van een eigenaar van een bedrijf of organisatie die deelneemt aan het economisch verkeer danwel eigenaar is van een kadastraal onroerende zaak."
+      summary: "van eigenaren"
       parameters:
 #        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/expand"
 #        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields"
@@ -69,7 +70,8 @@ paths:
   /vestigingsadressen:
     get:
       operationId: GetVestigingsadresEigenaar
-      description: "Raadpleeg het vestigings-adres van een eigenaar van een bedrijf of organisatie die deelneemt aan het economisch verkeer danwel eigenaar is van een kadastraal onroerende zaak."
+      description: "Zoek het vestigings-adres van een eigenaar van een bedrijf of organisatie die deelneemt aan het economisch verkeer danwel eigenaar is van een kadastraal onroerende zaak."
+      summary: "van een persoon"
       parameters:
 #        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/expand"
 #        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields"
@@ -98,7 +100,62 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/VestigingsAdres'
+                $ref: '#/components/schemas/VestigingsAdresEigenaarHalCollectie'
+        '400':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/400"
+        '401':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/401"
+        '403':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/403"
+        '406':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/406"
+        '409':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/409"
+        '410':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/410"
+        '415':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/415"
+        '429':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/429"
+        '500':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/500"
+        '503':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/503"
+
+
+  /maatschappelijkeactiviteiten:
+    get:
+      operationId: GetMaatschappelijkeActiviteiten
+      description: "Zoek maatschappelijke activiteiten correpondentie-adres op basis van het burgerservicenummer of het RSIN van de eigenaar."
+      summary: "van personen"
+      parameters:
+#        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/expand"
+#        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields"
+        - in: query
+          name: ingeschrevenpersoon__burgerservicenummer
+          description: "Het burgerservicenummer van de persoon die een zakelijk recht op een kadastraal onroerende zaak heeft. Deze persoon is zakelijk gerechtigde van de kadastraal onroerende zaak. Door deze query-parameter te gebruiken worden Kadastraal Onroerende Zaken geretourneerd waar deze persoon een zakelijk recht op heeft."
+          required: false
+          schema:
+            type: string
+            maxLength: 9
+        - in: query
+          name: rsin
+          description: "De identificatie van de NietNatuurlijkPersoon, bijvoorbeel een rechtspersoon (evt in oprichting), een samenwerkingsverband of een eenmanszaak met meerdere eigenaren"
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Zoekactie geslaagd"
+          headers:
+            api-version:
+              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/headers/api_version"
+            warning:
+              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/headers/warning"
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/MaatschappelijkeActiviteitHalCollectie'
         '400':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/400"
         '401':
@@ -137,15 +194,6 @@ components:
 # moet hier eventueel ook een ter attentie van bijkomen ? Ik weet niet of KvK die kan leveren.
         adres:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/openapi.yaml#/components/schemas/Adres"
-    VestigingsAdresEigenaar:
-      type: object
-      properties:
-        rsin:
-          type: "string"
-        identificatieHandelsregisterNatuurlijkPersoon:
-          type: "string"
-        adres:
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/openapi.yaml#/components/schemas/Adres"
 
 #    CorrespondentieAdresEigenaarHal:
 #      allOf:
@@ -165,12 +213,14 @@ components:
         _links:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinks'
         _embedded:
+          $ref: "#/components/schemas/CorrespondentieAdresEigenaarHalCollectie_embedded"
+    CorrespondentieAdresEigenaarHalCollectie_embedded:
+          type: object
           properties:
             adressen:
-              items:
-                $ref: '#/components/schemas/CorrespondentieAdresEigenaarHal'
               type: array
-          type: object
+              items:
+                $ref: '#/components/schemas/CorrespondentieAdresEigenaarHalBasis'
     CorrespondentieAdresEigenaar_links:
       type: object
       properties:
@@ -180,6 +230,107 @@ components:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
           description: "De aan het adres gerelateerde openbare ruimte."
 #    CorrespondentieAdresEigenaar_embedded:
+#      type: object
+#        adres:
+#          $ref: $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/openapi.yaml#/components/schemas/Adres"
+    MaatschappelijkeActiviteit:
+      type: object
+      properties:
+        KvKnummer:
+          type: string
+        naam:
+          type: string
+        nonMailing:
+          type: boolean
+        incidenteelUitlenenArbeidskrachten:
+          type: boolean
+        notitie:
+          type: string
+        adresBerichtenbox:
+          type: string
+#    MaatschappelijkeActiviteitHal:
+#      allOf:
+#      - $ref: '#/components/schemas/MaatschappelijkeActiviteitHalBasis'
+#      - properties:
+#          _embedded:
+#            $ref: '#/components/schemas/MaatschappelijkeActiviteit_embedded'
+    MaatschappelijkeActiviteitHalBasis:
+      allOf:
+      - $ref: '#/components/schemas/MaatschappelijkeActiviteit'
+      - properties:
+          _links:
+            $ref: '#/components/schemas/MaatschappelijkeActiviteit_links'
+    MaatschappelijkeActiviteitHalCollectie:
+      type: object
+      properties:
+        _links:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinks'
+        _embedded:
+          $ref: "#/components/schemas/MaatschappelijkeActiviteitHalCollectie_embedded"
+    MaatschappelijkeActiviteitHalCollectie_embedded:
+          type: object
+          properties:
+            maatschappelijkeActiviteiten:
+              type: array
+              items:
+                $ref: '#/components/schemas/MaatschappelijkeActiviteitHalBasis'
+    MaatschappelijkeActiviteit_links:
+      type: object
+      properties:
+        self:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
+        adres:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
+          description: "De aan het adres gerelateerde openbare ruimte."
+#    MaatschappelijkeActiviteit_embedded:
+#      type: object
+#        adres:
+#          $ref: $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/openapi.yaml#/components/schemas/Adres"
+
+    VestigingsAdresEigenaar:
+      type: object
+      properties:
+        rsin:
+          type: "string"
+        identificatieHandelsregisterNatuurlijkPersoon:
+          type: "string"
+        adres:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/openapi.yaml#/components/schemas/Adres"
+#    VestigingsAdresEigenaarHal:
+#      allOf:
+#      - $ref: '#/components/schemas/VestigingsAdresEigenaarHalBasis'
+#      - properties:
+#          _embedded:
+#            $ref: '#/components/schemas/VestigingsAdresEigenaar_embedded'
+    VestigingsAdresEigenaarHalBasis:
+      allOf:
+      - $ref: '#/components/schemas/VestigingsAdresEigenaar'
+      - properties:
+          _links:
+            $ref: '#/components/schemas/VestigingsAdresEigenaar_links'
+    VestigingsAdresEigenaarHalCollectie:
+      type: object
+      properties:
+        _links:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinks'
+        _embedded:
+          $ref: "#/components/schemas/VestigingsAdresEigenaarHalCollectie_embedded"
+    VestigingsAdresEigenaarHalCollectie_embedded:
+          type: object
+          properties:
+            adressen:
+              type: array
+              items:
+                $ref: '#/components/schemas/VestigingsAdresEigenaarHalBasis'
+    VestigingsAdresEigenaar_links:
+      type: object
+      properties:
+        self:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
+        adres:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
+          description: "De aan het adres gerelateerde openbare ruimte."
+#    VestigingsAdresEigenaar_embedded:
 #      type: object
 #        adres:
 #          $ref: $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/openapi.yaml#/components/schemas/Adres"
