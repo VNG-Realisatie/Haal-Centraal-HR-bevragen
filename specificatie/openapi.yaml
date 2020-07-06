@@ -21,18 +21,27 @@ paths:
 #        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/expand"
 #        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields"
         - in: query
-          name: burgerservicenummer
-          description: "Het burgerservicenummer van de persoon die een zakelijk recht op een kadastraal onroerende zaak heeft. Deze persoon is zakelijk gerechtigde van de kadastraal onroerende zaak. Door deze query-parameter te gebruiken worden Kadastraal Onroerende Zaken geretourneerd waar deze persoon een zakelijk recht op heeft."
+          name: eigenaar_burgerservicenummer
+          description: "Het burgerservicenummer van de ingeschreven persoon die eigenaar is van een onderneming."
           required: false
           schema:
             type: string
             maxLength: 9
         - in: query
-          name: rsin
-          description: "De identificatie van de NietNatuurlijkPersoon, bijvoorbeel een rechtspersoon (evt in oprichting), een samenwerkingsverband of een eenmanszaak met meerdere eigenaren"
+          name: bestuurder_burgerservicenummer
+          description: "Het burgerservicenummer van de ingeschreven persoon die bestuurder is van een onderneming."
           required: false
           schema:
             type: string
+            maxLength: 9
+# mogelijkheid is ook om 1 x het burgerservicenummer op te nemen en daarbij een type parameter verplicht te stellen.......
+        - in: query
+          name: rsin
+          description: "De identificatie van de NietNatuurlijkPersoon die eigenaar is van een onderneming."
+          required: false
+          schema:
+            type: string
+# Willen we hier ook kunnen zoeken op een niet-ingeschreven natuurlijk persoon (handelsregisterpersoon) die eigenaar is van een onderneming.
       responses:
         '200':
           description: "Zoekactie geslaagd"
@@ -159,6 +168,16 @@ paths:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/503"
 components:
   schemas:
+    Bestuurder:
+      type: object
+      description: De identificatie en het type van een persoon. Met deze twee gegevens kan de conclusie getrokken worden via welke link de gerelateerde resource bevraagd kan worden"
+      properties:
+        typeBestuursfunctie:
+          $ref: "#/components/schemas/TypeBestuurder_enum"
+        soortbevoegdheid:
+          $ref: "#/components/schemas/SoortBevoegdheidBestuurder_enum"
+        persoon:
+          $ref: "#/components/schemas/Persoon"
     CorrespondentieAdresEigenaar:
       type: object
       properties:
@@ -214,14 +233,6 @@ components:
 #      type: object
 #        adres:
 #          $ref: $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/openapi.yaml#/components/schemas/Adres"
-    Eigenaar:
-      type: object
-      description: De identificatie en het type van een persoon. Met deze twee gegevens kan de conclusie getrokken worden via welke link de gerelateerde resource bevraagd kan worden"
-      properties:
-        persoonIdentificatie:
-          type: string
-        typePersoon:
-          $ref: "#/components/schemas/TypePersoon_enum"
     HandelsregisterPersoon:
       type: object
       properties:
@@ -267,10 +278,14 @@ components:
         adresBerichtenbox:
           description: "De Berichtenbox is de persoonlijke postbus voor elektronische berichten van de overheid."
           type: string
-        eigenaar:
+        eigenaars:
           type: array
           items:
-            $ref: "#/components/schemas/Eigenaar"
+            $ref: "#/components/schemas/Persoon"
+        bestuurders:
+          type: array
+          items:
+            $ref: "#/components/schemas/Bestuurder"
 #    MaatschappelijkeActiviteitHal:
 #      allOf:
 #      - $ref: '#/components/schemas/MaatschappelijkeActiviteitHalBasis'
@@ -316,7 +331,29 @@ components:
 #    MaatschappelijkeActiviteit_embedded:
 #      type: object
 #        adres:
-#          $ref: $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/openapi.yaml#/components/schemas/Adres"
+#          $ref: $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/openapi.yaml#/components/schemas/Adres
+    Persoon:
+      type: object
+      description: De identificatie en het type van een persoon. Met deze twee gegevens kan de conclusie getrokken worden via welke link de gerelateerde resource bevraagd kan worden"
+      properties:
+        identificatie:
+          type: string
+        typePersoon:
+          $ref: "#/components/schemas/TypePersoon_enum"
+    SoortBevoegdheidBestuurder_enum:
+      enum:
+        - alleen_zelfstandig_bevoegd
+        - gezamenlijk_bevoegd
+        - niet_bevoegd
+    TypeBestuurder_enum:
+      description: ""
+      enum:
+        - bestuurder
+        - vereffenaar
+        - lid_van_het_bestuurdend_orgaan
+        - lid_van_het_leidinggevend_orgaan
+        - persoon_krachtens_statuten_bevoegd_bij_ontstentenis_belet_van_de_bestuurders\
+        - vertegenwoordiger_bestuurder_rechtspersoon
     TypePersoon_enum:
       description: ""
       enum:
