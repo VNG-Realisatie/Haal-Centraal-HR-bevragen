@@ -1,7 +1,10 @@
 # Haal Centraal HR bevragen
 
 ## Introductie
- De Haal Centraal HR Bevragen API is in ontwikkeling. Op basis van user stories is een goals canvas opgesteld welke weer de basis vormt voor het API-design. Eventuele bijdrages in de vorm van issues of user stories zijn welkom
+De Haal Centraal HR Bevragen API is in ontwikkeling in het kader van een verkenning.
+Doel (van de businesscase) binnen het programma Haal Centraal is om de verstrekking van gegevens op basis van API’s te verkennen.
+
+Op basis van user stories is een goals canvas opgesteld welke weer de basis vormt voor het API-design. Eventuele bijdrages in de vorm van issues of user stories zijn welkom
 
  Doel van het programma Haal Centraal is om de verstrekking van basisgegevens aan binnengemeentelijke afnemers te outsourcen naar Landelijke Registraties (RvIG, Kadaster, KVK). Dit moet leiden tot een forse reductie van lokale kopieën bij gemeenten.
 
