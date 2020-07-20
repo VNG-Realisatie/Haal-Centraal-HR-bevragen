@@ -1,9 +1,14 @@
 # Haal Centraal HR bevragen
 
 ## Introductie
-Doel van het programma Haal Centraal is om de verstrekking van basisgegevens aan binnengemeentelijke afnemers te outsourcen naar Landelijke Registraties (RvIG, Kadaster, KVK). Dit moet leiden tot een forse reductie van lokale kopieën bij gemeenten.
+ De Haal Centraal HR Bevragen API is in ontwikkeling. Op basis van user stories is een goals canvas opgesteld welke weer de basis vormt voor het API-design. Eventuele bijdrages in de vorm van issues of user stories zijn welkom
+
+ Doel van het programma Haal Centraal is om de verstrekking van basisgegevens aan binnengemeentelijke afnemers te outsourcen naar Landelijke Registraties (RvIG, Kadaster, KVK). Dit moet leiden tot een forse reductie van lokale kopieën bij gemeenten.
 
 In principe willen we voor iedere activiteit op een lokale kopie een Haal Centraal alternatief te bieden in de vorm van een API.
+
+# Planning Haal Centraal
+https://eu-rm.roadmunk.com/publish/29a13c572a0dfc79f1d0386fc572e15383afe11f
 
 ### Toegevoegde waarde voor gemeenten
 - sneller aansluiten afnemers
