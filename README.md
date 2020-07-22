@@ -2,7 +2,7 @@
 
 ## Introductie
 De Haal Centraal HR Bevragen API is in ontwikkeling in het kader van een verkenning.
-Doel (van de businesscase) binnen het programma Haal Centraal is om de verstrekking van gegevens op basis van API’s te verkennen.
+Doel van de verkenning binnen het programma Haal Centraal is om de verstrekking van gegevens op basis van API’s, ontworpen vanuit het gebruikersperspectief, te verkennen voor het handelsregister.
 
 Op basis van user stories is een goals canvas opgesteld welke weer de basis vormt voor het API-design. Eventuele bijdrages in de vorm van issues of user stories zijn welkom
 
