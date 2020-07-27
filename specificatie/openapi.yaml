@@ -223,6 +223,39 @@ paths:
 
 components:
   schemas:
+    Adres:
+      type: object
+      description: "Eigenschappen van het adres die kunnen worden hergebruikt in andere API's waarin adresgegevens worden opgenomen. "
+      properties:
+        nummeraanduidingidentificatie:
+          type: string
+          description: "Identificatie van het adres in het geval dit adres in BAG geregistreerd is."
+        straat:
+          title: openbareruimte naam
+          description: "Een naam die door de gemeente aan een openbare ruimte is gegeven."
+          type: string
+          example: 'Laan van de landinrichtingscommissie Duiven-Westervoort'
+        huisnummer:
+          description: "Een nummer dat door de gemeente aan een adresseerbaar object is gegeven."
+          type: integer
+          example: 1
+        huisletter:
+          description: "Een toevoeging aan een huisnummer in de vorm van een letter die door de gemeente aan een adresseerbaar object is gegeven."
+          type: string
+          example: 'A'
+        huisnummertoevoeging:
+          description: "Een toevoeging aan een huisnummer of een combinatie van huisnummer en huisletter die door de gemeente aan een adresseerbaar object is gegeven."
+          type: string
+          example: 'bis'
+        postcode:
+          description: "De door PostNL vastgestelde code die bij een bepaalde combinatie van een straatnaam en een huisnummer hoort."
+          type: string
+          example: '6922KZ'
+        woonplaats:
+          description: "Een woonplaats is een gedeelte van het grondgebied van de gemeente met een naam."
+          title: woonplaats naam
+          type: string
+          example: 'Duiven'
     Bestuurder:
       type: object
       description: De identificatie en het type van een persoon. Met deze twee gegevens kan de conclusie getrokken worden via welke link de gerelateerde resource bevraagd kan worden"
@@ -248,11 +281,9 @@ components:
           example: "Van de Graaf BV."
 # moet hier eventueel ook een ter attentie van bijkomen ? Ik weet niet of KvK die kan leveren.
         correspondentieadres:
-          allOf:
-            - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/openapi.yaml#/components/schemas/Adres"
-            - properties:
-                nummeraanduiding:
-                  type: string
+          $ref: "#/components/schemas/Postadres"
+        rechtsvorm:
+          $ref: "#/components/schemas/Rechtsvorm_enum"
 #    EigenaarHal:
 #      allOf:
 #      - $ref: '#/components/schemas/EigenaarHalBasis'
@@ -343,12 +374,23 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Bestuurder"
-#    MaatschappelijkeActiviteitHal:
-#      allOf:
-#      - $ref: '#/components/schemas/MaatschappelijkeActiviteitHalBasis'
-#      - properties:
-#          _embedded:
-#            $ref: '#/components/schemas/MaatschappelijkeActiviteit_embedded'
+        bezoekadres:
+          $ref: "#/components/schemas/Adres"
+        postadres:
+          $ref: "#/components/schemas/Postadres"
+        soortActiviteit:
+          type: array
+          items:
+            $ref: "#/components/schemas/SoortActiviteit"
+        oprichtingsdatum:
+          type: string
+          format: "date"
+    MaatschappelijkeActiviteitHal:
+      allOf:
+      - $ref: '#/components/schemas/MaatschappelijkeActiviteitHalBasis'
+      - properties:
+          _embedded:
+            $ref: '#/components/schemas/MaatschappelijkeActiviteit_embedded'
     MaatschappelijkeActiviteitHalBasis:
       allOf:
       - $ref: '#/components/schemas/MaatschappelijkeActiviteit'
@@ -377,18 +419,19 @@ components:
         adres:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
           description: "De aan het adres gerelateerde openbare ruimte."
-        ingeschrevenPersoon:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
-        handelsregisterpersoon:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
-        nietNatuurlijkPersoon:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
-        naampersoon:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
-#    MaatschappelijkeActiviteit_embedded:
-#      type: object
-#        adres:
-#          $ref: $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/openapi.yaml#/components/schemas/Adres
+        eigenaars:
+          type: array
+          items:
+            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
+        bestuurders:
+          type: array
+          items:
+            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
+    MaatschappelijkeActiviteit_embedded:
+      type: object
+      properties:
+        eigenaar:
+          $ref: "#/components/schemas/Eigenaar"
     Persoon:
       type: object
       description: De identificatie en het type van een persoon. Met deze twee gegevens kan de conclusie getrokken worden via welke link de gerelateerde resource bevraagd kan worden"
@@ -397,20 +440,57 @@ components:
           type: string
         typePersoon:
           $ref: "#/components/schemas/TypePersoon_enum"
+    Postadres:
+      allOf:
+        - $ref: "#/components/schemas/Adres"
+        - type: "object"
+          properties:
+            postbusnummer:
+              type: "integer"
+          example:
+            postbusnummer: 1021
+            postcode: 1234AA
+            woonplaats: "Nootdorp"
+            adresregel1: "Postbus 1021"
+            adresregel2: "1234AA Nootdorp"
+    Rechtsvorm_enum:
+      enum:
+        - "besloten_vennootschap"
+        - "naamloze_vennootschap"
+        - "cooperatie"
+        - "kerkgenootschap"
+        - "vereniging_van_eigenaars"
+        - "onderlinge_waarborg_maatschappij"
+        - "stichting"
+        - "europees_economisch_samenwerkingsverband"
+        - "europese_naamloze_vennootschap_(se)"
+        - "vereniging"
+        - "overige_privaatrechtelijke_rechtspersoon"
+        - "europese_cooperatieve_vennootschap_(sce)"
+        - "publiekrechtelijke_rechtspersoon"
+    SoortActiviteit:
+      type: object
+      properties:
+        SBIcode:
+          type: string
+        omschrijving:
+          type: string
+        indicatieHoofdactiviteit:
+          type: boolean
     SoortBevoegdheidBestuurder_enum:
       enum:
-        - alleen_zelfstandig_bevoegd
-        - gezamenlijk_bevoegd
-        - niet_bevoegd
+        - "alleen_zelfstandig_bevoegd"
+        - "gezamenlijk_bevoegd"
+        - "niet_bevoegd"
     TypeBestuurder_enum:
       description: ""
       enum:
-        - bestuurder
-        - vereffenaar
-        - lid_van_het_bestuurdend_orgaan
-        - lid_van_het_leidinggevend_orgaan
-        - persoon_krachtens_statuten_bevoegd_bij_ontstentenis_belet_van_de_bestuurders\
-        - vertegenwoordiger_bestuurder_rechtspersoon
+        - "bestuurder"
+        - "vereffenaar"
+        - "lid_van_het_bestuurdend_orgaan"
+        - "lid_van_het_leidinggevend_orgaan"
+        - "persoon_krachtens_statuten_bevoegd_bij_ontstentenis_belet_van_de_bestuurders"
+        - "vertegenwoordiger_bestuurder_rechtspersoon"
     TypePersoon_enum:
       description: ""
       enum:
