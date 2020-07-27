@@ -187,6 +187,13 @@ paths:
           schema:
             type: string
             maxLength: 9
+        - in: query
+          name: burgerservicenummer
+          description: "Dit is de unieke identificatie van een bij het persoon die is ingeschreven in de basisregistratie personen."
+          required: false
+          schema:
+            type: string
+            maxLength: 9
       responses:
         '200':
           description: "Zoekactie geslaagd"
@@ -273,6 +280,8 @@ components:
           type: "string"
         identificatieHandelsregisterNatuurlijkPersoon:
           type: "string"
+        burgerservicenummer:
+          type: "string"
         aanschrijfwijze:
           type: "string"
           title: "aanschrijfwijze"
@@ -284,6 +293,18 @@ components:
           $ref: "#/components/schemas/Postadres"
         rechtsvorm:
           $ref: "#/components/schemas/Rechtsvorm_enum"
+        bestuurders:
+          type: array
+          items:
+            $ref: "#/components/schemas/Bestuurder"
+        oprichtingsdatum:
+          type: string
+          format: "date"
+        kvknummers:
+          description: "Maatschappelijke activiteiten van deze eigenaren"
+          type: array
+          items:
+            type: string
 #    EigenaarHal:
 #      allOf:
 #      - $ref: '#/components/schemas/EigenaarHalBasis'
@@ -317,10 +338,19 @@ components:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
         adres:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
+        maatschappelijkeActiviteiten:
+          type: array
+          items:
+            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
+        bestuurders:
+          type: array
+          items:
+            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
 #   Eigenaar_embedded:
 #      type: object
 #        adres:
 #          $ref: $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/openapi.yaml#/components/schemas/Adres"
+#Als we voor de eigenaren ook de maatschappelijke activiteiten embedded aanbieden krijgen we een circulaire verwijzing. Dat betekent dat volgens de specificatie dan oneindig kan worden embed. Dat moeten we niet willen.
     HandelsregisterPersoon:
       type: object
       properties:
@@ -330,10 +360,17 @@ components:
         naam:
             $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BRP-bevragen/master/api-specificatie/Bevraging-Ingeschreven-Persoon/openapi.yaml#/components/schemas/NaamPersoon"
 # Bij naam, geboorte overerven we ook "inOnderzoek" Dit kan alleen ontweken worden door geen hergeberuik te maken van de BRP structuur of in de BRP deze componenten te herstructureren.
+        adres:
+          $ref: "#/components/schemas/Adres"
         geboorte:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BRP-bevragen/master/api-specificatie/Bevraging-Ingeschreven-Persoon/openapi.yaml#/components/schemas/Geboorte"
         overlijden:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
+        kvknummers:
+          description: "Maatschappelijke activiteiten waar deze persoon eigenaar van is"
+          type: array
+          items:
+            type: string
 #    HandelsregisterPersoonHal:
 #      allOf:
 #      - $ref: '#/components/schemas/HandelsregisterPersoonHalBasis'
@@ -342,10 +379,51 @@ components:
 #            $ref: '#/components/schemas/HandelsregisterPersoon_embedded'
     HandelsregisterPersoonHalBasis:
       allOf:
-      - $ref: '#/components/schemas/MaatschappelijkeActiviteit'
+      - $ref: "#/components/schemas/HandelsregisterPersoon"
       - properties:
           _links:
-            $ref: '#/components/schemas/MaatschappelijkeActiviteit_links'
+            $ref: '#/components/schemas/HandelsregisterPersoon_links'
+    HandelsregisterPersoon_links:
+      type: object
+      properties:
+        self:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
+        maatschappelijkeActiviteiten:
+          type: array
+          items:
+            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
+    IngeschrevenPersoon:
+      type: object
+      properties:
+        burgerservicenummer:
+          description: "Het identificerende gegeven voor de Ingeschrevenpersoon"
+          type: string
+        kvknummers:
+          description: "Maatschappelijke activiteiten waar deze persoon eigenaar van is"
+          type: array
+          items:
+            type: string
+#    IngeschrevenPersoonHal:
+#      allOf:
+#      - $ref: '#/components/schemas/IngeschrevenPersoonHalBasis'
+#      - properties:
+#          _embedded:
+#            $ref: '#/components/schemas/IngeschrevenPersoon_embedded'
+    IngeschrevenPersoonHalBasis:
+      allOf:
+      - $ref: "#/components/schemas/IngeschrevenPersoon"
+      - properties:
+          _links:
+            $ref: '#/components/schemas/IngeschrevenPersoon_links'
+    IngeschrevenPersoon_links:
+      type: object
+      properties:
+        self:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
+        maatschappelijkeActiviteiten:
+          type: array
+          items:
+            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
     MaatschappelijkeActiviteit:
       type: object
       properties:
@@ -370,10 +448,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Persoon"
-        bestuurders:
-          type: array
-          items:
-            $ref: "#/components/schemas/Bestuurder"
         bezoekadres:
           $ref: "#/components/schemas/Adres"
         postadres:
@@ -382,9 +456,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/SoortActiviteit"
-        oprichtingsdatum:
-          type: string
-          format: "date"
     MaatschappelijkeActiviteitHal:
       allOf:
       - $ref: '#/components/schemas/MaatschappelijkeActiviteitHalBasis'
@@ -410,7 +481,7 @@ components:
             maatschappelijkeActiviteiten:
               type: array
               items:
-                $ref: '#/components/schemas/MaatschappelijkeActiviteitHalBasis'
+                $ref: '#/components/schemas/MaatschappelijkeActiviteitHal'
     MaatschappelijkeActiviteit_links:
       type: object
       properties:
@@ -423,14 +494,10 @@ components:
           type: array
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
-        bestuurders:
-          type: array
-          items:
-            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
     MaatschappelijkeActiviteit_embedded:
       type: object
       properties:
-        eigenaar:
+        eigenaars:
           $ref: "#/components/schemas/Eigenaar"
     Persoon:
       type: object
