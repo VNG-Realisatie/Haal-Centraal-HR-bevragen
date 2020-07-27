@@ -258,85 +258,7 @@ components:
         soortbevoegdheid:
           $ref: "#/components/schemas/SoortBevoegdheidBestuurder_enum"
         persoon:
-          $ref: "#/components/schemas/Persoon"
-    Eigenaar:
-      type: object
-      properties:
-        rsin:
-          type: "string"
-        identificatieHandelsregisterNatuurlijkPersoon:
-          type: "string"
-        burgerservicenummer:
-          type: "string"
-        aanschrijfwijze:
-          type: "string"
-          title: "aanschrijfwijze"
-          description: "Samengestelde naam zoals die in communicatie met de eigenaar dient te worden. Hoe het samenstellen van een aanschrijfwijze te\
-            \ werk gaat is beschreven in de [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-HR-Bevragen/blob/master/features/aanschrijfwijze.feature)"
-          example: "Van de Graaf BV."
-# moet hier eventueel ook een ter attentie van bijkomen ? Ik weet niet of KvK die kan leveren.
-        correspondentieadres:
-          $ref: "#/components/schemas/Postadres"
-        rechtsvorm:
-          $ref: "#/components/schemas/Rechtsvorm_enum"
-        bestuurders:
-          type: array
-          items:
-            $ref: "#/components/schemas/Bestuurder"
-        oprichtingsdatum:
-          type: string
-          format: "date"
-        kvknummers:
-          description: "Maatschappelijke activiteiten van deze eigenaren"
-          type: array
-          items:
-            type: string
-#    EigenaarHal:
-#      allOf:
-#      - $ref: '#/components/schemas/EigenaarHalBasis'
-#      - properties:
-#          _embedded:
-#            $ref: '#/components/schemas/Eigenaar_embedded'
-    EigenaarHalBasis:
-      allOf:
-      - $ref: '#/components/schemas/Eigenaar'
-      - properties:
-          _links:
-            $ref: '#/components/schemas/Eigenaar_links'
-    EigenaarHalCollectie:
-      type: object
-      properties:
-        _links:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinks'
-        _embedded:
-          $ref: "#/components/schemas/EigenaarHalCollectie_embedded"
-    EigenaarHalCollectie_embedded:
-          type: object
-          properties:
-            eigenaars:
-              type: array
-              items:
-                $ref: '#/components/schemas/EigenaarHalBasis'
-    Eigenaar_links:
-      type: object
-      properties:
-        self:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
-        adres:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
-        maatschappelijkeActiviteiten:
-          type: array
-          items:
-            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
-        bestuurders:
-          type: array
-          items:
-            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
-#   Eigenaar_embedded:
-#      type: object
-#        adres:
-#          $ref: $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/openapi.yaml#/components/schemas/Adres"
-#Als we voor de eigenaren ook de maatschappelijke activiteiten embedded aanbieden krijgen we een circulaire verwijzing. Dat betekent dat volgens de specificatie dan oneindig kan worden embed. Dat moeten we niet willen.
+          $ref: "#/components/schemas/PersoonBeperkt"
     HandelsregisterPersoon:
       type: object
       properties:
@@ -433,7 +355,7 @@ components:
         eigenaars:
           type: array
           items:
-            $ref: "#/components/schemas/Persoon"
+            $ref: "#/components/schemas/PersoonBeperkt"
         bezoekadres:
           $ref: "#/components/schemas/Adres"
         postadres:
@@ -484,8 +406,9 @@ components:
       type: object
       properties:
         eigenaars:
-          $ref: "#/components/schemas/Eigenaar"
-    Persoon:
+          $ref: "#/components/schemas/Rechtspersoon"
+#Relevante gegevens van de eigenaar zijn voornamelijk van belang als de eigenaar een Rechtspersoon is. Vraag is of dit een valide overweging is.
+    Persoons:
       type: object
       description: De identificatie en het type van een persoon. Met deze twee gegevens kan de conclusie getrokken worden via welke link de gerelateerde resource bevraagd kan worden"
       properties:
@@ -493,6 +416,29 @@ components:
           type: string
         typePersoon:
           $ref: "#/components/schemas/TypePersoon_enum"
+    PersoonBasis:
+      type: "object"
+      description: "Een persoon kan een natuurlijk persoon of een rechtspersoon zijn. Een natuurlijk Persoon kan zowel een ingeschreven persoon (in de BRP) of een handelsregisterpersoon zijn."
+      properties:
+        identificatie:
+          type: string
+          description: "Unieke identificatie voor de persoon. Voor een handelsregisterpersoon is dit de identificatie zoals die door het handelsregister is vastgesteld. Voor een ingeschreven natuurlijk persoon is dit het burgerservicenummer. Voor een rechtspersoon is dit het RSIN. Of de waarde in identificatie een burgerservicenummer, een RSIN of een kadasterpersoonidentificatie is kan worden afgeleid uit het type persoon."
+        omschrijving:
+          type: string
+          description: "Voor mensen leesbare, herkenbare en identificerende omschrijving van de persoon (met bijvoorbeeld de naam)."
+    PersoonBeperkt:
+      allOf:
+        - $ref: "#/components/schemas/PersoonBasis"
+        - properties:
+            type:
+              $ref: "#/components/schemas/PersoonType_enum"
+    PersoonType_enum:
+      type: "string"
+      description: "Een aanduiding die aangeeft of het een natuurlijk dan wel niet-natuurlijk persoon betreft en of de persoon ingeschreven is in het BRP of Handelsregister (KvK), dan wel vastgelegd is bij het Kadaster."
+      enum:
+      - "ingeschreven_natuurlijk_persoon"
+      - "handelsregisterpersoon"
+      - "rechtspersoon"
     Postadres:
       allOf:
         - $ref: "#/components/schemas/Adres"
