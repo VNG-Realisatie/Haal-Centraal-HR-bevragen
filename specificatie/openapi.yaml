@@ -295,6 +295,20 @@ paths:
           schema:
             type: string
             pattern: "^([a-z,A-Z,0-9]){1,4}$"
+        - in: query
+          name: locatie
+          description: Coordinaten van een locatie die als query-parmeter gebruikt wordt om een object te zoeken. Let op, explode is false dus het formaat is ?locatie=194602.722,464154.308
+          required: false
+          explode: false
+          schema:
+            type: array
+            minItems: 2
+            maxItems: 2
+            items:
+              type: number
+            example:
+            - 196733.510
+            - 439931.890
 
       responses:
         '200':
