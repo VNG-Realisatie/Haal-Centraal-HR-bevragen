@@ -74,6 +74,8 @@ paths:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/500"
         '503':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/503"
+      tags:
+      - Maatschappelijke activiteiten
   /maatschappelijkeactiviteiten/{kvknummer}:
     get:
       operationId: GetMaatschappelijkeActiviteit
@@ -99,27 +101,25 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/MaatschappelijkeActiviteitHalCollectie'
+                $ref: '#/components/schemas/MaatschappelijkeActiviteitHal'
         '400':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/400"
         '401':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/401"
         '403':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/403"
+        '404':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/404"
         '406':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/406"
-        '409':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/409"
         '410':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/410"
-        '415':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/415"
-        '429':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/429"
         '500':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/500"
         '503':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/503"
+      tags:
+      - Maatschappelijke activiteiten
   /handelsregisterpersoon/{identificatie}:
     get:
       operationId: Gethandelsregisterpersoon
@@ -145,27 +145,25 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/HandelsregisterPersoonHalBasis'
+                $ref: '#/components/schemas/HandelsregisterPersoonHal'
         '400':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/400"
         '401':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/401"
         '403':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/403"
+        '404':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/404"
         '406':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/406"
-        '409':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/409"
         '410':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/410"
-        '415':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/415"
-        '429':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/429"
         '500':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/500"
         '503':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/503"
+      tags:
+      - Personen
   /rechtspersonen/{rsin}:
     get:
       operationId: Getrechtspersoon
@@ -198,22 +196,134 @@ paths:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/401"
         '403':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/403"
+        '404':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/404"
         '406':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/406"
-        '409':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/409"
         '410':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/410"
-        '415':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/415"
-        '429':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/429"
         '500':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/500"
         '503':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/503"
+      tags:
+      - Personen
+  /vestigingen/{vestigingsnummer}:
+    get:
+      operationId: Getvestiging
+      description: "Raadpleeg een vestiging. "
+      parameters:
+#        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/expand"
+#        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields"
+        - in: path
+          name: vestigingsnummer
+          description: "Dit is de unieke identificatie van een vestiging."
+          required: true
+          schema:
+            type: string
+            maxLength: 12
+      responses:
+        '200':
+          description: "Zoekactie geslaagd"
+          headers:
+            api-version:
+              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/headers/api_version"
+            warning:
+              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/headers/warning"
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/VestigingHal'
+        '400':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/400"
+        '401':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/401"
+        '403':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/403"
+        '404':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/404"
+        '406':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/406"
+        '410':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/410"
+        '500':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/500"
+        '503':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/503"
+      tags:
+      - Vestigingen
+  /vestigingen:
+    get:
+      operationId: Getvestigingen
+      description: "Zoek vestigingen."
+      parameters:
+#        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/expand"
+#        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields"
+        - in: query
+          name: postcode
+          description: "De postcode van het adres van de vestiging."
+          required: false
+          schema:
+            type: string
+            pattern: "^[1-9][0-9][0-9][0-9][A-Z][A-Z]$"
+        - in: query
+          name: huisnummer
+          description: "Het huisnummer van de vestiging."
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 99999
+        - in: query
+          name: huisletter
+          description: "De huisletter van het adres vestiging."
+          required: false
+          schema:
+            type: string
+            pattern: "^[a-zA-Z]$"
+        - in: query
+          name: huisnummertoevoeging.
+          description: "De huisnummertoevoeging van het adres van de vestiging."
+          required: false
+          schema:
+            type: string
+            pattern: "^([a-z,A-Z,0-9]){1,4}$"
+        - in: query
+          name: woonplaatsnaam
+          description: "De woonplaatsnaam van het adres van de vestiging"
+          required: false
+          schema:
+            type: string
+            pattern: "^([a-z,A-Z,0-9]){1,4}$"
 
-
+      responses:
+        '200':
+          description: "Zoekactie geslaagd"
+          headers:
+            api-version:
+              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/headers/api_version"
+            warning:
+              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/headers/warning"
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/RechtspersoonHal'
+        '400':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/400"
+        '401':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/401"
+        '403':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/403"
+        '406':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/406"
+        '410':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/410"
+        '500':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/500"
+        '503':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/503"
+      tags:
+      - Vestigingen
 components:
   schemas:
     Adres:
@@ -259,6 +369,18 @@ components:
           $ref: "#/components/schemas/SoortBevoegdheidBestuurder_enum"
         persoon:
           $ref: "#/components/schemas/PersoonBeperkt"
+    Communicatiegegevens:
+      type: object
+      properties:
+        emailadres:
+          type: string
+        domein:
+          description: "URL van de website"
+          type: string
+        telefoonnummer:
+          type: string
+        faxnummer:
+          type: string
     HandelsregisterPersoon:
       type: object
       properties:
@@ -279,12 +401,12 @@ components:
           type: array
           items:
             type: string
-#    HandelsregisterPersoonHal:
-#      allOf:
-#      - $ref: '#/components/schemas/HandelsregisterPersoonHalBasis'
-#      - properties:
-#          _embedded:
-#            $ref: '#/components/schemas/HandelsregisterPersoon_embedded'
+    HandelsregisterPersoonHal:
+      allOf:
+      - $ref: '#/components/schemas/HandelsregisterPersoonHalBasis'
+      - properties:
+          _embedded:
+            $ref: '#/components/schemas/HandelsregisterPersoon_embedded'
     HandelsregisterPersoonHalBasis:
       allOf:
       - $ref: "#/components/schemas/HandelsregisterPersoon"
@@ -300,38 +422,11 @@ components:
           type: array
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
-    IngeschrevenPersoon:
+    HandelsregisterPersoon_embedded:
       type: object
       properties:
-        burgerservicenummer:
-          description: "Het identificerende gegeven voor de Ingeschrevenpersoon"
-          type: string
-        kvknummers:
-          description: "Maatschappelijke activiteiten waar deze persoon eigenaar van is"
-          type: array
-          items:
-            type: string
-#    IngeschrevenPersoonHal:
-#      allOf:
-#      - $ref: '#/components/schemas/IngeschrevenPersoonHalBasis'
-#      - properties:
-#          _embedded:
-#            $ref: '#/components/schemas/IngeschrevenPersoon_embedded'
-    IngeschrevenPersoonHalBasis:
-      allOf:
-      - $ref: "#/components/schemas/IngeschrevenPersoon"
-      - properties:
-          _links:
-            $ref: '#/components/schemas/IngeschrevenPersoon_links'
-    IngeschrevenPersoon_links:
-      type: object
-      properties:
-        self:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
         maatschappelijkeActiviteiten:
-          type: array
-          items:
-            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
+          $ref: "#/components/schemas/MaatschappelijkeActiviteitHalBasis"
     MaatschappelijkeActiviteit:
       type: object
       properties:
@@ -556,42 +651,48 @@ components:
         - naampersoon
 # De subtypes die in het informatiemodel opgenomen zijn : NatuurlijkPersoon, NietNatuurlijkPersoon en NaamPersoon
 # Naampersoon is een persoon die niet inschrijfplichtig is, maar wel een funtie vervult in het Handelsregister...
-    VestigingsAdresEigenaar:
+    Vestiging:
       type: object
       properties:
-        rsin:
-          type: "string"
-        identificatieHandelsregisterNatuurlijkPersoon:
-          type: "string"
+        vestigingsnummer:
+          type: string
+        handelsnaam:
+          type: string
         adres:
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/openapi.yaml#/components/schemas/Adres"
-#    VestigingsAdresEigenaarHal:
-#      allOf:
-#      - $ref: '#/components/schemas/VestigingsAdresEigenaarHalBasis'
-#      - properties:
-#          _embedded:
-#            $ref: '#/components/schemas/VestigingsAdresEigenaar_embedded'
-    VestigingsAdresEigenaarHalBasis:
+          $ref: "#/components/schemas/Adres"
+        communicatiegegevens:
+          $ref: "#/components/schemas/Communicatiegegevens"
+        kvknummers:
+          type: array
+          items:
+            type: string
+    VestigingHal:
       allOf:
-      - $ref: '#/components/schemas/VestigingsAdresEigenaar'
+      - $ref: '#/components/schemas/VestigingHalBasis'
+      - properties:
+          _embedded:
+            $ref: '#/components/schemas/Vestiging_embedded'
+    VestigingHalBasis:
+      allOf:
+      - $ref: '#/components/schemas/Vestiging'
       - properties:
           _links:
-            $ref: '#/components/schemas/VestigingsAdresEigenaar_links'
-    VestigingsAdresEigenaarHalCollectie:
+            $ref: '#/components/schemas/Vestiging_links'
+    VestigingHalCollectie:
       type: object
       properties:
         _links:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinks'
         _embedded:
-          $ref: "#/components/schemas/VestigingsAdresEigenaarHalCollectie_embedded"
-    VestigingsAdresEigenaarHalCollectie_embedded:
+          $ref: "#/components/schemas/VestigingHalCollectie_embedded"
+    VestigingHalCollectie_embedded:
           type: object
           properties:
-            adressen:
+            Vestigingen:
               type: array
               items:
-                $ref: '#/components/schemas/VestigingsAdresEigenaarHalBasis'
-    VestigingsAdresEigenaar_links:
+                $ref: '#/components/schemas/VestigingHal'
+    Vestiging_links:
       type: object
       properties:
         self:
@@ -599,7 +700,11 @@ components:
         adres:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
           description: "De aan het adres gerelateerde openbare ruimte."
-#    VestigingsAdresEigenaar_embedded:
-#      type: object
-#        adres:
-#          $ref: $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/openapi.yaml#/components/schemas/Adres"
+        maatschappelijkeActiviteit:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
+    Vestiging_embedded:
+      type: object
+      properties:
+        maatschappelijkeActiviteit:
+          $ref: "#/components/schemas/MaatschappelijkeActiviteitHalBasis"
+        
