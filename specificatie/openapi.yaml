@@ -406,19 +406,18 @@ components:
         soortHandeling:
           $ref: "#/components/schemas/SoortHandeling_enum"
     Bestuurder:
-      type: object
-      properties:
-        persoon:
-          $ref: "#/components/schemas/PersoonBeperktMetAdres"
-        functie:
-          $ref: "#/components/schemas/TypeBestuurder_enum"
-        bevoegdheid:
-          $ref: "#/components/schemas/SoortBevoegdheid_enum"
-        indicatieBevoegdMetAnderePersonen:
-          type: boolean
-        vertegenwoordiger:
-          $ref: "#/components/schemas/PersoonBeperktMetAdres"
-          description: "De NatuurlijkPersoon als vertegenwoordiger van de Rechtspersoon die bestuurder is bij een EESV."
+      allOf:
+        - $ref: "#/components/schemas/FunctieVervulling"
+        - properties:
+            functie:
+              $ref: "#/components/schemas/TypeBestuurder_enum"
+            bevoegdheid:
+              $ref: "#/components/schemas/SoortBevoegdheid_enum"
+            indicatieBevoegdMetAnderePersonen:
+              type: boolean
+            vertegenwoordiger:
+              $ref: "#/components/schemas/PersoonBeperktMetAdres"
+              description: "De NatuurlijkPersoon als vertegenwoordiger van de Rechtspersoon die bestuurder is bij een EESV."
     Communicatiegegevens:
       type: object
       properties:
@@ -451,28 +450,37 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/FunctionarisByzondereRechtstoestand"
+    FunctieVervulling:
+      allOf:
+        - $ref: "#/components/schemas/PersoonBeperktMetAdres"
+        - type: object
+          properties:
+            datumAanvang:
+              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
+            datumEinde:
+              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
+            functietitel:
+              type: string
+              description: "De titel van de betrokken functionaris."
+              example: "Voorzitter"
+            indicatieStatutair:
+              type: boolean
     FunctionarisByzondereRechtstoestand:
-      type: object
-      description: "Een Gemachtigde wordt gekenmerkt door een volmacht verleend door de Persoon bij wie deze is toegetreden"
-      properties:
-        persoon:
-          $ref: "#/components/schemas/PersoonBeperktMetAdres"
-        functie:
-          $ref: "#/components/schemas/TypeFunctionaris_enum"
-        bevoegdheid:
-          $ref: "#/components/schemas/SoortBevoegdheid_enum"
-
-
+      allOf:
+        - $ref: "#/components/schemas/FunctieVervulling"
+        - properties:
+            functie:
+              $ref: "#/components/schemas/TypeFunctionaris_enum"
+            bevoegdheid:
+              $ref: "#/components/schemas/SoortBevoegdheid_enum"
     Gemachtigde:
-      type: object
-      description: "Een Gemachtigde wordt gekenmerkt door een volmacht verleend door de Persoon bij wie deze is toegetreden"
-      properties:
-        persoon:
-          $ref: "#/components/schemas/PersoonBeperktMetAdres"
-        functie:
-          $ref: "#/components/schemas/TypeGemachtigde_enum"
-        volmacht:
-          $ref: "#/components/schemas/Volmacht"
+      allOf:
+        - $ref: "#/components/schemas/FunctieVervulling"
+        - properties:
+            functie:
+              $ref: "#/components/schemas/TypeGemachtigde_enum"
+            volmacht:
+              $ref: "#/components/schemas/Volmacht"
     HandelsregisterPersoon:
       type: object
       properties:
