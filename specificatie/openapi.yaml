@@ -285,7 +285,7 @@ paths:
             type: string
             pattern: "^([a-z,A-Z,0-9]){1,4}$"
         - in: query
-          name: straat
+          name: straatnaam
           required: false
           schema:
             type: string
@@ -383,7 +383,7 @@ components:
         nummeraanduidingidentificatie:
           type: string
           description: "Identificatie van het adres in het geval dit adres in BAG geregistreerd is."
-        straat:
+        straatnaam:
           title: openbareruimte naam
           description: "Een naam die door de gemeente aan een openbare ruimte is gegeven."
           type: string
@@ -692,7 +692,7 @@ components:
         - properties:
             vestigingsadres:
               $ref: "#/components/schemas/Adres"
-            correspondentieadres:
+            postadres:
               $ref: "#/components/schemas/Postadres"
     Postadres:
       allOf:
@@ -719,7 +719,9 @@ components:
         rsin:
           type: string
 # moet hier eventueel ook een ter attentie van bijkomen ? Ik weet niet of KvK die kan leveren.
-        correspondentieadres:
+        bezoekadres:
+          $ref: "#/components/schemas/Postadres"
+        postadres:
           $ref: "#/components/schemas/Postadres"
         rechtsvorm:
           $ref: "#/components/schemas/Rechtsvorm_enum"
@@ -875,7 +877,7 @@ components:
           type: string
         vestigingsadres:
           $ref: "#/components/schemas/Adres"
-        correspondentieadres:
+        postadres:
           $ref: "#/components/schemas/Postadres"
         communicatiegegevens:
           $ref: "#/components/schemas/Communicatiegegevens"
