@@ -340,6 +340,20 @@ paths:
       - Vestigingen
 components:
   schemas:
+    Aansprakelijke:
+      allOf:
+        - $ref: "#/components/schemas/FunctieVervulling"
+        - properties:
+            functie:
+              $ref: "#/components/schemas/TypeAansprakelijke_enum"
+            bevoegdheid:
+              $ref: "#/components/schemas/SoortBevoegdheidAansprakelijke_enum"
+            beperkingInEuros:
+              $ref: "#/components/schemas/Bedrag"
+            indicatieOverigeBeperking:
+              type: boolean
+            indicatieHandlichtingVerleend:
+              type: boolean
     Activiteit:
       type: object
       properties:
@@ -436,20 +450,24 @@ components:
       properties:
         persoon:
           $ref: "#/components/schemas/PersoonBeperktMetAdres"
-        Bestuurders:
+        bestuurders:
           type: array
           items:
             $ref: "#/components/schemas/Bestuurder"
         rechtsvorm:
            $ref: "#/components/schemas/Rechtsvorm_enum"
-        Gemachtigde:
+        gemachtigde:
           type: array
           items:
             $ref: "#/components/schemas/Gemachtigde"
-        FunctionarissenByzondereRechtstoestand:
+        functionarissenByzondereRechtstoestand:
           type: array
           items:
             $ref: "#/components/schemas/FunctionarisByzondereRechtstoestand"
+        aansprakelijken:
+          type: array
+          items:
+            $ref: "#/components/schemas/Aansprakelijke"
     FunctieVervulling:
       allOf:
         - $ref: "#/components/schemas/PersoonBeperktMetAdres"
@@ -721,6 +739,11 @@ components:
         - "zelfstandig"
         - "gezamenlijk"
         - "niet"
+    SoortBevoegdheidAansprakelijke_enum:
+      enum:
+        - "onbeperkt"
+        - "beperkt"
+        - "niet"
     SoortHandeling_enum:
       enum:
         - "afsluiten_financieringscontracten"
@@ -733,7 +756,15 @@ components:
         - "opstellen_offertes"
         - "schorsen_voertuigen"
         - "kentekendiensten"
-
+    TypeAansprakelijke_enum:
+      description: ""
+      enum:
+        - "medeeigenaar"
+        - "vereffenaar"
+        - "vennoot"
+        - "maat"
+        - "lid_rederij"
+        - "bevoegd_functionaris"
     TypeBestuurder_enum:
       description: ""
       enum:
