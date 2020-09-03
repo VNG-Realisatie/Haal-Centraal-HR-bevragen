@@ -676,6 +676,30 @@ components:
           type: string
         faxnummer:
           type: string
+        bestuurders:
+          type: array
+          items:
+            $ref: "#/components/schemas/Bestuurder"
+        gemachtigde:
+          type: array
+          items:
+            $ref: "#/components/schemas/Gemachtigde"
+        functionarissenByzondereRechtstoestand:
+          type: array
+          items:
+            $ref: "#/components/schemas/FunctionarisByzondereRechtstoestand"
+        aansprakelijken:
+          type: array
+          items:
+            $ref: "#/components/schemas/Aansprakelijke"
+        publiekrechtelijkeFunctionarissen:
+          type: array
+          items:
+            $ref: "#/components/schemas/PublierechtelijkeFunctionaris"
+        overigeFunctionarissen:
+          type: array
+          items:
+            $ref: "#/components/schemas/OverigeFunctionaris"
         kvknummers:
           description: "Maatschappelijke activiteiten waarvan deze nietNatuurlijkPersoon eigenaar is"
           type: array
