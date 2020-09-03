@@ -409,6 +409,17 @@ components:
           title: woonplaats naam
           type: string
           example: 'Duiven'
+        straatHuisnummer:
+          description: "T.b.v. buitenlands adres"
+          type: string
+        postcodeWoonplaats:
+          description: "T.b.v. buitenlands adres"
+        regio:
+          description: "T.b.v. buitenlands adres"
+        land:
+          type: string
+# Hier wordt de landelijke tabel 34 voor gebruikt met als kanttekening dat het KvK kan afwijken. Een string lijkt mij een pragmatische oplossong.
+
     Bedrag:
       type: object
       properties:
@@ -441,18 +452,6 @@ components:
             vertegenwoordiger:
               $ref: "#/components/schemas/PersoonBeperktMetAdres"
               description: "De NatuurlijkPersoon als vertegenwoordiger van de Rechtspersoon die bestuurder is bij een EESV."
-    Communicatiegegevens:
-      type: object
-      properties:
-        emailadres:
-          type: string
-        domein:
-          description: "URL van de website"
-          type: string
-        telefoonnummer:
-          type: string
-        faxnummer:
-          type: string
     Eigenaar:
       type: object
       description: "De eigenaar van een Maatschappelijke Activiteit"
@@ -690,7 +689,7 @@ components:
       allOf:
         - $ref: "#/components/schemas/PersoonBeperkt"
         - properties:
-            vestigingsadres:
+            bezoekadres:
               $ref: "#/components/schemas/Adres"
             postadres:
               $ref: "#/components/schemas/Postadres"
@@ -873,14 +872,23 @@ components:
       properties:
         vestigingsnummer:
           type: string
-        handelsnaam:
-          type: string
-        vestigingsadres:
+        handelsnamen:
+          type: array
+          items:
+            type: string
+        bezoekadres:
           $ref: "#/components/schemas/Adres"
         postadres:
           $ref: "#/components/schemas/Postadres"
-        communicatiegegevens:
-          $ref: "#/components/schemas/Communicatiegegevens"
+        emailAdres:
+          type: string
+        domein:
+          description: "URL van de website"
+          type: string
+        telefoonnummer:
+          type: string
+        faxnummer:
+          type: string
         kvknummers:
           type: array
           items:
