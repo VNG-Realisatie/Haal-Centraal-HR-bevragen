@@ -164,10 +164,10 @@ paths:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/503"
       tags:
       - Personen
-  /rechtspersonen/{rsin}:
+  /nietNatuurlijkePersonen/{rsin}:
     get:
-      operationId: Getrechtspersoon
-      description: "Raadpleeg een rechtspersoon. "
+      operationId: Getnietnatuurlijkpersoon
+      description: "Raadpleeg een nietNatuurlijkPersoon. "
       parameters:
 #        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/expand"
 #        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields"
@@ -189,7 +189,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/RechtspersoonHal'
+                $ref: '#/components/schemas/NietNatuurlijkPersoonHal'
         '400':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/400"
         '401':
@@ -599,6 +599,13 @@ components:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
         postadres:
           $ref: "#/components/schemas/Postadres"
+        domein:
+          description: "URL van de website"
+          type: string
+        telefoonnummer:
+          type: string
+        faxnummer:
+          type: string
         hoofdvestigingNummer:
           description: "Vanuit de hoofdvestiging wordt de Maatschappelijke Activiteit geleid"
           type: string
@@ -643,8 +650,66 @@ components:
       type: object
       properties:
         eigenaar:
-          $ref: "#/components/schemas/RechtspersoonHalBasis"
+          $ref: "#/components/schemas/NietNatuurlijkPersoonHalBasis"
 #Relevante gegevens van de eigenaar zijn voornamelijk van belang als de eigenaar een Rechtspersoon is. Vraag is of dit een valide overweging is.
+    NietNatuurlijkPersoon:
+      type: object
+      properties:
+        rsin:
+          type: string
+# moet hier eventueel ook een ter attentie van bijkomen ? Ik weet niet of KvK die kan leveren.
+        datumUitschrijving:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
+        bezoekadres:
+          $ref: "#/components/schemas/Postadres"
+        postadres:
+          $ref: "#/components/schemas/Postadres"
+        rechtsvorm:
+          $ref: "#/components/schemas/Rechtsvorm_enum"
+        oprichtingsdatum:
+          type: string
+          format: "date"
+        domein:
+          description: "URL van de website"
+          type: string
+        telefoonnummer:
+          type: string
+        faxnummer:
+          type: string
+        kvknummers:
+          description: "Maatschappelijke activiteiten waarvan deze nietNatuurlijkPersoon eigenaar is"
+          type: array
+          items:
+            type: string
+    NietNatuurlijkPersoonHal:
+      allOf:
+      - $ref: '#/components/schemas/NietNatuurlijkPersoonHalBasis'
+      - properties:
+          _embedded:
+            $ref: '#/components/schemas/NietNatuurlijkPersoon_embedded'
+    NietNatuurlijkPersoonHalBasis:
+      allOf:
+      - $ref: '#/components/schemas/NietNatuurlijkPersoon'
+      - properties:
+          _links:
+            $ref: '#/components/schemas/NietNatuurlijkPersoon_links'
+    NietNatuurlijkPersoon_links:
+      type: object
+      properties:
+        self:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
+        adres:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
+          description: "De aan het adres gerelateerde openbare ruimte."
+        maatschappelijkeActiviteiten:
+          type: array
+          items:
+            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
+    NietNatuurlijkPersoon_embedded:
+      type: object
+      properties:
+        maatschappelijkeActiviteiten:
+          $ref: "#/components/schemas/MaatschappelijkeActiviteitHalBasis"
     OverigeFunctionaris:
       allOf:
         - $ref: "#/components/schemas/FunctieVervulling"
@@ -671,11 +736,11 @@ components:
           $ref: "#/components/schemas/TypePersoon_enum"
     PersoonBasis:
       type: "object"
-      description: "Een persoon kan een natuurlijk persoon of een rechtspersoon zijn. Een natuurlijk Persoon kan zowel een ingeschreven persoon (in de BRP) of een handelsregisterpersoon zijn."
+      description: "Een persoon kan een natuurlijk persoon of een niet natuurlijk persoon zijn. Een natuurlijk Persoon kan zowel een ingeschreven persoon (in de BRP) of een handelsregisterpersoon zijn."
       properties:
         identificatie:
           type: string
-          description: "Unieke identificatie voor de persoon. Voor een handelsregisterpersoon is dit de identificatie zoals die door het handelsregister is vastgesteld. Voor een ingeschreven natuurlijk persoon is dit het burgerservicenummer. Voor een rechtspersoon is dit het RSIN. Of de waarde in identificatie een burgerservicenummer, een RSIN of een kadasterpersoonidentificatie is kan worden afgeleid uit het type persoon."
+          description: "Unieke identificatie voor de persoon. Voor een handelsregisterpersoon is dit de identificatie zoals die door het handelsregister is vastgesteld. Voor een ingeschreven natuurlijk persoon is dit het burgerservicenummer. Voor een niet natuurlijk persoon is dit het RSIN. Of de waarde in identificatie een burgerservicenummer, een RSIN of een kadasterpersoonidentificatie is kan worden afgeleid uit het type persoon."
         omschrijving:
           type: string
           description: "Voor mensen leesbare, herkenbare en identificerende omschrijving van de persoon (met bijvoorbeeld de naam)."
@@ -701,7 +766,7 @@ components:
             aanschrijfwijze:
               type: "string"
               title: "aanschrijfwijze"
-              description: "Samengestelde naam zoals die in communicatie met de rechtspersoon eigenaar dient te worden. Hoe het samenstellen van een aanschrijfwijze te werk gaat is beschreven in de [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-HR-Bevragen/blob/master/features/aanschrijfwijze.feature)"
+              description: "Samengestelde naam zoals die in communicatie dient te worden gebruikt. Hoe het samenstellen van een aanschrijfwijze te werk gaat is beschreven in de [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-HR-Bevragen/blob/master/features/aanschrijfwijze.feature)"
               example: "Van de Graaf BV."
             postbusnummer:
               type: "integer"
@@ -712,55 +777,6 @@ components:
             woonplaats: "Nootdorp"
             adresregel1: "Postbus 1021"
             adresregel2: "1234AA Nootdorp"
-    Rechtspersoon:
-      type: object
-      properties:
-        rsin:
-          type: string
-# moet hier eventueel ook een ter attentie van bijkomen ? Ik weet niet of KvK die kan leveren.
-        bezoekadres:
-          $ref: "#/components/schemas/Postadres"
-        postadres:
-          $ref: "#/components/schemas/Postadres"
-        rechtsvorm:
-          $ref: "#/components/schemas/Rechtsvorm_enum"
-        oprichtingsdatum:
-          type: string
-          format: "date"
-        kvknummers:
-          description: "Maatschappelijke activiteiten waarvan deze rechtspersoon eigenaar is eigenaren"
-          type: array
-          items:
-            type: string
-    RechtspersoonHal:
-      allOf:
-      - $ref: '#/components/schemas/RechtspersoonHalBasis'
-      - properties:
-          _embedded:
-            $ref: '#/components/schemas/Rechtspersoon_embedded'
-    RechtspersoonHalBasis:
-      allOf:
-      - $ref: '#/components/schemas/Rechtspersoon'
-      - properties:
-          _links:
-            $ref: '#/components/schemas/Rechtspersoon_links'
-    Rechtspersoon_links:
-      type: object
-      properties:
-        self:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
-        adres:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
-          description: "De aan het adres gerelateerde openbare ruimte."
-        maatschappelijkeActiviteiten:
-          type: array
-          items:
-            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
-    Rechtspersoon_embedded:
-      type: object
-      properties:
-        maatschappelijkeActiviteiten:
-          $ref: "#/components/schemas/MaatschappelijkeActiviteitHalBasis"
     Rechtsvorm_enum:
       enum:
         - "besloten_vennootschap"
@@ -889,10 +905,8 @@ components:
           type: string
         faxnummer:
           type: string
-        kvknummers:
-          type: array
-          items:
-            type: string
+        kvknummer:
+          type: string
     VestigingHal:
       allOf:
       - $ref: '#/components/schemas/VestigingHalBasis'
