@@ -413,7 +413,7 @@ components:
         functie:
           $ref: "#/components/schemas/TypeBestuurder_enum"
         bevoegdheid:
-          $ref: "#/components/schemas/SoortBevoegdheidBestuurder_enum"
+          $ref: "#/components/schemas/SoortBevoegdheid_enum"
         indicatieBevoegdMetAnderePersonen:
           type: boolean
         vertegenwoordiger:
@@ -437,14 +437,31 @@ components:
       properties:
         persoon:
           $ref: "#/components/schemas/PersoonBeperktMetAdres"
-        heeftBestuurders:
+        Bestuurders:
           type: array
           items:
             $ref: "#/components/schemas/Bestuurder"
         rechtsvorm:
            $ref: "#/components/schemas/Rechtsvorm_enum"
-        heeftGemachtigde:
-          $ref: "#/components/schemas/Gemachtigde"
+        Gemachtigde:
+          type: array
+          items:
+            $ref: "#/components/schemas/Gemachtigde"
+        FunctionarissenByzondereRechtstoestand:
+          type: array
+          items:
+            $ref: "#/components/schemas/FunctionarisByzondereRechtstoestand"
+    FunctionarisByzondereRechtstoestand:
+      type: object
+      description: "Een Gemachtigde wordt gekenmerkt door een volmacht verleend door de Persoon bij wie deze is toegetreden"
+      properties:
+        persoon:
+          $ref: "#/components/schemas/PersoonBeperktMetAdres"
+        functie:
+          $ref: "#/components/schemas/TypeFunctionaris_enum"
+        bevoegdheid:
+          $ref: "#/components/schemas/SoortBevoegdheid_enum"
+
 
     Gemachtigde:
       type: object
@@ -691,11 +708,11 @@ components:
           type: string
         indicatieHoofdactiviteit:
           type: boolean
-    SoortBevoegdheidBestuurder_enum:
+    SoortBevoegdheid_enum:
       enum:
-        - "alleen_zelfstandig_bevoegd"
-        - "gezamenlijk_bevoegd"
-        - "niet_bevoegd"
+        - "zelfstandig"
+        - "gezamenlijk"
+        - "niet"
     SoortHandeling_enum:
       enum:
         - "afsluiten_financieringscontracten"
@@ -718,6 +735,12 @@ components:
         - "lid_van_het_leidinggevend_orgaan"
         - "persoon_krachtens_statuten_bevoegd_bij_ontstentenis_belet_van_de_bestuurders"
         - "vertegenwoordiger_bestuurder_rechtspersoon"
+    TypeFunctionaris_enum:
+      description: ""
+      enum:
+        - "curator"
+        - "bewindvoerder"
+        - "rechtercommisaris"
     TypeGemachtigde_enum:
       description: ""
       enum:
