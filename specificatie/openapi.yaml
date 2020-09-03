@@ -321,7 +321,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/RechtspersoonHal'
+                $ref: '#/components/schemas/VestigingHal'
         '400':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/400"
         '401':
@@ -721,4 +721,3 @@ components:
       properties:
         maatschappelijkeActiviteit:
           $ref: "#/components/schemas/MaatschappelijkeActiviteitHalBasis"
-        
