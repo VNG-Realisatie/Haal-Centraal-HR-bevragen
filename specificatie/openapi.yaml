@@ -261,14 +261,12 @@ paths:
 #        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields"
         - in: query
           name: postcode
-          description: "De postcode van het adres van de vestiging."
           required: false
           schema:
             type: string
             pattern: "^[1-9][0-9][0-9][0-9][A-Z][A-Z]$"
         - in: query
           name: huisnummer
-          description: "Het huisnummer van de vestiging."
           required: false
           schema:
             type: integer
@@ -276,21 +274,23 @@ paths:
             maximum: 99999
         - in: query
           name: huisletter
-          description: "De huisletter van het adres vestiging."
           required: false
           schema:
             type: string
             pattern: "^[a-zA-Z]$"
         - in: query
-          name: huisnummertoevoeging.
-          description: "De huisnummertoevoeging van het adres van de vestiging."
+          name: huisnummertoevoeging
           required: false
           schema:
             type: string
             pattern: "^([a-z,A-Z,0-9]){1,4}$"
         - in: query
+          name: straat
+          required: false
+          schema:
+            type: string
+        - in: query
           name: woonplaatsnaam
-          description: "De woonplaatsnaam van het adres van de vestiging"
           required: false
           schema:
             type: string
@@ -565,10 +565,8 @@ components:
         adres:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
           description: "De aan het adres gerelateerde openbare ruimte."
-        eigenaars:
-          type: array
-          items:
-            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
+        eigenaar:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
         vestigingen:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
     MaatschappelijkeActiviteit_embedded:
