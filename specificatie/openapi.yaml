@@ -340,6 +340,15 @@ paths:
       - Vestigingen
 components:
   schemas:
+    Aandeel:
+      type: object
+      properties:
+        aantal:
+          type: number
+        soort:
+          type: string
+        waarde:
+          $ref: "#/components/schemas/Bedrag"
     Aansprakelijke:
       allOf:
         - $ref: "#/components/schemas/FunctieVervulling"
@@ -468,6 +477,14 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Aansprakelijke"
+        publiekrechtelijkeFunctionarissen:
+          type: array
+          items:
+            $ref: "#/components/schemas/PublierechtelijkeFunctionaris"
+        overigeFunctionarissen:
+          type: array
+          items:
+            $ref: "#/components/schemas/OverigeFunctionaris"
     FunctieVervulling:
       allOf:
         - $ref: "#/components/schemas/PersoonBeperktMetAdres"
@@ -484,6 +501,14 @@ components:
             indicatieStatutair:
               type: boolean
     FunctionarisByzondereRechtstoestand:
+      allOf:
+        - $ref: "#/components/schemas/FunctieVervulling"
+        - properties:
+            functie:
+              $ref: "#/components/schemas/TypePubliekrechtelijkeFunctionaris_enum"
+            bevoegdheid:
+              $ref: "#/components/schemas/SoortBevoegdheidPubliekrechtelijkeFunctionaris_enum"
+    PublierechtelijkeFunctionaris:
       allOf:
         - $ref: "#/components/schemas/FunctieVervulling"
         - properties:
@@ -545,6 +570,13 @@ components:
       properties:
         maatschappelijkeActiviteiten:
           $ref: "#/components/schemas/MaatschappelijkeActiviteitHalBasis"
+    Kapitaal:
+      type: object
+      properties:
+        bedrag:
+          $ref: "#/components/schemas/Bedrag"
+        Aandelen:
+          $ref: "#/components/schemas/Aandeel"
     MaatschappelijkeActiviteit:
       type: object
       properties:
@@ -614,6 +646,22 @@ components:
         eigenaar:
           $ref: "#/components/schemas/RechtspersoonHalBasis"
 #Relevante gegevens van de eigenaar zijn voornamelijk van belang als de eigenaar een Rechtspersoon is. Vraag is of dit een valide overweging is.
+    OverigeFunctionaris:
+      allOf:
+        - $ref: "#/components/schemas/FunctieVervulling"
+        - properties:
+            functie:
+              $ref: "#/components/schemas/TypeOverigeFunctionaris_enum"
+            bevoegdheidFunctionaris:
+              $ref: "#/components/schemas/SoortBevoegdheid_enum"
+            bevoegdheidVereffenaar:
+              $ref: "#/components/schemas/SoortBevoegdheidPubliekrechtelijkeFunctionaris_enum"
+            geplaatstKapitaal:
+              $ref: "#/components/schemas/Kapitaal"
+            gestortKapitaal:
+              $ref: "#/components/schemas/Kapitaal"
+            indicatieAfwijkendAansprakelijkheidsbeding:
+              type: boolean
     Persoonbasis:
       type: object
       description: De identificatie en het type van een persoon. Met deze twee gegevens kan de conclusie getrokken worden via welke link de gerelateerde resource bevraagd kan worden"
@@ -744,6 +792,10 @@ components:
         - "onbeperkt"
         - "beperkt"
         - "niet"
+    SoortBevoegdheidPubliekrechtelijkeFunctionaris_enum:
+      enum:
+        - "bevoegd"
+        - "niet"
     SoortHandeling_enum:
       enum:
         - "afsluiten_financieringscontracten"
@@ -770,8 +822,8 @@ components:
       enum:
         - "bestuurder"
         - "vereffenaar"
-        - "lid_van_het_bestuurdend_orgaan"
-        - "lid_van_het_leidinggevend_orgaan"
+        - "lid_bestuurdend_orgaan"
+        - "lid_leidinggevend_orgaan"
         - "persoon_krachtens_statuten_bevoegd_bij_ontstentenis_belet_van_de_bestuurders"
         - "vertegenwoordiger_bestuurder_rechtspersoon"
     TypeFunctionaris_enum:
@@ -788,12 +840,29 @@ components:
         - "beheerder"
         - "boekhouder"
         - "privaatrechtelijk"
+    TypeOverigeFunctionaris_enum:
+      description: ""
+      enum:
+        - "bewaarder_boeken_en_bescheiden"
+        - "commissaris"
+        - "enig_aandeelhouder"
+        - "functionaris_volgens_buitenlands_recht"
+        - "aandeelhouder_niet_volgestorte_aandelen"
+        - "lid_eesv"
+        - "lid_toezichthoudend_orgaan"
+        - "vereffenaar_volgens_buitenlands_recht"
     TypePersoon_enum:
       enum:
       - "ingeschrevenpersoon"
       - "handelsregisterpersoon"
       - "nietnatuurlijkpersoon"
       - "naampersoon"
+    TypePubliekrechtelijkeFunctionaris_enum:
+      description: ""
+      enum:
+        - "bestuurder"
+        - "commissaris"
+        - "lid_toezichthoudend_orgaan"
 
 # De subtypes die in het informatiemodel opgenomen zijn : NatuurlijkPersoon, NietNatuurlijkPersoon en NaamPersoon
 # Naampersoon is een persoon die niet inschrijfplichtig is, maar wel een funtie vervult in het Handelsregister...
