@@ -101,7 +101,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/MaatschappelijkeActiviteitHal'
+                $ref: '#/components/schemas/MaatschappelijkeActiviteitHalBasis'
         '400':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/400"
         '401':
@@ -167,7 +167,7 @@ paths:
   /rechtspersonen/{rsin}:
     get:
       operationId: Getrechtspersoon
-      description: "Raadpleeg een rechtspersoone. "
+      description: "Raadpleeg een rechtspersoon. "
       parameters:
 #        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/expand"
 #        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields"
@@ -533,12 +533,6 @@ components:
           type: array
           items:
               type: string
-    MaatschappelijkeActiviteitHal:
-      allOf:
-      - $ref: '#/components/schemas/MaatschappelijkeActiviteitHalBasis'
-      - properties:
-          _embedded:
-            $ref: '#/components/schemas/MaatschappelijkeActiviteit_embedded'
     MaatschappelijkeActiviteitHalBasis:
       allOf:
       - $ref: '#/components/schemas/MaatschappelijkeActiviteit'
@@ -558,7 +552,7 @@ components:
             maatschappelijkeActiviteiten:
               type: array
               items:
-                $ref: '#/components/schemas/MaatschappelijkeActiviteitHal'
+                $ref: '#/components/schemas/MaatschappelijkeActiviteitHalBasis'
     MaatschappelijkeActiviteit_links:
       type: object
       properties:
