@@ -340,6 +340,19 @@ paths:
       - Vestigingen
 components:
   schemas:
+    Activiteit:
+      type: object
+      properties:
+        omschrijving:
+          type: string
+        SBIActiviteiten:
+          type: array
+          items:
+            $ref: "#/components/schemas/SBIActiviteit"
+        indicatieExporteert:
+          type: boolean
+        indicatieImporteert:
+          type: boolean
     Adres:
       type: object
       description: "Eigenschappen van het adres die kunnen worden hergebruikt in andere API's waarin adresgegevens worden opgenomen. "
@@ -490,6 +503,10 @@ components:
     MaatschappelijkeActiviteit:
       type: object
       properties:
+        activiteiten:
+          type: array
+          items:
+            $ref: "#/components/schemas/Activiteit"
         kvknummer:
           description: "Het identificerende gegeven voor de {MaatschappelijkeActiviteit}, het KvK-nummer."
           type: string
@@ -506,10 +523,6 @@ components:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
         postadres:
           $ref: "#/components/schemas/Postadres"
-        soortActiviteit:
-          type: array
-          items:
-            $ref: "#/components/schemas/SoortActiviteit"
     MaatschappelijkeActiviteitHal:
       allOf:
       - $ref: '#/components/schemas/MaatschappelijkeActiviteitHalBasis'
@@ -663,12 +676,10 @@ components:
         - "overige_privaatrechtelijke_rechtspersoon"
         - "europese_cooperatieve_vennootschap_(sce)"
         - "publiekrechtelijke_rechtspersoon"
-    SoortActiviteit:
+    SBIActiviteit:
       type: object
       properties:
         SBIcode:
-          type: string
-        omschrijving:
           type: string
         indicatieHoofdactiviteit:
           type: boolean
