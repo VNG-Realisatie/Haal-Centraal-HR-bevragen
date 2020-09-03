@@ -450,17 +450,6 @@ components:
         naam:
           description: "Naam of eerste handelsnaam van inschrijving."
           type: string
-        nonMailing:
-          type: boolean
-        incidenteelUitlenenArbeidskrachten:
-          description: "Indicatie die aangeeft of de ondernemer tijdelijk arbeidskrachten ter beschikking stelt en dit niet onderdeel is van zijn 'reguliere' activiteiten."
-          type: boolean
-        notitie:
-          description: "Notitie met betrekking tot een Bijzondere gebeurtenis"
-          type: string
-        adresBerichtenbox:
-          description: "De Berichtenbox is de persoonlijke postbus voor elektronische berichten van de overheid."
-          type: string
         eigenaars:
           type: array
           items:
