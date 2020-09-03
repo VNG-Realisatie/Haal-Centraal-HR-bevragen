@@ -456,6 +456,10 @@ components:
             $ref: "#/components/schemas/PersoonBeperkt"
         bezoekadres:
           $ref: "#/components/schemas/Adres"
+        datumAanvang:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
+        datumEinde:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
         postadres:
           $ref: "#/components/schemas/Postadres"
         soortActiviteit:
