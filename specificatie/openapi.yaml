@@ -418,6 +418,7 @@ components:
           type: boolean
         vertegenwoordiger:
           $ref: "#/components/schemas/PersoonBeperkt"
+          description: "De NatuurlijkPersoon als vertegenwoordiger van de Rechtspersoon die bestuurder is bij een EESV."
     Communicatiegegevens:
       type: object
       properties:
@@ -444,6 +445,7 @@ components:
            $ref: "#/components/schemas/Rechtsvorm_enum"
         heeftGemachtigde:
           $ref: "#/components/schemas/Gemachtigde"
+
     Gemachtigde:
       type: object
       description: "Een Gemachtigde wordt gekenmerkt door een volmacht verleend door de Persoon bij wie deze is toegetreden"
@@ -572,10 +574,10 @@ components:
     MaatschappelijkeActiviteit_embedded:
       type: object
       properties:
-        eigenaars:
-          $ref: "#/components/schemas/Rechtspersoon"
+        eigenaar:
+          $ref: "#/components/schemas/RechtspersoonHalBasis"
 #Relevante gegevens van de eigenaar zijn voornamelijk van belang als de eigenaar een Rechtspersoon is. Vraag is of dit een valide overweging is.
-    Persoon:
+    Persoonbasis:
       type: object
       description: De identificatie en het type van een persoon. Met deze twee gegevens kan de conclusie getrokken worden via welke link de gerelateerde resource bevraagd kan worden"
       properties:
@@ -627,11 +629,6 @@ components:
           $ref: "#/components/schemas/Postadres"
         rechtsvorm:
           $ref: "#/components/schemas/Rechtsvorm_enum"
-        bestuurders:
-          description: "Bestuurders vand deze rechtspersoon"
-          type: array
-          items:
-            $ref: "#/components/schemas/Bestuurder"
         oprichtingsdatum:
           type: string
           format: "date"
@@ -708,6 +705,7 @@ components:
         - "opstellen_offertes"
         - "schorsen_voertuigen"
         - "kentekendiensten"
+
     TypeBestuurder_enum:
       description: ""
       enum:
@@ -726,12 +724,12 @@ components:
         - "boekhouder"
         - "privaatrechtelijk"
     TypePersoon_enum:
-      description: ""
       enum:
-        - ingeschrevenpersoon
-        - handelsregisterpersoon
-        - nietnatuurlijkpersoon
-        - naampersoon
+      - "ingeschrevenpersoon"
+      - "handelsregisterpersoon"
+      - "nietnatuurlijkpersoon"
+      - "naampersoon"
+
 # De subtypes die in het informatiemodel opgenomen zijn : NatuurlijkPersoon, NietNatuurlijkPersoon en NaamPersoon
 # Naampersoon is een persoon die niet inschrijfplichtig is, maar wel een funtie vervult in het Handelsregister...
     Vestiging:
@@ -741,8 +739,10 @@ components:
           type: string
         handelsnaam:
           type: string
-        adres:
+        vestigingsadres:
           $ref: "#/components/schemas/Adres"
+        correspondentieadres:
+          $ref: "#/components/schemas/Postadres"
         communicatiegegevens:
           $ref: "#/components/schemas/Communicatiegegevens"
         kvknummers:
