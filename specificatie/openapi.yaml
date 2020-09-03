@@ -523,6 +523,14 @@ components:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
         postadres:
           $ref: "#/components/schemas/Postadres"
+        hoofdvestigingNummer:
+          description: "Vanuit de hoofdvestiging wordt de Maatschappelijke Activiteit geleid"
+          type: string
+        vestigingNummers:
+          description: "In de vestiging(en) wordt de Maatschappelijke Activiteit uitgevoerd"
+          type: array
+          items:
+              type: string
     MaatschappelijkeActiviteitHal:
       allOf:
       - $ref: '#/components/schemas/MaatschappelijkeActiviteitHalBasis'
@@ -561,6 +569,8 @@ components:
           type: array
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
+        vestigingen:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
     MaatschappelijkeActiviteit_embedded:
       type: object
       properties:
