@@ -409,7 +409,7 @@ components:
       type: object
       properties:
         persoon:
-          $ref: "#/components/schemas/PersoonBeperkt"
+          $ref: "#/components/schemas/PersoonBeperktMetAdres"
         functie:
           $ref: "#/components/schemas/TypeBestuurder_enum"
         bevoegdheid:
@@ -417,7 +417,7 @@ components:
         indicatieBevoegdMetAnderePersonen:
           type: boolean
         vertegenwoordiger:
-          $ref: "#/components/schemas/PersoonBeperkt"
+          $ref: "#/components/schemas/PersoonBeperktMetAdres"
           description: "De NatuurlijkPersoon als vertegenwoordiger van de Rechtspersoon die bestuurder is bij een EESV."
     Communicatiegegevens:
       type: object
@@ -436,7 +436,7 @@ components:
       description: "De eigenaar van een Maatschappelijke Activiteit"
       properties:
         persoon:
-          $ref: "#/components/schemas/PersoonBeperkt"
+          $ref: "#/components/schemas/PersoonBeperktMetAdres"
         heeftBestuurders:
           type: array
           items:
@@ -451,7 +451,7 @@ components:
       description: "Een Gemachtigde wordt gekenmerkt door een volmacht verleend door de Persoon bij wie deze is toegetreden"
       properties:
         persoon:
-          $ref: "#/components/schemas/PersoonBeperkt"
+          $ref: "#/components/schemas/PersoonBeperktMetAdres"
         functie:
           $ref: "#/components/schemas/TypeGemachtigde_enum"
         volmacht:
@@ -595,14 +595,28 @@ components:
         - properties:
             type:
               $ref: "#/components/schemas/TypePersoon_enum"
+    PersoonBeperktMetAdres:
+      allOf:
+        - $ref: "#/components/schemas/PersoonBeperkt"
+        - properties:
+            vestigingsadres:
+              $ref: "#/components/schemas/Adres"
+            correspondentieadres:
+              $ref: "#/components/schemas/Postadres"
     Postadres:
       allOf:
         - $ref: "#/components/schemas/Adres"
         - type: "object"
           properties:
+            aanschrijfwijze:
+              type: "string"
+              title: "aanschrijfwijze"
+              description: "Samengestelde naam zoals die in communicatie met de rechtspersoon eigenaar dient te worden. Hoe het samenstellen van een aanschrijfwijze te werk gaat is beschreven in de [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-HR-Bevragen/blob/master/features/aanschrijfwijze.feature)"
+              example: "Van de Graaf BV."
             postbusnummer:
               type: "integer"
           example:
+            aanschrijfwijze: "Van de Graaf BV."
             postbusnummer: 1021
             postcode: 1234AA
             woonplaats: "Nootdorp"
@@ -613,11 +627,6 @@ components:
       properties:
         rsin:
           type: string
-        aanschrijfwijze:
-          type: "string"
-          title: "aanschrijfwijze"
-          description: "Samengestelde naam zoals die in communicatie met de rechtspersoon eigenaar dient te worden. Hoe het samenstellen van een aanschrijfwijze te werk gaat is beschreven in de [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-HR-Bevragen/blob/master/features/aanschrijfwijze.feature)"
-          example: "Van de Graaf BV."
 # moet hier eventueel ook een ter attentie van bijkomen ? Ik weet niet of KvK die kan leveren.
         correspondentieadres:
           $ref: "#/components/schemas/Postadres"
