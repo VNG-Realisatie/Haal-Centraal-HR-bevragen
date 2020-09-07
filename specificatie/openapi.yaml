@@ -794,6 +794,7 @@ components:
             adresregel1: "Postbus 1021"
             adresregel2: "1234AA Nootdorp"
     Rechtsvorm_enum:
+      type: string
       enum:
         - "besloten_vennootschap"
         - "naamloze_vennootschap"
@@ -816,20 +817,24 @@ components:
         indicatieHoofdactiviteit:
           type: boolean
     SoortBevoegdheid_enum:
+      type: string
       enum:
         - "zelfstandig"
         - "gezamenlijk"
         - "niet"
     SoortBevoegdheidAansprakelijke_enum:
+      type: string
       enum:
         - "onbeperkt"
         - "beperkt"
         - "niet"
     SoortBevoegdheidPubliekrechtelijkeFunctionaris_enum:
+      type: string
       enum:
         - "bevoegd"
         - "niet"
     SoortHandeling_enum:
+      type: string
       enum:
         - "afsluiten_financieringscontracten"
         - "afsluiten_garantieovereenkomsten"
@@ -842,6 +847,7 @@ components:
         - "schorsen_voertuigen"
         - "kentekendiensten"
     TypeAansprakelijke_enum:
+      type: string
       description: ""
       enum:
         - "medeeigenaar"
@@ -851,6 +857,7 @@ components:
         - "lid_rederij"
         - "bevoegd_functionaris"
     TypeBestuurder_enum:
+      type: string
       description: ""
       enum:
         - "bestuurder"
@@ -860,12 +867,14 @@ components:
         - "persoon_krachtens_statuten_bevoegd_bij_ontstentenis_belet_van_de_bestuurders"
         - "vertegenwoordiger_bestuurder_rechtspersoon"
     TypeFunctionaris_enum:
+      type: string
       description: ""
       enum:
         - "curator"
         - "bewindvoerder"
         - "rechtercommisaris"
     TypeGemachtigde_enum:
+      type: string
       description: ""
       enum:
         - "gevolmachtigde"
@@ -874,6 +883,7 @@ components:
         - "boekhouder"
         - "privaatrechtelijk"
     TypeNietNatuurlijkPersoon_enum:
+      type: string
       enum:
       - "buitenlandse_vennootschap"
       - "rechtspersoon"
@@ -881,6 +891,7 @@ components:
       - "rechtsperoon_in_oprichting"
       - "eenmanszaak_met_meerdere_eigenaren"
     TypeOverigeFunctionaris_enum:
+      type: string
       description: ""
       enum:
         - "bewaarder_boeken_en_bescheiden"
@@ -892,18 +903,25 @@ components:
         - "lid_toezichthoudend_orgaan"
         - "vereffenaar_volgens_buitenlands_recht"
     TypePersoon_enum:
+      type: string
       enum:
       - "ingeschrevenpersoon"
       - "handelsregisterpersoon"
       - "nietnatuurlijkpersoon"
       - "naampersoon"
     TypePubliekrechtelijkeFunctionaris_enum:
+      type: string
       description: ""
       enum:
         - "bestuurder"
         - "commissaris"
         - "lid_toezichthoudend_orgaan"
-
+    TypeVolmacht_enum:
+      type: string
+      description: "Type volmacht van een gemachtigde:\n* `beperkt` - Beperkte volmacht\n* `volledig` - Volledige volmacht"
+      enum:
+        - "beperkt"
+        - "volledig"
 # De subtypes die in het informatiemodel opgenomen zijn : NatuurlijkPersoon, NietNatuurlijkPersoon en NaamPersoon
 # Naampersoon is een persoon die niet inschrijfplichtig is, maar wel een funtie vervult in het Handelsregister...
     Vestiging:
@@ -979,7 +997,7 @@ components:
         indicatieStatutair:
           type: boolean
         typeVolmacht:
-          $ref: "#/components/schemas/Volmacht_enum"
+          $ref: "#/components/schemas/TypeVolmacht_enum"
         beperkingInGeld:
           $ref: "#/components/schemas/Bedrag"
         indicatieBevoegdOpgaveHandelsregister:
@@ -997,8 +1015,3 @@ components:
           type: array
           items:
               type: string
-    Volmacht_enum:
-      description: "Type volmacht van een gemachtigde:\n* `beperkt` - Beperkte volmacht\n* `volledig` - Volledige volmacht"
-      enum:
-        - "beperkt"
-        - "volledig"
