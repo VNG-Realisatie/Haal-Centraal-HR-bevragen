@@ -916,6 +916,8 @@ components:
       properties:
         vestigingsnummer:
           type: string
+        eersteHandelsnaam:
+          type: string
         handelsnamen:
           type: array
           items:
