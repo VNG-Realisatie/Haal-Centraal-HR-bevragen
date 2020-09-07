@@ -586,9 +586,13 @@ components:
         kvknummer:
           description: "Het identificerende gegeven voor de {MaatschappelijkeActiviteit}, het KvK-nummer."
           type: string
-        naam:
-          description: "Naam of eerste handelsnaam van inschrijving."
+        eersteHandelsnaam:
+          description: "Eerste handelsnaam van de maatschappelijke activiteit."
           type: string
+        handelsnamen:
+          type: array
+          items:
+            type: string
         eigenaar:
           $ref: "#/components/schemas/Eigenaar"
         bezoekadres:
