@@ -321,7 +321,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/VestigingHal'
+                $ref: '#/components/schemas/VestigingHalCollectie'
         '400':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/400"
         '401':
@@ -414,8 +414,10 @@ components:
           type: string
         postcodeWoonplaats:
           description: "T.b.v. buitenlands adres"
+          type: string
         regio:
           description: "T.b.v. buitenlands adres"
+          type: string
         land:
           type: string
 # Hier wordt de landelijke tabel 34 voor gebruikt met als kanttekening dat het KvK kan afwijken. Een string lijkt mij een pragmatische oplossong.
@@ -656,6 +658,8 @@ components:
         eigenaar:
           $ref: "#/components/schemas/NietNatuurlijkPersoonHalBasis"
 #Relevante gegevens van de eigenaar zijn voornamelijk van belang als de eigenaar een Rechtspersoon is. Vraag is of dit een valide overweging is.
+        hoofdvestiging:
+          $ref: "#/components/schemas/VestigingHalBasis"
     NietNatuurlijkPersoon:
       type: object
       properties:
