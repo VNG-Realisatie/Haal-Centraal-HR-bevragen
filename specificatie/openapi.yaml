@@ -454,6 +454,13 @@ components:
             vertegenwoordiger:
               $ref: "#/components/schemas/PersoonBeperkt"
               description: "De NatuurlijkPersoon als vertegenwoordiger van de Rechtspersoon die bestuurder is bij een EESV."
+    CommanditairKapitaal:
+      type: object
+      properties:
+        soort:
+          $ref: "#/components/schemas/SoortCommanditairKapitaal_enum"
+        bedrag:
+          $ref: "#/components/schemas/Bedrag"
     Eigenaar:
       type: object
       description: "De eigenaar van een Maatschappelijke Activiteit"
@@ -670,6 +677,17 @@ components:
         oprichtingsdatum:
           type: string
           format: "date"
+        aantalCommanditaireVennoten:
+          type: integer
+        commanditairKapitaal:
+          $ref: "#/components/schemas/CommanditairKapitaal"
+        indicatieHeeftOnbepaaldeDuur:
+          type: boolean
+        eindeDuur:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
+        doelRechtsvorm:
+          $ref: "#/components/schemas/Rechtsvorm_enum"
+          description: "Komt alleen bij Rechtspersoon In Oprichting voor"
         domein:
           description: "URL van de website"
           type: string
@@ -809,6 +827,9 @@ components:
         - "overige_privaatrechtelijke_rechtspersoon"
         - "europese_cooperatieve_vennootschap_(sce)"
         - "publiekrechtelijke_rechtspersoon"
+        - "maatschap"
+        - "vennootschap_onder_de_firma"
+        - "commanditaire_vennootschap"
     SBIActiviteit:
       type: object
       properties:
@@ -833,6 +854,11 @@ components:
       enum:
         - "bevoegd"
         - "niet"
+    SoortCommanditairKapitaal_enum:
+      type: string
+      enum:
+        - "geld"
+        - "goederen"
     SoortHandeling_enum:
       type: string
       enum:
