@@ -21,6 +21,12 @@ paths:
 #        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/expand"
 #        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields"
         - in: query
+          name: naam
+          required: false
+          schema:
+            type: string
+            maxLength: 9
+        - in: query
           name: eigenaar_burgerservicenummer
           description: "Het burgerservicenummer van de ingeschreven persoon die eigenaar is van een onderneming."
           required: false
@@ -42,6 +48,57 @@ paths:
           schema:
             type: string
 # Willen we hier ook kunnen zoeken op een niet-ingeschreven natuurlijk persoon (handelsregisterpersoon) die eigenaar is van een onderneming.
+        - in: query
+          name: nummeraanduidingidentificatie
+          description: "De nummeraanduidingidentificatie van een adres van de maatschappelijke activiteit."
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: adresseerbaarobjectidentificatie
+          description: "De adresseerbaarobjectidentificatie van een adres van de maatschappelijke activiteit."
+          required: false
+          schema:
+            type: string
+        - name: locatie
+          in: query
+          description: Coordinaten van een locatie die als query-parmeter gebruikt wordt
+            om een een Maatschappelijke activiet te zoeken waarvan een adres zich op de locatie bevindt. Let op, explode is false dus het formaat is ?locatie=194602.722,464154.308
+          required: false
+          style: form
+          explode: false
+          schema:
+            maxItems: 2
+            minItems: 2
+            type: array
+            example:
+            - 196733.51
+            - 439931.89
+            items:
+              type: number
+        - in: query
+          name: woonplaats
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: straatnaam
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: huisnummer
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - in: query
+          name: postcode
+          required: false
+          schema:
+            type: string
+            pattern: "^[1-9]{1}[0-9]{3}[A-Za-z]{2}$"
+          example: 1234AZ
       responses:
         '200':
           description: "Zoekactie geslaagd"
@@ -382,7 +439,10 @@ components:
       properties:
         nummeraanduidingidentificatie:
           type: string
-          description: "Identificatie van het adres in het geval dit adres in BAG geregistreerd is."
+          description: "Identificatie de nummeraanduiding van het adres in het geval dit adres in BAG geregistreerd is."
+        adresseerbaarobjectidentificatie:
+          type: string
+          description: "Identificatie van het adresseerbaar object adres in het geval dit adres in BAG geregistreerd is."
         straatnaam:
           title: openbareruimte naam
           description: "Een naam die door de gemeente aan een openbare ruimte is gegeven."
