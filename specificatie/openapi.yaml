@@ -25,7 +25,6 @@ paths:
           required: false
           schema:
             type: string
-            maxLength: 9
         - in: query
           name: eigenaar_burgerservicenummer
           description: "Het burgerservicenummer van de ingeschreven persoon die eigenaar is van een onderneming."
@@ -177,7 +176,7 @@ paths:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/503"
       tags:
       - Maatschappelijke activiteiten
-  /handelsregisterpersoon/{identificatie}:
+  /handelsregisterpersonen/{identificatie}:
     get:
       operationId: Gethandelsregisterpersoon
       description: "Raadpleeg een handelsregisterpersoon ( een natuurlijk persoon die niet is ingeschreven in de Basisregistratie Personen) op basis van de identificatie"
@@ -215,6 +214,80 @@ paths:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/406"
         '410':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/410"
+        '500':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/500"
+        '503':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/503"
+      tags:
+      - Personen
+  /handelsregisterpersonen:
+    get:
+      operationId: Gethandelsregisterpersonen
+      description: "Zoeken van handelsregisterpersonen ( een natuurlijk persoon die niet is ingeschreven in de Basisregistratie Personen)."
+      parameters:
+#        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/expand"
+#        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields"
+        - in: query
+          name: naam
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: woonplaats
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: straatnaam
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: huisnummer
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - in: query
+          name: postcode
+          required: false
+          schema:
+            type: string
+            pattern: "^[1-9]{1}[0-9]{3}[A-Za-z]{2}$"
+          example: 1234AZ
+        - in: query
+          name: statutairezetel
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Zoekactie geslaagd"
+          headers:
+            api-version:
+              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/headers/api_version"
+            warning:
+              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/headers/warning"
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/HandelsregisterPersoonHal'
+        '400':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/400"
+        '401':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/401"
+        '403':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/403"
+        '406':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/406"
+        '409':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/409"
+        '410':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/410"
+        '415':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/415"
+        '429':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/429"
         '500':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/500"
         '503':
@@ -595,12 +668,12 @@ components:
           description: "Het identificerende gegeven voor de handelsregisterpersoon"
           type: string
         naam:
-            $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BRP-bevragen/master/api-specificatie/Bevraging-Ingeschreven-Persoon/openapi.yaml#/components/schemas/NaamPersoon"
+          type: string
 # Bij naam, geboorte overerven we ook "inOnderzoek" Dit kan alleen ontweken worden door geen hergeberuik te maken van de BRP structuur of in de BRP deze componenten te herstructureren.
         adres:
           $ref: "#/components/schemas/Adres"
         geboorte:
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BRP-bevragen/master/api-specificatie/Bevraging-Ingeschreven-Persoon/openapi.yaml#/components/schemas/Geboorte"
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BRP-bevragen/master/specificatie/openapi.yaml#/components/schemas/Geboorte"
         overlijden:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
         kvknummers:
