@@ -255,11 +255,6 @@ paths:
             type: string
             pattern: "^[1-9]{1}[0-9]{3}[A-Za-z]{2}$"
           example: 1234AZ
-        - in: query
-          name: statutairezetel
-          required: false
-          schema:
-            type: string
       responses:
         '200':
           description: "Zoekactie geslaagd"
@@ -271,7 +266,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/HandelsregisterPersoonHal'
+                $ref: '#/components/schemas/HandelsregisterPersoonHalCollectie'
         '400':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/400"
         '401':
@@ -332,6 +327,80 @@ paths:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/406"
         '410':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/410"
+        '500':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/500"
+        '503':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/503"
+      tags:
+      - Personen
+  /nietNatuurlijkePersonen:
+    get:
+      operationId: Getnietnatuurlijkpersonen
+      description: "Zoeken van een Niet Natuurlijk Personen. "
+      parameters:
+#        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/expand"
+#        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields"
+        - in: query
+          name: naam
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: woonplaats
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: straatnaam
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: huisnummer
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - in: query
+          name: postcode
+          required: false
+          schema:
+            type: string
+            pattern: "^[1-9]{1}[0-9]{3}[A-Za-z]{2}$"
+          example: 1234AZ
+        - in: query
+          name: statutairezetel
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Zoekactie geslaagd"
+          headers:
+            api-version:
+              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/headers/api_version"
+            warning:
+              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/headers/warning"
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/NietNatuurlijkPersoonHalCollectie'
+        '400':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/400"
+        '401':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/401"
+        '403':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/403"
+        '406':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/406"
+        '409':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/409"
+        '410':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/410"
+        '415':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/415"
+        '429':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/429"
         '500':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/500"
         '503':
@@ -693,6 +762,20 @@ components:
       - properties:
           _links:
             $ref: '#/components/schemas/HandelsregisterPersoon_links'
+    HandelsregisterPersoonHalCollectie:
+      type: object
+      properties:
+        _links:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinks'
+        _embedded:
+          $ref: "#/components/schemas/HandelsregisterPersoonHalCollectie_embedded"
+    HandelsregisterPersoonHalCollectie_embedded:
+          type: object
+          properties:
+            handelsregisterPersonen:
+              type: array
+              items:
+                $ref: '#/components/schemas/HandelsregisterPersoonHalBasis'
     HandelsregisterPersoon_links:
       type: object
       properties:
@@ -929,6 +1012,20 @@ components:
       - properties:
           _links:
             $ref: '#/components/schemas/NietNatuurlijkPersoon_links'
+    NietNatuurlijkPersoonHalCollectie:
+      type: object
+      properties:
+        _links:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinks'
+        _embedded:
+          $ref: "#/components/schemas/NietNatuurlijkPersoonHalCollectie_embedded"
+    NietNatuurlijkPersoonHalCollectie_embedded:
+          type: object
+          properties:
+            nietNatuurlijkPersonen:
+              type: array
+              items:
+                $ref: '#/components/schemas/NietNatuurlijkPersoonHalBasis'
     NietNatuurlijkPersoon_links:
       type: object
       properties:
