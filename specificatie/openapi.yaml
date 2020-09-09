@@ -454,6 +454,11 @@ components:
             vertegenwoordiger:
               $ref: "#/components/schemas/PersoonBeperkt"
               description: "De NatuurlijkPersoon als vertegenwoordiger van de Rechtspersoon die bestuurder is bij een EESV."
+    Bestuursmodel_enum:
+      type: string
+      enum:
+        - "monistisch"
+        - "dualistisch"
     CommanditairKapitaal:
       type: object
       properties:
@@ -672,11 +677,12 @@ components:
           $ref: "#/components/schemas/Postadres"
         postadres:
           $ref: "#/components/schemas/Postadres"
+        naam:
+          type: string
+        ookGenoemd:
+          type: string
         rechtsvorm:
           $ref: "#/components/schemas/Rechtsvorm_enum"
-        oprichtingsdatum:
-          type: string
-          format: "date"
         aantalCommanditaireVennoten:
           type: integer
         commanditairKapitaal:
@@ -688,6 +694,50 @@ components:
         doelRechtsvorm:
           $ref: "#/components/schemas/Rechtsvorm_enum"
           description: "Komt alleen bij Rechtspersoon In Oprichting voor"
+        statutaireZetel:
+          type: string
+        aanvangStatutaireZetel:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
+        datumOprichting:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
+        datumAkteOprichting:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
+        datumAkteStatutenWijziging:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
+        bedragKostenOprichting:
+          $ref: "#/components/schemas/Bedrag"
+        datumEersteInschrijvingHandelsregister:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
+        ingangStatuten:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
+        rechtsbevoegdheidVereniging:
+          $ref: "#/components/schemas/Rechtsbevoegdheid_enum"
+        publiekrechtelijkeRechtsvorm:
+          $ref: "#/components/schemas/RechtsvormPubliekrechtelijk_enum"
+        structuur:
+          $ref: "#/components/schemas/SoortStructuur_enum"
+        overigePrivaatrechtelijkeRechtsvorm:
+          $ref: "#/components/schemas/OverigePrivaatrechtelijkeRechtsvorm_enum"
+        nieuwGemeldeRechtsvorm:
+          type: string
+        indicatieBeleggingsMijMetVeranderlijkKapitaal:
+          type: boolean
+        stelselInrichting:
+          $ref: "#/components/schemas/Bestuursmodel_enum"
+        maatschappelijkKapitaal:
+          $ref: "#/components/schemas/Kapitaal"
+        geplaatstKapitaal:
+          $ref: "#/components/schemas/Kapitaal"
+        gestortKapitaal:
+          $ref: "#/components/schemas/Kapitaal"
+        activiteitenGestaaktPer:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
+        rechtspersoonsgegevensBuitenland:
+          $ref: "#/components/schemas/RechtspersoonsgegevensBuitenland"
+        landVanOprichting:
+          type: string
+        landVanVestiging:
+          type: string
         domein:
           description: "URL van de website"
           type: string
@@ -724,6 +774,16 @@ components:
           type: array
           items:
             type: string
+        isDochterVan:
+          description: "Rsins van de moeders van deze NietNatuurlijkPersoon"
+          type: array
+          items:
+            type: string
+        isMoederVan:
+          description: "Rsins van de dochters van deze NietNatuurlijkPersoon"
+          type: array
+          items:
+            type: string
     NietNatuurlijkPersoonHal:
       allOf:
       - $ref: '#/components/schemas/NietNatuurlijkPersoonHalBasis'
@@ -748,6 +808,14 @@ components:
           type: array
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
+        dochters:
+          type: array
+          items:
+            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
+        moeders:
+          type: array
+          items:
+            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
     NietNatuurlijkPersoon_embedded:
       type: object
       properties:
@@ -769,6 +837,15 @@ components:
               $ref: "#/components/schemas/Kapitaal"
             indicatieAfwijkendAansprakelijkheidsbeding:
               type: boolean
+    OverigePrivaatrechtelijkeRechtsvorm_enum:
+      type: string
+      enum:
+        - "hofje"
+        - "boermarke"
+        - "fundatie"
+        - "gilde"
+        - "buurtschap"
+
     PersoonBasis:
       type: "object"
       description: "Een persoon kan een natuurlijk persoon of een niet natuurlijk persoon zijn. Een natuurlijk Persoon kan zowel een ingeschreven persoon (in de BRP) of een handelsregisterpersoon zijn."
@@ -811,6 +888,11 @@ components:
             woonplaats: "Nootdorp"
             adresregel1: "Postbus 1021"
             adresregel2: "1234AA Nootdorp"
+    Rechtsbevoegdheid_enum:
+      type: string
+      enum:
+      - "beperkt"
+      - "volledig"
     Rechtsvorm_enum:
       type: string
       enum:
@@ -830,6 +912,33 @@ components:
         - "maatschap"
         - "vennootschap_onder_de_firma"
         - "commanditaire_vennootschap"
+    RechtspersoonsgegevensBuitenland:
+      type: object
+      properties:
+        naam:
+          type: string
+        plaats:
+          type: string
+        land:
+          type: string
+        inschrijfnummer:
+          type: string
+    RechtsvormPubliekrechtelijk_enum:
+      type: string
+      enum:
+        - "de_staat_ministerie"
+        - "de_staat_baten_en_lastendienst"
+        - "provincie"
+        - "gemeente"
+        - "waterschap"
+        - "lichaam_bevoegdheid_grondwet"
+        - "zelfstandig_bestuursorgaan"
+        - "adviescollege"
+        - "rechtspersoon_wettelijke_taak"
+        - "universiteit_of_academisch_ziekenhuis"
+        - "openbaar_lichaam_gemeenschappelijke_regeling"
+        - "europese_groepering_territoriale_samenwerking"
+        - "bedrijfsvoeringsorganisatie"
     SBIActiviteit:
       type: object
       properties:
@@ -872,6 +981,11 @@ components:
         - "opstellen_offertes"
         - "schorsen_voertuigen"
         - "kentekendiensten"
+    SoortStructuur_enum:
+      type: string
+      enum:
+        - "gewoon"
+        - "bijzonder"
     TypeAansprakelijke_enum:
       type: string
       description: ""
