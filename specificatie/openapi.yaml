@@ -459,6 +459,11 @@ paths:
 #        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/expand"
 #        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields"
         - in: query
+          name: kvknummer
+          schema:
+            type: integer
+            maxLength: 8
+        - in: query
           name: postcode
           required: false
           schema:
@@ -1340,12 +1345,12 @@ components:
         _embedded:
           $ref: "#/components/schemas/VestigingHalCollectie_embedded"
     VestigingHalCollectie_embedded:
-          type: object
-          properties:
-            vestigingen:
-              type: array
-              items:
-                $ref: '#/components/schemas/VestigingHal'
+      type: object
+      properties:
+        vestigingen:
+          type: array
+          items:
+            $ref: '#/components/schemas/VestigingHal'
     Vestiging_links:
       type: object
       properties:
