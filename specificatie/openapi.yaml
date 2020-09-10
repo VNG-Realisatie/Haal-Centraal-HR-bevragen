@@ -21,6 +21,11 @@ paths:
 #        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/expand"
 #        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields"
         - in: query
+          name: naam
+          required: false
+          schema:
+            type: string
+        - in: query
           name: eigenaar_burgerservicenummer
           description: "Het burgerservicenummer van de ingeschreven persoon die eigenaar is van een onderneming."
           required: false
@@ -42,6 +47,57 @@ paths:
           schema:
             type: string
 # Willen we hier ook kunnen zoeken op een niet-ingeschreven natuurlijk persoon (handelsregisterpersoon) die eigenaar is van een onderneming.
+        - in: query
+          name: nummeraanduidingidentificatie
+          description: "De nummeraanduidingidentificatie van een adres van de maatschappelijke activiteit."
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: adresseerbaarobjectidentificatie
+          description: "De adresseerbaarobjectidentificatie van een adres van de maatschappelijke activiteit."
+          required: false
+          schema:
+            type: string
+        - name: locatie
+          in: query
+          description: Coordinaten van een locatie die als query-parmeter gebruikt wordt
+            om een een Maatschappelijke activiet te zoeken waarvan een adres zich op de locatie bevindt. Let op, explode is false dus het formaat is ?locatie=194602.722,464154.308
+          required: false
+          style: form
+          explode: false
+          schema:
+            maxItems: 2
+            minItems: 2
+            type: array
+            example:
+            - 196733.51
+            - 439931.89
+            items:
+              type: number
+        - in: query
+          name: woonplaats
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: straatnaam
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: huisnummer
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - in: query
+          name: postcode
+          required: false
+          schema:
+            type: string
+            pattern: "^[1-9]{1}[0-9]{3}[A-Za-z]{2}$"
+          example: 1234AZ
       responses:
         '200':
           description: "Zoekactie geslaagd"
@@ -120,7 +176,7 @@ paths:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/503"
       tags:
       - Maatschappelijke activiteiten
-  /handelsregisterpersoon/{identificatie}:
+  /handelsregisterpersonen/{identificatie}:
     get:
       operationId: Gethandelsregisterpersoon
       description: "Raadpleeg een handelsregisterpersoon ( een natuurlijk persoon die niet is ingeschreven in de Basisregistratie Personen) op basis van de identificatie"
@@ -164,7 +220,76 @@ paths:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/503"
       tags:
       - Personen
-  /nietNatuurlijkePersonen/{rsin}:
+  /handelsregisterpersonen:
+    get:
+      operationId: Gethandelsregisterpersonen
+      description: "Zoeken van handelsregisterpersonen ( een natuurlijk persoon die niet is ingeschreven in de Basisregistratie Personen)."
+      parameters:
+#        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/expand"
+#        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields"
+        - in: query
+          name: naam
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: woonplaats
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: straatnaam
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: huisnummer
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - in: query
+          name: postcode
+          required: false
+          schema:
+            type: string
+            pattern: "^[1-9]{1}[0-9]{3}[A-Za-z]{2}$"
+          example: 1234AZ
+      responses:
+        '200':
+          description: "Zoekactie geslaagd"
+          headers:
+            api-version:
+              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/headers/api_version"
+            warning:
+              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/headers/warning"
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/HandelsregisterPersoonHalCollectie'
+        '400':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/400"
+        '401':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/401"
+        '403':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/403"
+        '406':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/406"
+        '409':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/409"
+        '410':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/410"
+        '415':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/415"
+        '429':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/429"
+        '500':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/500"
+        '503':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/503"
+      tags:
+      - Personen
+  /nietnatuurlijkpersonen/{rsin}:
     get:
       operationId: Getnietnatuurlijkpersoon
       description: "Raadpleeg een nietNatuurlijkPersoon. "
@@ -202,6 +327,80 @@ paths:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/406"
         '410':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/410"
+        '500':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/500"
+        '503':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/503"
+      tags:
+      - Personen
+  /nietnatuurlijkpersonen:
+    get:
+      operationId: Getnietnatuurlijkpersonen
+      description: "Zoeken van een Niet Natuurlijk Personen. "
+      parameters:
+#        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/expand"
+#        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields"
+        - in: query
+          name: naam
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: woonplaats
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: straatnaam
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: huisnummer
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - in: query
+          name: postcode
+          required: false
+          schema:
+            type: string
+            pattern: "^[1-9]{1}[0-9]{3}[A-Za-z]{2}$"
+          example: 1234AZ
+        - in: query
+          name: statutairezetel
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Zoekactie geslaagd"
+          headers:
+            api-version:
+              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/headers/api_version"
+            warning:
+              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/headers/warning"
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/NietNatuurlijkPersoonHalCollectie'
+        '400':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/400"
+        '401':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/401"
+        '403':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/403"
+        '406':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/406"
+        '409':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/409"
+        '410':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/410"
+        '415':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/415"
+        '429':
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/429"
         '500':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/500"
         '503':
@@ -259,6 +458,11 @@ paths:
       parameters:
 #        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/expand"
 #        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields"
+        - in: query
+          name: kvknummer
+          schema:
+            type: integer
+            maxLength: 8
         - in: query
           name: postcode
           required: false
@@ -321,7 +525,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/VestigingHal'
+                $ref: '#/components/schemas/VestigingHalCollectie'
         '400':
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/400"
         '401':
@@ -382,7 +586,10 @@ components:
       properties:
         nummeraanduidingidentificatie:
           type: string
-          description: "Identificatie van het adres in het geval dit adres in BAG geregistreerd is."
+          description: "Identificatie de nummeraanduiding van het adres in het geval dit adres in BAG geregistreerd is."
+        adresseerbaarobjectidentificatie:
+          type: string
+          description: "Identificatie van het adresseerbaar object adres in het geval dit adres in BAG geregistreerd is."
         straatnaam:
           title: openbareruimte naam
           description: "Een naam die door de gemeente aan een openbare ruimte is gegeven."
@@ -414,8 +621,10 @@ components:
           type: string
         postcodeWoonplaats:
           description: "T.b.v. buitenlands adres"
+          type: string
         regio:
           description: "T.b.v. buitenlands adres"
+          type: string
         land:
           type: string
 # Hier wordt de landelijke tabel 34 voor gebruikt met als kanttekening dat het KvK kan afwijken. Een string lijkt mij een pragmatische oplossong.
@@ -450,14 +659,26 @@ components:
             indicatieBevoegdMetAnderePersonen:
               type: boolean
             vertegenwoordiger:
-              $ref: "#/components/schemas/PersoonBeperktMetAdres"
+              $ref: "#/components/schemas/PersoonBeperkt"
               description: "De NatuurlijkPersoon als vertegenwoordiger van de Rechtspersoon die bestuurder is bij een EESV."
+    Bestuursmodel_enum:
+      type: string
+      enum:
+        - "monistisch"
+        - "dualistisch"
+    CommanditairKapitaal:
+      type: object
+      properties:
+        soort:
+          $ref: "#/components/schemas/SoortCommanditairKapitaal_enum"
+        bedrag:
+          $ref: "#/components/schemas/Bedrag"
     Eigenaar:
       type: object
       description: "De eigenaar van een Maatschappelijke Activiteit"
       properties:
         persoon:
-          $ref: "#/components/schemas/PersoonBeperktMetAdres"
+          $ref: "#/components/schemas/PersoonBeperkt"
         bestuurders:
           type: array
           items:
@@ -479,16 +700,15 @@ components:
         publiekrechtelijkeFunctionarissen:
           type: array
           items:
-            $ref: "#/components/schemas/PublierechtelijkeFunctionaris"
+            $ref: "#/components/schemas/PubliekrechtelijkeFunctionaris"
         overigeFunctionarissen:
           type: array
           items:
             $ref: "#/components/schemas/OverigeFunctionaris"
     FunctieVervulling:
       allOf:
-        - $ref: "#/components/schemas/PersoonBeperktMetAdres"
-        - type: object
-          properties:
+        - $ref: "#/components/schemas/PersoonBeperkt"
+        - properties:
             datumAanvang:
               $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
             datumEinde:
@@ -507,14 +727,6 @@ components:
               $ref: "#/components/schemas/TypePubliekrechtelijkeFunctionaris_enum"
             bevoegdheid:
               $ref: "#/components/schemas/SoortBevoegdheidPubliekrechtelijkeFunctionaris_enum"
-    PublierechtelijkeFunctionaris:
-      allOf:
-        - $ref: "#/components/schemas/FunctieVervulling"
-        - properties:
-            functie:
-              $ref: "#/components/schemas/TypeFunctionaris_enum"
-            bevoegdheid:
-              $ref: "#/components/schemas/SoortBevoegdheid_enum"
     Gemachtigde:
       allOf:
         - $ref: "#/components/schemas/FunctieVervulling"
@@ -530,12 +742,12 @@ components:
           description: "Het identificerende gegeven voor de handelsregisterpersoon"
           type: string
         naam:
-            $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BRP-bevragen/master/api-specificatie/Bevraging-Ingeschreven-Persoon/openapi.yaml#/components/schemas/NaamPersoon"
+          type: string
 # Bij naam, geboorte overerven we ook "inOnderzoek" Dit kan alleen ontweken worden door geen hergeberuik te maken van de BRP structuur of in de BRP deze componenten te herstructureren.
         adres:
           $ref: "#/components/schemas/Adres"
         geboorte:
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BRP-bevragen/master/api-specificatie/Bevraging-Ingeschreven-Persoon/openapi.yaml#/components/schemas/Geboorte"
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BRP-bevragen/master/specificatie/openapi.yaml#/components/schemas/Geboorte"
         overlijden:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
         kvknummers:
@@ -555,6 +767,20 @@ components:
       - properties:
           _links:
             $ref: '#/components/schemas/HandelsregisterPersoon_links'
+    HandelsregisterPersoonHalCollectie:
+      type: object
+      properties:
+        _links:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinks'
+        _embedded:
+          $ref: "#/components/schemas/HandelsregisterPersoonHalCollectie_embedded"
+    HandelsregisterPersoonHalCollectie_embedded:
+          type: object
+          properties:
+            handelsregisterPersonen:
+              type: array
+              items:
+                $ref: '#/components/schemas/HandelsregisterPersoonHalBasis'
     HandelsregisterPersoon_links:
       type: object
       properties:
@@ -586,9 +812,13 @@ components:
         kvknummer:
           description: "Het identificerende gegeven voor de {MaatschappelijkeActiviteit}, het KvK-nummer."
           type: string
-        naam:
-          description: "Naam of eerste handelsnaam van inschrijving."
+        eersteHandelsnaam:
+          description: "Eerste handelsnaam van de maatschappelijke activiteit."
           type: string
+        handelsnamen:
+          type: array
+          items:
+            type: string
         eigenaar:
           $ref: "#/components/schemas/Eigenaar"
         bezoekadres:
@@ -652,23 +882,83 @@ components:
         eigenaar:
           $ref: "#/components/schemas/NietNatuurlijkPersoonHalBasis"
 #Relevante gegevens van de eigenaar zijn voornamelijk van belang als de eigenaar een Rechtspersoon is. Vraag is of dit een valide overweging is.
+        hoofdvestiging:
+          $ref: "#/components/schemas/VestigingHalBasis"
     NietNatuurlijkPersoon:
       type: object
       properties:
         rsin:
           type: string
 # moet hier eventueel ook een ter attentie van bijkomen ? Ik weet niet of KvK die kan leveren.
+        nietNatuurlijkPersoonType:
+          $ref: "#/components/schemas/TypeNietNatuurlijkPersoon_enum"
         datumUitschrijving:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
         bezoekadres:
           $ref: "#/components/schemas/Postadres"
         postadres:
           $ref: "#/components/schemas/Postadres"
+        naam:
+          type: string
+        ookGenoemd:
+          type: string
         rechtsvorm:
           $ref: "#/components/schemas/Rechtsvorm_enum"
-        oprichtingsdatum:
+        aantalCommanditaireVennoten:
+          type: integer
+        commanditairKapitaal:
+          $ref: "#/components/schemas/CommanditairKapitaal"
+        indicatieHeeftOnbepaaldeDuur:
+          type: boolean
+        eindeDuur:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
+        doelRechtsvorm:
+          $ref: "#/components/schemas/Rechtsvorm_enum"
+          description: "Komt alleen bij Rechtspersoon In Oprichting voor"
+        statutaireZetel:
           type: string
-          format: "date"
+        aanvangStatutaireZetel:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
+        datumOprichting:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
+        datumAkteOprichting:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
+        datumAkteStatutenWijziging:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
+        bedragKostenOprichting:
+          $ref: "#/components/schemas/Bedrag"
+        datumEersteInschrijvingHandelsregister:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
+        ingangStatuten:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
+        rechtsbevoegdheidVereniging:
+          $ref: "#/components/schemas/Rechtsbevoegdheid_enum"
+        publiekrechtelijkeRechtsvorm:
+          $ref: "#/components/schemas/RechtsvormPubliekrechtelijk_enum"
+        structuur:
+          $ref: "#/components/schemas/SoortStructuur_enum"
+        overigePrivaatrechtelijkeRechtsvorm:
+          $ref: "#/components/schemas/OverigePrivaatrechtelijkeRechtsvorm_enum"
+        nieuwGemeldeRechtsvorm:
+          type: string
+        indicatieBeleggingsMijMetVeranderlijkKapitaal:
+          type: boolean
+        stelselInrichting:
+          $ref: "#/components/schemas/Bestuursmodel_enum"
+        maatschappelijkKapitaal:
+          $ref: "#/components/schemas/Kapitaal"
+        geplaatstKapitaal:
+          $ref: "#/components/schemas/Kapitaal"
+        gestortKapitaal:
+          $ref: "#/components/schemas/Kapitaal"
+        activiteitenGestaaktPer:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
+        rechtspersoonsgegevensBuitenland:
+          $ref: "#/components/schemas/RechtspersoonsgegevensBuitenland"
+        landVanOprichting:
+          type: string
+        landVanVestiging:
+          type: string
         domein:
           description: "URL van de website"
           type: string
@@ -695,13 +985,23 @@ components:
         publiekrechtelijkeFunctionarissen:
           type: array
           items:
-            $ref: "#/components/schemas/PublierechtelijkeFunctionaris"
+            $ref: "#/components/schemas/PubliekrechtelijkeFunctionaris"
         overigeFunctionarissen:
           type: array
           items:
             $ref: "#/components/schemas/OverigeFunctionaris"
         kvknummers:
           description: "Maatschappelijke activiteiten waarvan deze nietNatuurlijkPersoon eigenaar is"
+          type: array
+          items:
+            type: string
+        isDochterVan:
+          description: "Rsins van de moeders van deze NietNatuurlijkPersoon"
+          type: array
+          items:
+            type: string
+        isMoederVan:
+          description: "Rsins van de dochters van deze NietNatuurlijkPersoon"
           type: array
           items:
             type: string
@@ -717,6 +1017,20 @@ components:
       - properties:
           _links:
             $ref: '#/components/schemas/NietNatuurlijkPersoon_links'
+    NietNatuurlijkPersoonHalCollectie:
+      type: object
+      properties:
+        _links:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinks'
+        _embedded:
+          $ref: "#/components/schemas/NietNatuurlijkPersoonHalCollectie_embedded"
+    NietNatuurlijkPersoonHalCollectie_embedded:
+          type: object
+          properties:
+            nietNatuurlijkPersonen:
+              type: array
+              items:
+                $ref: '#/components/schemas/NietNatuurlijkPersoonHalBasis'
     NietNatuurlijkPersoon_links:
       type: object
       properties:
@@ -726,6 +1040,14 @@ components:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
           description: "De aan het adres gerelateerde openbare ruimte."
         maatschappelijkeActiviteiten:
+          type: array
+          items:
+            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
+        dochters:
+          type: array
+          items:
+            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
+        moeders:
           type: array
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
@@ -750,14 +1072,15 @@ components:
               $ref: "#/components/schemas/Kapitaal"
             indicatieAfwijkendAansprakelijkheidsbeding:
               type: boolean
-    Persoonbasis:
-      type: object
-      description: De identificatie en het type van een persoon. Met deze twee gegevens kan de conclusie getrokken worden via welke link de gerelateerde resource bevraagd kan worden"
-      properties:
-        identificatie:
-          type: string
-        typePersoon:
-          $ref: "#/components/schemas/TypePersoon_enum"
+    OverigePrivaatrechtelijkeRechtsvorm_enum:
+      type: string
+      enum:
+        - "hofje"
+        - "boermarke"
+        - "fundatie"
+        - "gilde"
+        - "buurtschap"
+
     PersoonBasis:
       type: "object"
       description: "Een persoon kan een natuurlijk persoon of een niet natuurlijk persoon zijn. Een natuurlijk Persoon kan zowel een ingeschreven persoon (in de BRP) of een handelsregisterpersoon zijn."
@@ -768,40 +1091,45 @@ components:
         omschrijving:
           type: string
           description: "Voor mensen leesbare, herkenbare en identificerende omschrijving van de persoon (met bijvoorbeeld de naam)."
+        volledigeNaam:
+          type: string
     PersoonBeperkt:
       allOf:
         - $ref: "#/components/schemas/PersoonBasis"
         - properties:
             type:
               $ref: "#/components/schemas/TypePersoon_enum"
-    PersoonBeperktMetAdres:
-      allOf:
-        - $ref: "#/components/schemas/PersoonBeperkt"
-        - properties:
             bezoekadres:
               $ref: "#/components/schemas/Adres"
             postadres:
               $ref: "#/components/schemas/Postadres"
+    PubliekrechtelijkeFunctionaris:
+      allOf:
+        - $ref: "#/components/schemas/FunctieVervulling"
+        - properties:
+            functie:
+              $ref: "#/components/schemas/TypeFunctionaris_enum"
+            bevoegdheid:
+              $ref: "#/components/schemas/SoortBevoegdheid_enum"
     Postadres:
       allOf:
         - $ref: "#/components/schemas/Adres"
-        - type: "object"
-          properties:
-            aanschrijfwijze:
-              type: "string"
-              title: "aanschrijfwijze"
-              description: "Samengestelde naam zoals die in communicatie dient te worden gebruikt. Hoe het samenstellen van een aanschrijfwijze te werk gaat is beschreven in de [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-HR-Bevragen/blob/master/features/aanschrijfwijze.feature)"
-              example: "Van de Graaf BV."
+        - properties:
             postbusnummer:
-              type: "integer"
+              type: integer
           example:
-            aanschrijfwijze: "Van de Graaf BV."
             postbusnummer: 1021
             postcode: 1234AA
             woonplaats: "Nootdorp"
             adresregel1: "Postbus 1021"
             adresregel2: "1234AA Nootdorp"
+    Rechtsbevoegdheid_enum:
+      type: string
+      enum:
+      - "beperkt"
+      - "volledig"
     Rechtsvorm_enum:
+      type: string
       enum:
         - "besloten_vennootschap"
         - "naamloze_vennootschap"
@@ -816,6 +1144,36 @@ components:
         - "overige_privaatrechtelijke_rechtspersoon"
         - "europese_cooperatieve_vennootschap_(sce)"
         - "publiekrechtelijke_rechtspersoon"
+        - "maatschap"
+        - "vennootschap_onder_de_firma"
+        - "commanditaire_vennootschap"
+    RechtspersoonsgegevensBuitenland:
+      type: object
+      properties:
+        naam:
+          type: string
+        plaats:
+          type: string
+        land:
+          type: string
+        inschrijfnummer:
+          type: string
+    RechtsvormPubliekrechtelijk_enum:
+      type: string
+      enum:
+        - "de_staat_ministerie"
+        - "de_staat_baten_en_lastendienst"
+        - "provincie"
+        - "gemeente"
+        - "waterschap"
+        - "lichaam_bevoegdheid_grondwet"
+        - "zelfstandig_bestuursorgaan"
+        - "adviescollege"
+        - "rechtspersoon_wettelijke_taak"
+        - "universiteit_of_academisch_ziekenhuis"
+        - "openbaar_lichaam_gemeenschappelijke_regeling"
+        - "europese_groepering_territoriale_samenwerking"
+        - "bedrijfsvoeringsorganisatie"
     SBIActiviteit:
       type: object
       properties:
@@ -824,20 +1182,29 @@ components:
         indicatieHoofdactiviteit:
           type: boolean
     SoortBevoegdheid_enum:
+      type: string
       enum:
         - "zelfstandig"
         - "gezamenlijk"
         - "niet"
     SoortBevoegdheidAansprakelijke_enum:
+      type: string
       enum:
         - "onbeperkt"
         - "beperkt"
         - "niet"
     SoortBevoegdheidPubliekrechtelijkeFunctionaris_enum:
+      type: string
       enum:
         - "bevoegd"
         - "niet"
+    SoortCommanditairKapitaal_enum:
+      type: string
+      enum:
+        - "geld"
+        - "goederen"
     SoortHandeling_enum:
+      type: string
       enum:
         - "afsluiten_financieringscontracten"
         - "afsluiten_garantieovereenkomsten"
@@ -849,7 +1216,13 @@ components:
         - "opstellen_offertes"
         - "schorsen_voertuigen"
         - "kentekendiensten"
+    SoortStructuur_enum:
+      type: string
+      enum:
+        - "gewoon"
+        - "bijzonder"
     TypeAansprakelijke_enum:
+      type: string
       description: ""
       enum:
         - "medeeigenaar"
@@ -859,6 +1232,7 @@ components:
         - "lid_rederij"
         - "bevoegd_functionaris"
     TypeBestuurder_enum:
+      type: string
       description: ""
       enum:
         - "bestuurder"
@@ -868,12 +1242,14 @@ components:
         - "persoon_krachtens_statuten_bevoegd_bij_ontstentenis_belet_van_de_bestuurders"
         - "vertegenwoordiger_bestuurder_rechtspersoon"
     TypeFunctionaris_enum:
+      type: string
       description: ""
       enum:
         - "curator"
         - "bewindvoerder"
         - "rechtercommisaris"
     TypeGemachtigde_enum:
+      type: string
       description: ""
       enum:
         - "gevolmachtigde"
@@ -881,7 +1257,16 @@ components:
         - "beheerder"
         - "boekhouder"
         - "privaatrechtelijk"
+    TypeNietNatuurlijkPersoon_enum:
+      type: string
+      enum:
+      - "buitenlandse_vennootschap"
+      - "rechtspersoon"
+      - "samenwerkingsverband"
+      - "rechtsperoon_in_oprichting"
+      - "eenmanszaak_met_meerdere_eigenaren"
     TypeOverigeFunctionaris_enum:
+      type: string
       description: ""
       enum:
         - "bewaarder_boeken_en_bescheiden"
@@ -893,24 +1278,33 @@ components:
         - "lid_toezichthoudend_orgaan"
         - "vereffenaar_volgens_buitenlands_recht"
     TypePersoon_enum:
+      type: string
       enum:
       - "ingeschrevenpersoon"
       - "handelsregisterpersoon"
       - "nietnatuurlijkpersoon"
       - "naampersoon"
     TypePubliekrechtelijkeFunctionaris_enum:
+      type: string
       description: ""
       enum:
         - "bestuurder"
         - "commissaris"
         - "lid_toezichthoudend_orgaan"
-
+    TypeVolmacht_enum:
+      type: string
+      description: "Type volmacht van een gemachtigde:\n* `beperkt` - Beperkte volmacht\n* `volledig` - Volledige volmacht"
+      enum:
+        - "beperkt"
+        - "volledig"
 # De subtypes die in het informatiemodel opgenomen zijn : NatuurlijkPersoon, NietNatuurlijkPersoon en NaamPersoon
 # Naampersoon is een persoon die niet inschrijfplichtig is, maar wel een funtie vervult in het Handelsregister...
     Vestiging:
       type: object
       properties:
         vestigingsnummer:
+          type: string
+        eersteHandelsnaam:
           type: string
         handelsnamen:
           type: array
@@ -951,12 +1345,12 @@ components:
         _embedded:
           $ref: "#/components/schemas/VestigingHalCollectie_embedded"
     VestigingHalCollectie_embedded:
-          type: object
-          properties:
-            Vestigingen:
-              type: array
-              items:
-                $ref: '#/components/schemas/VestigingHal'
+      type: object
+      properties:
+        vestigingen:
+          type: array
+          items:
+            $ref: '#/components/schemas/VestigingHal'
     Vestiging_links:
       type: object
       properties:
@@ -978,7 +1372,7 @@ components:
         indicatieStatutair:
           type: boolean
         typeVolmacht:
-          $ref: "#/components/schemas/Volmacht_enum"
+          $ref: "#/components/schemas/TypeVolmacht_enum"
         beperkingInGeld:
           $ref: "#/components/schemas/Bedrag"
         indicatieBevoegdOpgaveHandelsregister:
@@ -996,8 +1390,3 @@ components:
           type: array
           items:
               type: string
-    Volmacht_enum:
-      description: "Type volmacht van een gemachtigde:\n* `beperkt` - Beperkte volmacht\n* `volledig` - Volledige volmacht"
-      enum:
-        - "beperkt"
-        - "volledig"
