@@ -26,14 +26,14 @@ paths:
           schema:
             type: string
         - in: query
-          name: eigenaar_burgerservicenummer
+          name: eigenaarBurgerservicenummer
           description: "Het burgerservicenummer van de ingeschreven persoon die eigenaar is van een onderneming."
           required: false
           schema:
             type: string
             maxLength: 9
         - in: query
-          name: bestuurder_burgerservicenummer
+          name: bestuurderBurgerservicenummer
           description: "Het burgerservicenummer van de ingeschreven persoon die bestuurder is van een onderneming."
           required: false
           schema:
@@ -48,13 +48,13 @@ paths:
             type: string
 # Willen we hier ook kunnen zoeken op een niet-ingeschreven natuurlijk persoon (handelsregisterpersoon) die eigenaar is van een onderneming.
         - in: query
-          name: nummeraanduidingidentificatie
+          name: nummeraanduidingIdentificatie
           description: "De nummeraanduidingidentificatie van een adres van de maatschappelijke activiteit."
           required: false
           schema:
             type: string
         - in: query
-          name: adresseerbaarobjectidentificatie
+          name: adresseerbaarObjectIdentificatie
           description: "De adresseerbaarobjectidentificatie van een adres van de maatschappelijke activiteit."
           required: false
           schema:
@@ -369,7 +369,7 @@ paths:
             pattern: "^[1-9]{1}[0-9]{3}[A-Za-z]{2}$"
           example: 1234AZ
         - in: query
-          name: statutairezetel
+          name: statutaireZetel
           required: false
           schema:
             type: string
@@ -483,7 +483,7 @@ paths:
             type: string
             pattern: "^[a-zA-Z]$"
         - in: query
-          name: huisnummertoevoeging
+          name: huisnummerToevoeging
           required: false
           schema:
             type: string
@@ -513,7 +513,6 @@ paths:
             example:
             - 196733.510
             - 439931.890
-
       responses:
         '200':
           description: "Zoekactie geslaagd"
@@ -572,7 +571,7 @@ components:
       properties:
         omschrijving:
           type: string
-        SBIActiviteiten:
+        sbiActiviteiten:
           type: array
           items:
             $ref: "#/components/schemas/SBIActiviteit"
@@ -800,7 +799,7 @@ components:
       properties:
         bedrag:
           $ref: "#/components/schemas/Bedrag"
-        Aandelen:
+        aandelen:
           $ref: "#/components/schemas/Aandeel"
     MaatschappelijkeActiviteit:
       type: object
@@ -1177,7 +1176,7 @@ components:
     SBIActiviteit:
       type: object
       properties:
-        SBIcode:
+        sbiCode:
           type: string
         indicatieHoofdactiviteit:
           type: boolean
