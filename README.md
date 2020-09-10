@@ -38,8 +38,6 @@ Deze repository beschrijft het project om tot een API voor de Basisregistratie H
 
 * Specificaties van de develop versie in [Swagger-formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-HR-bevragen/develop/specificatie/genereervariant/openapi.yaml)
 
-* Ontwerpkeuzes staan in het document **[Design decisions](https://github.com/VNG-Realisatie/HR-bevragingen/blob/master/docs/design_decisions.md)**
-
 ## Licentie
 Copyright &copy; VNG Realisatie 2018
 Licensed under the [EUPL](https://github.com/VNG-Realisatie/Haal-Centraal-HR-bevragen/blob/master/LICENCE.md)
