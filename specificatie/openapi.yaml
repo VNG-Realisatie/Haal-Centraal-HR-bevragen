@@ -289,7 +289,7 @@ paths:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/503"
       tags:
       - Personen
-  /nietNatuurlijkePersonen/{rsin}:
+  /nietnatuurlijkpersonen/{rsin}:
     get:
       operationId: Getnietnatuurlijkpersoon
       description: "Raadpleeg een nietNatuurlijkPersoon. "
@@ -333,7 +333,7 @@ paths:
           $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/503"
       tags:
       - Personen
-  /nietNatuurlijkePersonen:
+  /nietnatuurlijkpersonen:
     get:
       operationId: Getnietnatuurlijkpersonen
       description: "Zoeken van een Niet Natuurlijk Personen. "
