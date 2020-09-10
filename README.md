@@ -34,7 +34,7 @@ Deze repository beschrijft het project om tot een API voor de Basisregistratie H
 
 ## Documentatie
 
-* HR Bevragen: [Technische specificaties van de **resolved** versie](https://github.com/VNG-Realisatie/Haal-Centraal-HR-bevragen/tree/master/specificatie/genereervariant) (Open API Specificaties), [Technische specificaties van de **unresolved** versie](https://github.com/VNG-Realisatie/Haal-Centraal-HR-bevragen/tree/master/specificatie) (Open API versie) en ook in [Swagger-formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-HR-bevragen/master/specificatie/openapi.yaml)
+* HR Bevragen: [Technische specificaties van de **resolved** versie](./specificatie/genereervariant) (Open API Specificaties), [Technische specificaties van de **unresolved** versie](./specificatie) (Open API versie) en ook in [Swagger-formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-HR-bevragen/develop/specificatie/openapi.yaml)
 
 * Specificaties van de develop versie in [Swagger-formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-HR-bevragen/develop/specificatie/genereervariant/openapi.yaml)
 
