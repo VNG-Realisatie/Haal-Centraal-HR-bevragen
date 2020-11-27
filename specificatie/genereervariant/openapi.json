@@ -1,0 +1,2124 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Handelsregister bevragen",
+    "description" : "D.m.v. deze toepassing worden meerdere, korte bevragingen op het Handelsregister beschikbaar gesteld.",
+    "contact" : {
+      "name" : "Haal Centraal HR-Bevragen",
+      "url" : "https://github.com/VNG-Realisatie/Haal-Centraal-HR-Bevragen"
+    },
+    "license" : {
+      "name" : "European Union Public License, version 1.2 (EUPL-1.2)",
+      "url" : "https://eupl.eu/1.2/nl/"
+    },
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://serverurl/bevragen/v1",
+    "description" : "HR-bevragen Handelsregister"
+  } ],
+  "paths" : {
+    "/maatschappelijkeactiviteiten" : {
+      "get" : {
+        "tags" : [ "Maatschappelijke activiteiten" ],
+        "description" : "Zoek maatschappelijke activiteiten op basis van het burgerservicenummer of het RSIN van een eigenaar",
+        "operationId" : "GetMaatschappelijkeActiviteiten",
+        "parameters" : [ {
+          "name" : "eigenaar_burgerservicenummer",
+          "in" : "query",
+          "description" : "Het burgerservicenummer van de ingeschreven persoon die eigenaar is van een onderneming.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maxLength" : 9,
+            "type" : "string"
+          }
+        }, {
+          "name" : "bestuurder_burgerservicenummer",
+          "in" : "query",
+          "description" : "Het burgerservicenummer van de ingeschreven persoon die bestuurder is van een onderneming.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maxLength" : 9,
+            "type" : "string"
+          }
+        }, {
+          "name" : "rsin",
+          "in" : "query",
+          "description" : "De identificatie van de NietNatuurlijkPersoon die eigenaar is van een onderneming.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Zoekactie geslaagd",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              },
+              "warning" : {
+                "$ref" : "#/components/headers/warning"
+              }
+            },
+            "content" : {
+              "application/hal+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MaatschappelijkeActiviteitHalCollectie"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequestFoutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.1 400 Bad Request",
+                  "title" : "Ten minste één parameter moet worden opgegeven.",
+                  "status" : 400,
+                  "detail" : "The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modification.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "paramsRequired",
+                  "invalidParams" : [ {
+                    "type" : "https://www.vng.nl/realisatie/api/validaties/integer",
+                    "name" : "verblijfplaats__huisnummer",
+                    "code" : "integer",
+                    "reason" : "Waarde is geen geldige integer."
+                  } ]
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.2 401 Unauthorized",
+                  "title" : "Niet correct geauthenticeerd.",
+                  "status" : 401,
+                  "detail" : "The request requires user authentication. The response MUST include a WWW-Authenticate header field (section 14.47) containing a challenge applicable to the requested resource.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "authentication"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.4 403 Forbidden",
+                  "title" : "U bent niet geautoriseerd voor deze operatie.",
+                  "status" : 403,
+                  "detail" : "The server understood the request, but is refusing to fulfill it.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "autorisation"
+                }
+              }
+            }
+          },
+          "406" : {
+            "description" : "Not Acceptable",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.7 406 Not Acceptable",
+                  "title" : "Gevraagde contenttype wordt niet ondersteund.",
+                  "status" : 406,
+                  "detail" : "The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to thr accept headers sent in the request",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "notAcceptable"
+                }
+              }
+            }
+          },
+          "409" : {
+            "description" : "Conflict",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.10 409 Conflict",
+                  "title" : "Conflict",
+                  "status" : 409,
+                  "detail" : "The request could not be completed due to a conflict with the current state of the resource",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "conflict"
+                }
+              }
+            }
+          },
+          "410" : {
+            "description" : "Gone",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.11 410 Gone",
+                  "title" : "Gone",
+                  "status" : 410,
+                  "detail" : "The request could not be completed due to a conflict with the current state of the resource",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "gone"
+                }
+              }
+            }
+          },
+          "415" : {
+            "description" : "Unsupported Media Type",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.16 415 Unsupported Media Type",
+                  "title" : "Unsupported Media Type",
+                  "status" : 415,
+                  "detail" : "The server is refusing the request because the entity of the request is in a format not supported by the requested resource for the requested method.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "unsupported"
+                }
+              }
+            }
+          },
+          "429" : {
+            "description" : "Too Many Requests",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html",
+                  "title" : "Too many request",
+                  "status" : 429,
+                  "detail" : "The user has sent too many requests in a given amount of time (rate limiting).",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "tooManyRequests"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.1 500 Internal server error",
+                  "title" : "Interne server fout.",
+                  "status" : 500,
+                  "detail" : "The server encountered an unexpected condition which prevented it from fulfilling the request.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "serverError"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "Service Unavailable",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4 503 Service Unavailable",
+                  "title" : "Bronservice {bron} is tijdelijk niet beschikbaar.",
+                  "status" : 503,
+                  "detail" : "The service is currently unable to handle the request due to a temporary overloading or maintenance of the server.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "notAvailable"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/maatschappelijkeactiviteiten/{kvknummer}" : {
+      "get" : {
+        "tags" : [ "Maatschappelijke activiteiten" ],
+        "description" : "Raadpleeg een maatschappelijke activiteit op basis van het KvKnummer",
+        "operationId" : "GetMaatschappelijkeActiviteit",
+        "parameters" : [ {
+          "name" : "kvknummer",
+          "in" : "path",
+          "description" : "Het KvKnummer is de unieke identificatie van een Maatschappelijke Activiteit.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 8,
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Zoekactie geslaagd",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              },
+              "warning" : {
+                "$ref" : "#/components/headers/warning"
+              }
+            },
+            "content" : {
+              "application/hal+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MaatschappelijkeActiviteitHal"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequestFoutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.1 400 Bad Request",
+                  "title" : "Ten minste één parameter moet worden opgegeven.",
+                  "status" : 400,
+                  "detail" : "The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modification.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "paramsRequired",
+                  "invalidParams" : [ {
+                    "type" : "https://www.vng.nl/realisatie/api/validaties/integer",
+                    "name" : "verblijfplaats__huisnummer",
+                    "code" : "integer",
+                    "reason" : "Waarde is geen geldige integer."
+                  } ]
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.2 401 Unauthorized",
+                  "title" : "Niet correct geauthenticeerd.",
+                  "status" : 401,
+                  "detail" : "The request requires user authentication. The response MUST include a WWW-Authenticate header field (section 14.47) containing a challenge applicable to the requested resource.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "authentication"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.4 403 Forbidden",
+                  "title" : "U bent niet geautoriseerd voor deze operatie.",
+                  "status" : 403,
+                  "detail" : "The server understood the request, but is refusing to fulfill it.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "autorisation"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not Found",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.5 404 Not Found",
+                  "title" : "Opgevraagde resource bestaat niet.",
+                  "status" : 404,
+                  "detail" : "The server has not found anything matching the Request-URI.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "notFound"
+                }
+              }
+            }
+          },
+          "406" : {
+            "description" : "Not Acceptable",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.7 406 Not Acceptable",
+                  "title" : "Gevraagde contenttype wordt niet ondersteund.",
+                  "status" : 406,
+                  "detail" : "The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to thr accept headers sent in the request",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "notAcceptable"
+                }
+              }
+            }
+          },
+          "410" : {
+            "description" : "Gone",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.11 410 Gone",
+                  "title" : "Gone",
+                  "status" : 410,
+                  "detail" : "The request could not be completed due to a conflict with the current state of the resource",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "gone"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.1 500 Internal server error",
+                  "title" : "Interne server fout.",
+                  "status" : 500,
+                  "detail" : "The server encountered an unexpected condition which prevented it from fulfilling the request.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "serverError"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "Service Unavailable",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4 503 Service Unavailable",
+                  "title" : "Bronservice {bron} is tijdelijk niet beschikbaar.",
+                  "status" : 503,
+                  "detail" : "The service is currently unable to handle the request due to a temporary overloading or maintenance of the server.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "notAvailable"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/handelsregisterpersoon/{identificatie}" : {
+      "get" : {
+        "tags" : [ "Personen" ],
+        "description" : "Raadpleeg een handelsregisterpersoon ( een natuurlijk persoon die niet is ingeschreven in de Basisregistratie Personen) op basis van de identificatie",
+        "operationId" : "Gethandelsregisterpersoon",
+        "parameters" : [ {
+          "name" : "identificatie",
+          "in" : "path",
+          "description" : "Dit is de unieke identificatie van een bij het handelsregister geregistreerde persoon die niet is ingeschreven in de basisregistratie personen.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 9,
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Zoekactie geslaagd",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              },
+              "warning" : {
+                "$ref" : "#/components/headers/warning"
+              }
+            },
+            "content" : {
+              "application/hal+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/HandelsregisterPersoonHal"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequestFoutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.1 400 Bad Request",
+                  "title" : "Ten minste één parameter moet worden opgegeven.",
+                  "status" : 400,
+                  "detail" : "The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modification.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "paramsRequired",
+                  "invalidParams" : [ {
+                    "type" : "https://www.vng.nl/realisatie/api/validaties/integer",
+                    "name" : "verblijfplaats__huisnummer",
+                    "code" : "integer",
+                    "reason" : "Waarde is geen geldige integer."
+                  } ]
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.2 401 Unauthorized",
+                  "title" : "Niet correct geauthenticeerd.",
+                  "status" : 401,
+                  "detail" : "The request requires user authentication. The response MUST include a WWW-Authenticate header field (section 14.47) containing a challenge applicable to the requested resource.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "authentication"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.4 403 Forbidden",
+                  "title" : "U bent niet geautoriseerd voor deze operatie.",
+                  "status" : 403,
+                  "detail" : "The server understood the request, but is refusing to fulfill it.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "autorisation"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not Found",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.5 404 Not Found",
+                  "title" : "Opgevraagde resource bestaat niet.",
+                  "status" : 404,
+                  "detail" : "The server has not found anything matching the Request-URI.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "notFound"
+                }
+              }
+            }
+          },
+          "406" : {
+            "description" : "Not Acceptable",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.7 406 Not Acceptable",
+                  "title" : "Gevraagde contenttype wordt niet ondersteund.",
+                  "status" : 406,
+                  "detail" : "The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to thr accept headers sent in the request",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "notAcceptable"
+                }
+              }
+            }
+          },
+          "410" : {
+            "description" : "Gone",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.11 410 Gone",
+                  "title" : "Gone",
+                  "status" : 410,
+                  "detail" : "The request could not be completed due to a conflict with the current state of the resource",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "gone"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.1 500 Internal server error",
+                  "title" : "Interne server fout.",
+                  "status" : 500,
+                  "detail" : "The server encountered an unexpected condition which prevented it from fulfilling the request.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "serverError"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "Service Unavailable",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4 503 Service Unavailable",
+                  "title" : "Bronservice {bron} is tijdelijk niet beschikbaar.",
+                  "status" : 503,
+                  "detail" : "The service is currently unable to handle the request due to a temporary overloading or maintenance of the server.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "notAvailable"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rechtspersonen/{rsin}" : {
+      "get" : {
+        "tags" : [ "Personen" ],
+        "description" : "Raadpleeg een rechtspersoone. ",
+        "operationId" : "Getrechtspersoon",
+        "parameters" : [ {
+          "name" : "rsin",
+          "in" : "path",
+          "description" : "Dit is de unieke identificatie van een bij het handelsregister geregistreerde niet natuurlijk persoon.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 9,
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Zoekactie geslaagd",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              },
+              "warning" : {
+                "$ref" : "#/components/headers/warning"
+              }
+            },
+            "content" : {
+              "application/hal+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RechtspersoonHal"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequestFoutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.1 400 Bad Request",
+                  "title" : "Ten minste één parameter moet worden opgegeven.",
+                  "status" : 400,
+                  "detail" : "The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modification.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "paramsRequired",
+                  "invalidParams" : [ {
+                    "type" : "https://www.vng.nl/realisatie/api/validaties/integer",
+                    "name" : "verblijfplaats__huisnummer",
+                    "code" : "integer",
+                    "reason" : "Waarde is geen geldige integer."
+                  } ]
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.2 401 Unauthorized",
+                  "title" : "Niet correct geauthenticeerd.",
+                  "status" : 401,
+                  "detail" : "The request requires user authentication. The response MUST include a WWW-Authenticate header field (section 14.47) containing a challenge applicable to the requested resource.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "authentication"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.4 403 Forbidden",
+                  "title" : "U bent niet geautoriseerd voor deze operatie.",
+                  "status" : 403,
+                  "detail" : "The server understood the request, but is refusing to fulfill it.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "autorisation"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not Found",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.5 404 Not Found",
+                  "title" : "Opgevraagde resource bestaat niet.",
+                  "status" : 404,
+                  "detail" : "The server has not found anything matching the Request-URI.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "notFound"
+                }
+              }
+            }
+          },
+          "406" : {
+            "description" : "Not Acceptable",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.7 406 Not Acceptable",
+                  "title" : "Gevraagde contenttype wordt niet ondersteund.",
+                  "status" : 406,
+                  "detail" : "The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to thr accept headers sent in the request",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "notAcceptable"
+                }
+              }
+            }
+          },
+          "410" : {
+            "description" : "Gone",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.11 410 Gone",
+                  "title" : "Gone",
+                  "status" : 410,
+                  "detail" : "The request could not be completed due to a conflict with the current state of the resource",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "gone"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.1 500 Internal server error",
+                  "title" : "Interne server fout.",
+                  "status" : 500,
+                  "detail" : "The server encountered an unexpected condition which prevented it from fulfilling the request.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "serverError"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "Service Unavailable",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4 503 Service Unavailable",
+                  "title" : "Bronservice {bron} is tijdelijk niet beschikbaar.",
+                  "status" : 503,
+                  "detail" : "The service is currently unable to handle the request due to a temporary overloading or maintenance of the server.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "notAvailable"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vestigingen/{vestigingsnummer}" : {
+      "get" : {
+        "tags" : [ "Vestigingen" ],
+        "description" : "Raadpleeg een vestiging. ",
+        "operationId" : "Getvestiging",
+        "parameters" : [ {
+          "name" : "vestigingsnummer",
+          "in" : "path",
+          "description" : "Dit is de unieke identificatie van een vestiging.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 12,
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Zoekactie geslaagd",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              },
+              "warning" : {
+                "$ref" : "#/components/headers/warning"
+              }
+            },
+            "content" : {
+              "application/hal+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/VestigingHal"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequestFoutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.1 400 Bad Request",
+                  "title" : "Ten minste één parameter moet worden opgegeven.",
+                  "status" : 400,
+                  "detail" : "The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modification.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "paramsRequired",
+                  "invalidParams" : [ {
+                    "type" : "https://www.vng.nl/realisatie/api/validaties/integer",
+                    "name" : "verblijfplaats__huisnummer",
+                    "code" : "integer",
+                    "reason" : "Waarde is geen geldige integer."
+                  } ]
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.2 401 Unauthorized",
+                  "title" : "Niet correct geauthenticeerd.",
+                  "status" : 401,
+                  "detail" : "The request requires user authentication. The response MUST include a WWW-Authenticate header field (section 14.47) containing a challenge applicable to the requested resource.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "authentication"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.4 403 Forbidden",
+                  "title" : "U bent niet geautoriseerd voor deze operatie.",
+                  "status" : 403,
+                  "detail" : "The server understood the request, but is refusing to fulfill it.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "autorisation"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not Found",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.5 404 Not Found",
+                  "title" : "Opgevraagde resource bestaat niet.",
+                  "status" : 404,
+                  "detail" : "The server has not found anything matching the Request-URI.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "notFound"
+                }
+              }
+            }
+          },
+          "406" : {
+            "description" : "Not Acceptable",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.7 406 Not Acceptable",
+                  "title" : "Gevraagde contenttype wordt niet ondersteund.",
+                  "status" : 406,
+                  "detail" : "The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to thr accept headers sent in the request",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "notAcceptable"
+                }
+              }
+            }
+          },
+          "410" : {
+            "description" : "Gone",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.11 410 Gone",
+                  "title" : "Gone",
+                  "status" : 410,
+                  "detail" : "The request could not be completed due to a conflict with the current state of the resource",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "gone"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.1 500 Internal server error",
+                  "title" : "Interne server fout.",
+                  "status" : 500,
+                  "detail" : "The server encountered an unexpected condition which prevented it from fulfilling the request.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "serverError"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "Service Unavailable",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4 503 Service Unavailable",
+                  "title" : "Bronservice {bron} is tijdelijk niet beschikbaar.",
+                  "status" : 503,
+                  "detail" : "The service is currently unable to handle the request due to a temporary overloading or maintenance of the server.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "notAvailable"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vestigingen" : {
+      "get" : {
+        "tags" : [ "Vestigingen" ],
+        "description" : "Zoek vestigingen.",
+        "operationId" : "Getvestigingen",
+        "parameters" : [ {
+          "name" : "postcode",
+          "in" : "query",
+          "description" : "De postcode van het adres van de vestiging.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "pattern" : "^[1-9][0-9][0-9][0-9][A-Z][A-Z]$",
+            "type" : "string"
+          }
+        }, {
+          "name" : "huisnummer",
+          "in" : "query",
+          "description" : "Het huisnummer van de vestiging.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maximum" : 99999,
+            "minimum" : 1,
+            "type" : "integer"
+          }
+        }, {
+          "name" : "huisletter",
+          "in" : "query",
+          "description" : "De huisletter van het adres vestiging.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "pattern" : "^[a-zA-Z]$",
+            "type" : "string"
+          }
+        }, {
+          "name" : "huisnummertoevoeging.",
+          "in" : "query",
+          "description" : "De huisnummertoevoeging van het adres van de vestiging.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "pattern" : "^([a-z,A-Z,0-9]){1,4}$",
+            "type" : "string"
+          }
+        }, {
+          "name" : "woonplaatsnaam",
+          "in" : "query",
+          "description" : "De woonplaatsnaam van het adres van de vestiging",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "pattern" : "^([a-z,A-Z,0-9]){1,4}$",
+            "type" : "string"
+          }
+        }, {
+          "name" : "locatie",
+          "in" : "query",
+          "description" : "Coordinaten van een locatie die als query-parmeter gebruikt wordt om een object te zoeken. Let op, explode is false dus het formaat is ?locatie=194602.722,464154.308",
+          "required" : false,
+          "style" : "form",
+          "explode" : false,
+          "schema" : {
+            "maxItems" : 2,
+            "minItems" : 2,
+            "type" : "array",
+            "example" : [ 196733.51, 439931.89 ],
+            "items" : {
+              "type" : "number"
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Zoekactie geslaagd",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              },
+              "warning" : {
+                "$ref" : "#/components/headers/warning"
+              }
+            },
+            "content" : {
+              "application/hal+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RechtspersoonHal"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequestFoutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.1 400 Bad Request",
+                  "title" : "Ten minste één parameter moet worden opgegeven.",
+                  "status" : 400,
+                  "detail" : "The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modification.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "paramsRequired",
+                  "invalidParams" : [ {
+                    "type" : "https://www.vng.nl/realisatie/api/validaties/integer",
+                    "name" : "verblijfplaats__huisnummer",
+                    "code" : "integer",
+                    "reason" : "Waarde is geen geldige integer."
+                  } ]
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.2 401 Unauthorized",
+                  "title" : "Niet correct geauthenticeerd.",
+                  "status" : 401,
+                  "detail" : "The request requires user authentication. The response MUST include a WWW-Authenticate header field (section 14.47) containing a challenge applicable to the requested resource.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "authentication"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.4 403 Forbidden",
+                  "title" : "U bent niet geautoriseerd voor deze operatie.",
+                  "status" : 403,
+                  "detail" : "The server understood the request, but is refusing to fulfill it.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "autorisation"
+                }
+              }
+            }
+          },
+          "406" : {
+            "description" : "Not Acceptable",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.7 406 Not Acceptable",
+                  "title" : "Gevraagde contenttype wordt niet ondersteund.",
+                  "status" : 406,
+                  "detail" : "The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to thr accept headers sent in the request",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "notAcceptable"
+                }
+              }
+            }
+          },
+          "410" : {
+            "description" : "Gone",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.11 410 Gone",
+                  "title" : "Gone",
+                  "status" : 410,
+                  "detail" : "The request could not be completed due to a conflict with the current state of the resource",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "gone"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.1 500 Internal server error",
+                  "title" : "Interne server fout.",
+                  "status" : 500,
+                  "detail" : "The server encountered an unexpected condition which prevented it from fulfilling the request.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "serverError"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "Service Unavailable",
+            "headers" : {
+              "api-version" : {
+                "$ref" : "#/components/headers/api_version"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Foutbericht"
+                },
+                "example" : {
+                  "type" : "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4 503 Service Unavailable",
+                  "title" : "Bronservice {bron} is tijdelijk niet beschikbaar.",
+                  "status" : 503,
+                  "detail" : "The service is currently unable to handle the request due to a temporary overloading or maintenance of the server.",
+                  "instance" : "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code" : "notAvailable"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Adres" : {
+        "type" : "object",
+        "properties" : {
+          "nummeraanduidingidentificatie" : {
+            "type" : "string",
+            "description" : "Identificatie van het adres in het geval dit adres in BAG geregistreerd is."
+          },
+          "straat" : {
+            "title" : "openbareruimte naam",
+            "type" : "string",
+            "description" : "Een naam die door de gemeente aan een openbare ruimte is gegeven.",
+            "example" : "Laan van de landinrichtingscommissie Duiven-Westervoort"
+          },
+          "huisnummer" : {
+            "type" : "integer",
+            "description" : "Een nummer dat door de gemeente aan een adresseerbaar object is gegeven.",
+            "example" : 1
+          },
+          "huisletter" : {
+            "type" : "string",
+            "description" : "Een toevoeging aan een huisnummer in de vorm van een letter die door de gemeente aan een adresseerbaar object is gegeven.",
+            "example" : "A"
+          },
+          "huisnummertoevoeging" : {
+            "type" : "string",
+            "description" : "Een toevoeging aan een huisnummer of een combinatie van huisnummer en huisletter die door de gemeente aan een adresseerbaar object is gegeven.",
+            "example" : "bis"
+          },
+          "postcode" : {
+            "type" : "string",
+            "description" : "De door PostNL vastgestelde code die bij een bepaalde combinatie van een straatnaam en een huisnummer hoort.",
+            "example" : "6922KZ"
+          },
+          "woonplaats" : {
+            "title" : "woonplaats naam",
+            "type" : "string",
+            "description" : "Een woonplaats is een gedeelte van het grondgebied van de gemeente met een naam.",
+            "example" : "Duiven"
+          }
+        },
+        "description" : "Eigenschappen van het adres die kunnen worden hergebruikt in andere API's waarin adresgegevens worden opgenomen. "
+      },
+      "Bestuurder" : {
+        "type" : "object",
+        "properties" : {
+          "typeBestuursfunctie" : {
+            "$ref" : "#/components/schemas/TypeBestuurder_enum"
+          },
+          "soortbevoegdheid" : {
+            "$ref" : "#/components/schemas/SoortBevoegdheidBestuurder_enum"
+          },
+          "persoon" : {
+            "$ref" : "#/components/schemas/PersoonBeperkt"
+          }
+        },
+        "description" : "De identificatie en het type van een persoon. Met deze twee gegevens kan de conclusie getrokken worden via welke link de gerelateerde resource bevraagd kan worden\""
+      },
+      "Communicatiegegevens" : {
+        "type" : "object",
+        "properties" : {
+          "emailadres" : {
+            "type" : "string"
+          },
+          "domein" : {
+            "type" : "string",
+            "description" : "URL van de website"
+          },
+          "telefoonnummer" : {
+            "type" : "string"
+          },
+          "faxnummer" : {
+            "type" : "string"
+          }
+        }
+      },
+      "HandelsregisterPersoon" : {
+        "type" : "object",
+        "properties" : {
+          "identificatie" : {
+            "type" : "string",
+            "description" : "Het identificerende gegeven voor de handelsregisterpersoon"
+          },
+          "naam" : {
+            "$ref" : "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BRP-bevragen/master/api-specificatie/Bevraging-Ingeschreven-Persoon/openapi.yaml#/components/schemas/NaamPersoon"
+          },
+          "adres" : {
+            "$ref" : "#/components/schemas/Adres"
+          },
+          "geboorte" : {
+            "$ref" : "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BRP-bevragen/master/api-specificatie/Bevraging-Ingeschreven-Persoon/openapi.yaml#/components/schemas/Geboorte"
+          },
+          "overlijden" : {
+            "$ref" : "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/Datum_onvolledig"
+          },
+          "kvknummers" : {
+            "type" : "array",
+            "description" : "Maatschappelijke activiteiten waar deze persoon eigenaar van is",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "HandelsregisterPersoonHal" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/HandelsregisterPersoonHalBasis"
+        }, {
+          "properties" : {
+            "_embedded" : {
+              "$ref" : "#/components/schemas/HandelsregisterPersoon_embedded"
+            }
+          }
+        } ]
+      },
+      "HandelsregisterPersoonHalBasis" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/HandelsregisterPersoon"
+        }, {
+          "properties" : {
+            "_links" : {
+              "$ref" : "#/components/schemas/HandelsregisterPersoon_links"
+            }
+          }
+        } ]
+      },
+      "HandelsregisterPersoon_links" : {
+        "type" : "object",
+        "properties" : {
+          "self" : {
+            "$ref" : "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink"
+          },
+          "maatschappelijkeActiviteiten" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink"
+            }
+          }
+        }
+      },
+      "HandelsregisterPersoon_embedded" : {
+        "type" : "object",
+        "properties" : {
+          "maatschappelijkeActiviteiten" : {
+            "$ref" : "#/components/schemas/MaatschappelijkeActiviteitHalBasis"
+          }
+        }
+      },
+      "MaatschappelijkeActiviteit" : {
+        "type" : "object",
+        "properties" : {
+          "kvknummer" : {
+            "type" : "string",
+            "description" : "Het identificerende gegeven voor de {MaatschappelijkeActiviteit}, het KvK-nummer."
+          },
+          "naam" : {
+            "type" : "string",
+            "description" : "Naam of eerste handelsnaam van inschrijving."
+          },
+          "nonMailing" : {
+            "type" : "boolean"
+          },
+          "incidenteelUitlenenArbeidskrachten" : {
+            "type" : "boolean",
+            "description" : "Indicatie die aangeeft of de ondernemer tijdelijk arbeidskrachten ter beschikking stelt en dit niet onderdeel is van zijn 'reguliere' activiteiten."
+          },
+          "notitie" : {
+            "type" : "string",
+            "description" : "Notitie met betrekking tot een Bijzondere gebeurtenis"
+          },
+          "adresBerichtenbox" : {
+            "type" : "string",
+            "description" : "De Berichtenbox is de persoonlijke postbus voor elektronische berichten van de overheid."
+          },
+          "eigenaars" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/PersoonBeperkt"
+            }
+          },
+          "bezoekadres" : {
+            "$ref" : "#/components/schemas/Adres"
+          },
+          "postadres" : {
+            "$ref" : "#/components/schemas/Postadres"
+          },
+          "soortActiviteit" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SoortActiviteit"
+            }
+          }
+        }
+      },
+      "MaatschappelijkeActiviteitHal" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/MaatschappelijkeActiviteitHalBasis"
+        }, {
+          "properties" : {
+            "_embedded" : {
+              "$ref" : "#/components/schemas/MaatschappelijkeActiviteit_embedded"
+            }
+          }
+        } ]
+      },
+      "MaatschappelijkeActiviteitHalBasis" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/MaatschappelijkeActiviteit"
+        }, {
+          "properties" : {
+            "_links" : {
+              "$ref" : "#/components/schemas/MaatschappelijkeActiviteit_links"
+            }
+          }
+        } ]
+      },
+      "MaatschappelijkeActiviteitHalCollectie" : {
+        "type" : "object",
+        "properties" : {
+          "_links" : {
+            "$ref" : "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinks"
+          },
+          "_embedded" : {
+            "$ref" : "#/components/schemas/MaatschappelijkeActiviteitHalCollectie_embedded"
+          }
+        }
+      },
+      "MaatschappelijkeActiviteitHalCollectie_embedded" : {
+        "type" : "object",
+        "properties" : {
+          "maatschappelijkeActiviteiten" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/MaatschappelijkeActiviteitHal"
+            }
+          }
+        }
+      },
+      "MaatschappelijkeActiviteit_links" : {
+        "type" : "object",
+        "properties" : {
+          "self" : {
+            "$ref" : "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink"
+          },
+          "adres" : {
+            "$ref" : "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink"
+          },
+          "eigenaars" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink"
+            }
+          }
+        }
+      },
+      "MaatschappelijkeActiviteit_embedded" : {
+        "type" : "object",
+        "properties" : {
+          "eigenaars" : {
+            "$ref" : "#/components/schemas/Rechtspersoon"
+          }
+        }
+      },
+      "Persoons" : {
+        "type" : "object",
+        "properties" : {
+          "identificatie" : {
+            "type" : "string"
+          },
+          "typePersoon" : {
+            "$ref" : "#/components/schemas/TypePersoon_enum"
+          }
+        },
+        "description" : "De identificatie en het type van een persoon. Met deze twee gegevens kan de conclusie getrokken worden via welke link de gerelateerde resource bevraagd kan worden\""
+      },
+      "PersoonBasis" : {
+        "type" : "object",
+        "properties" : {
+          "identificatie" : {
+            "type" : "string",
+            "description" : "Unieke identificatie voor de persoon. Voor een handelsregisterpersoon is dit de identificatie zoals die door het handelsregister is vastgesteld. Voor een ingeschreven natuurlijk persoon is dit het burgerservicenummer. Voor een rechtspersoon is dit het RSIN. Of de waarde in identificatie een burgerservicenummer, een RSIN of een kadasterpersoonidentificatie is kan worden afgeleid uit het type persoon."
+          },
+          "omschrijving" : {
+            "type" : "string",
+            "description" : "Voor mensen leesbare, herkenbare en identificerende omschrijving van de persoon (met bijvoorbeeld de naam)."
+          }
+        },
+        "description" : "Een persoon kan een natuurlijk persoon of een rechtspersoon zijn. Een natuurlijk Persoon kan zowel een ingeschreven persoon (in de BRP) of een handelsregisterpersoon zijn."
+      },
+      "PersoonBeperkt" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/PersoonBasis"
+        }, {
+          "properties" : {
+            "type" : {
+              "$ref" : "#/components/schemas/PersoonType_enum"
+            }
+          }
+        } ]
+      },
+      "PersoonType_enum" : {
+        "type" : "string",
+        "description" : "Een aanduiding die aangeeft of het een natuurlijk dan wel niet-natuurlijk persoon betreft en of de persoon ingeschreven is in het BRP of Handelsregister (KvK), dan wel vastgelegd is bij het Kadaster.",
+        "enum" : [ "ingeschreven_natuurlijk_persoon", "handelsregisterpersoon", "rechtspersoon" ]
+      },
+      "Postadres" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Adres"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "postbusnummer" : {
+              "type" : "integer"
+            }
+          },
+          "example" : {
+            "postbusnummer" : 1021,
+            "postcode" : "1234AA",
+            "woonplaats" : "Nootdorp",
+            "adresregel1" : "Postbus 1021",
+            "adresregel2" : "1234AA Nootdorp"
+          }
+        } ]
+      },
+      "Rechtspersoon" : {
+        "type" : "object",
+        "properties" : {
+          "rsin" : {
+            "type" : "string"
+          },
+          "aanschrijfwijze" : {
+            "title" : "aanschrijfwijze",
+            "type" : "string",
+            "description" : "Samengestelde naam zoals die in communicatie met de rechtspersoon eigenaar dient te worden. Hoe het samenstellen van een aanschrijfwijze te werk gaat is beschreven in de [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-HR-Bevragen/blob/master/features/aanschrijfwijze.feature)",
+            "example" : "Van de Graaf BV."
+          },
+          "correspondentieadres" : {
+            "$ref" : "#/components/schemas/Postadres"
+          },
+          "rechtsvorm" : {
+            "$ref" : "#/components/schemas/Rechtsvorm_enum"
+          },
+          "bestuurders" : {
+            "type" : "array",
+            "description" : "Bestuurders vand deze rechtspersoon",
+            "items" : {
+              "$ref" : "#/components/schemas/Bestuurder"
+            }
+          },
+          "oprichtingsdatum" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "kvknummers" : {
+            "type" : "array",
+            "description" : "Maatschappelijke activiteiten waarvan deze rechtspersoon eigenaar is eigenaren",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "RechtspersoonHal" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/RechtspersoonHalBasis"
+        }, {
+          "properties" : {
+            "_embedded" : {
+              "$ref" : "#/components/schemas/Rechtspersoon_embedded"
+            }
+          }
+        } ]
+      },
+      "RechtspersoonHalBasis" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Rechtspersoon"
+        }, {
+          "properties" : {
+            "_links" : {
+              "$ref" : "#/components/schemas/Rechtspersoon_links"
+            }
+          }
+        } ]
+      },
+      "Rechtspersoon_links" : {
+        "type" : "object",
+        "properties" : {
+          "self" : {
+            "$ref" : "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink"
+          },
+          "adres" : {
+            "$ref" : "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink"
+          },
+          "maatschappelijkeActiviteiten" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink"
+            }
+          }
+        }
+      },
+      "Rechtspersoon_embedded" : {
+        "type" : "object",
+        "properties" : {
+          "maatschappelijkeActiviteiten" : {
+            "$ref" : "#/components/schemas/MaatschappelijkeActiviteitHalBasis"
+          }
+        }
+      },
+      "Rechtsvorm_enum" : {
+        "type" : "string",
+        "enum" : [ "besloten_vennootschap", "naamloze_vennootschap", "cooperatie", "kerkgenootschap", "vereniging_van_eigenaars", "onderlinge_waarborg_maatschappij", "stichting", "europees_economisch_samenwerkingsverband", "europese_naamloze_vennootschap_(se)", "vereniging", "overige_privaatrechtelijke_rechtspersoon", "europese_cooperatieve_vennootschap_(sce)", "publiekrechtelijke_rechtspersoon" ]
+      },
+      "SoortActiviteit" : {
+        "type" : "object",
+        "properties" : {
+          "SBIcode" : {
+            "type" : "string"
+          },
+          "omschrijving" : {
+            "type" : "string"
+          },
+          "indicatieHoofdactiviteit" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "SoortBevoegdheidBestuurder_enum" : {
+        "type" : "string",
+        "enum" : [ "alleen_zelfstandig_bevoegd", "gezamenlijk_bevoegd", "niet_bevoegd" ]
+      },
+      "TypeBestuurder_enum" : {
+        "type" : "string",
+        "enum" : [ "bestuurder", "vereffenaar", "lid_van_het_bestuurdend_orgaan", "lid_van_het_leidinggevend_orgaan", "persoon_krachtens_statuten_bevoegd_bij_ontstentenis_belet_van_de_bestuurders", "vertegenwoordiger_bestuurder_rechtspersoon" ]
+      },
+      "TypePersoon_enum" : {
+        "type" : "string",
+        "enum" : [ "ingeschrevenpersoon", "handelsregisterpersoon", "nietnatuurlijkpersoon", "naampersoon" ]
+      },
+      "Vestiging" : {
+        "type" : "object",
+        "properties" : {
+          "vestigingsnummer" : {
+            "type" : "string"
+          },
+          "handelsnaam" : {
+            "type" : "string"
+          },
+          "adres" : {
+            "$ref" : "#/components/schemas/Adres"
+          },
+          "communicatiegegevens" : {
+            "$ref" : "#/components/schemas/Communicatiegegevens"
+          },
+          "kvknummers" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "VestigingHal" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/VestigingHalBasis"
+        }, {
+          "properties" : {
+            "_embedded" : {
+              "$ref" : "#/components/schemas/Vestiging_embedded"
+            }
+          }
+        } ]
+      },
+      "VestigingHalBasis" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Vestiging"
+        }, {
+          "properties" : {
+            "_links" : {
+              "$ref" : "#/components/schemas/Vestiging_links"
+            }
+          }
+        } ]
+      },
+      "VestigingHalCollectie" : {
+        "type" : "object",
+        "properties" : {
+          "_links" : {
+            "$ref" : "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinks"
+          },
+          "_embedded" : {
+            "$ref" : "#/components/schemas/VestigingHalCollectie_embedded"
+          }
+        }
+      },
+      "VestigingHalCollectie_embedded" : {
+        "type" : "object",
+        "properties" : {
+          "Vestigingen" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/VestigingHal"
+            }
+          }
+        }
+      },
+      "Vestiging_links" : {
+        "type" : "object",
+        "properties" : {
+          "self" : {
+            "$ref" : "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink"
+          },
+          "adres" : {
+            "$ref" : "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink"
+          },
+          "maatschappelijkeActiviteit" : {
+            "$ref" : "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink"
+          }
+        }
+      },
+      "Vestiging_embedded" : {
+        "type" : "object",
+        "properties" : {
+          "maatschappelijkeActiviteit" : {
+            "$ref" : "#/components/schemas/MaatschappelijkeActiviteitHalBasis"
+          }
+        }
+      },
+      "BadRequestFoutbericht" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Foutbericht"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "invalidParams" : {
+              "type" : "array",
+              "description" : "Foutmelding per fout in een parameter. Alle gevonden fouten worden één keer teruggemeld.",
+              "items" : {
+                "$ref" : "#/components/schemas/InvalidParams"
+              }
+            }
+          }
+        } ]
+      },
+      "Foutbericht" : {
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "description" : "Link naar meer informatie over deze fout",
+            "format" : "uri"
+          },
+          "title" : {
+            "type" : "string",
+            "description" : "Beschrijving van de fout"
+          },
+          "status" : {
+            "type" : "integer",
+            "description" : "Http status code"
+          },
+          "detail" : {
+            "type" : "string",
+            "description" : "Details over de fout"
+          },
+          "instance" : {
+            "type" : "string",
+            "description" : "Uri van de aanroep die de fout heeft veroorzaakt",
+            "format" : "uri"
+          },
+          "code" : {
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Systeemcode die het type fout aangeeft"
+          }
+        },
+        "description" : "Terugmelding bij een fout. JSON representatie in lijn met [RFC7807](https://tools.ietf.org/html/rfc7807)."
+      },
+      "InvalidParams" : {
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "format" : "uri",
+            "example" : "https://www.vng.nl/realisatie/api/{major-versie}/validaties/integer"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "Naam van de parameter",
+            "example" : "verblijfplaats__huisnummer"
+          },
+          "code" : {
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Systeemcode die het type fout aangeeft",
+            "example" : "integer"
+          },
+          "reason" : {
+            "type" : "string",
+            "description" : "Beschrijving van de fout op de parameterwaarde",
+            "example" : "Waarde is geen geldige integer."
+          }
+        },
+        "description" : "Details over fouten in opgegeven parameters"
+      }
+    },
+    "headers" : {
+      "api_version" : {
+        "schema" : {
+          "type" : "string",
+          "description" : "Geeft een specifieke API-versie aan in de context van een specifieke aanroep.",
+          "example" : "1.0.0"
+        }
+      },
+      "warning" : {
+        "schema" : {
+          "type" : "string",
+          "description" : "zie RFC 7234. In het geval een major versie wordt uitgefaseerd, gebruiken we warn-code 299 (\"Miscellaneous Persistent Warning\") en het API end-point (inclusief versienummer) als de warn-agent van de warning, gevolgd door de warn-text met de human-readable waarschuwing",
+          "example" : "299 https://service.../api/.../v1 \"Deze versie van de API is verouderd en zal uit dienst worden genomen op 2018-02-01. Raadpleeg voor meer informatie hier de documentatie: https://omgevingswet.../api/.../v1\"."
+        }
+      }
+    }
+  }
+}
