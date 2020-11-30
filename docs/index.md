@@ -12,7 +12,7 @@ De Haal Centraal HR Bevragen API is in ontwikkeling in het kader van een verkenn
 De API is ontworpen met behulp van een [goals canvas](./goals-canvas) op basis van user stories. Je bent welkom hieraan bij te dragen in de vorm van issues of user stories.
 
 ## Direct aan de slag?
-De HHR bevragen API is nog niet beschikbaar. Je kan al wel de (concept) specificaties bekijken.
+De HR bevragen API is nog niet beschikbaar. Je kan al wel de (concept) specificaties bekijken.
 
 * Bekijk de specificaties met [Swagger UI](./swagger-ui) of [Redoc](./redoc)
 * Download de [technische specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-BRK-bevragen/blob/develop/specificatie/genereervariant/openapi.yaml){:target="_blank" rel="noopener"}
