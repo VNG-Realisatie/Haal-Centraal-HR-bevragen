@@ -1,0 +1,40 @@
+baseurl: "/Haal-Centraal-HR-bevragen"
+apiname: "HR Bevragen"
+url: "http://localhost:4000"
+# nav is t.b.v. generatie side-navigation menu.
+# Een 'title' zonder path of url genereert slechts een kopje.
+# 'path' vormt tezamen met de baseurl de url waarmee de 'href' wordt gevuld. 
+# Indien een 'url' voorradig dan wordt daarmee de 'href' gevuld en dient het path slechts om te bepalen welke link active is.
+# 'target: blank' zorgt er voor dat de link in een nieuw tabblad wordt geöpend.
+nav:
+  - title: HR Bevragen
+    subnav:
+      - title: Main
+        path: /
+      - title: Goals canvas
+        path: /goals-canvas
+  - title: Specificaties (IO)
+    subnav:
+#      - title: Getting started
+#        path: /getting-started
+      - title: User stories
+        url: https://github.com/VNG-Realisatie/Haal-Centraal-HR-bevragen/issues?q=is%3Aissue+label%3A%22user+story%22
+        path: /user-stories
+        target: blank
+      - title: Bevragen API (swagger-ui)
+        path: /swagger-ui
+      - title: Bevragen API (redoc)
+        path: /redoc
+#      - title: Features
+#        path: /features
+plugins:
+  - jekyll-redirect-from
+  - jekyll-remote-theme
+
+remote_theme: VNG-Realisatie/jekyll-theme-haal-centraal
+
+github: VNG-Realisatie/Haal-Centraal-HR-bevragen
+
+theme: jekyll-theme-time-machine
+
+project_name: /Haal-Centraal-HR-bevragen

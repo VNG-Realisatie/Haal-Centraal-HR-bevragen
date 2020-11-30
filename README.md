@@ -1,44 +1,34 @@
 # Haal Centraal HR bevragen
 
 ## Introductie
-De Haal Centraal HR Bevragen API is in ontwikkeling in het kader van een verkenning.
-Doel van de verkenning binnen het programma Haal Centraal is om de verstrekking van gegevens op basis van API’s, ontworpen vanuit het gebruikersperspectief, te verkennen voor het handelsregister.
+API voor het zoeken en raadplegen van gegevens uit het Handelsregister. 
 
-Op basis van user stories is een goals canvas opgesteld welke weer de basis vormt voor het API-design. Eventuele bijdrages in de vorm van issues of user stories zijn welkom
+De Haal Centraal HR Bevragen API is in ontwikkeling in het kader van een verkenning. Doel van de verkenning binnen het programma Haal Centraal is om de verstrekking van gegevens op basis van API’s, ontworpen vanuit het gebruikersperspectief, te verkennen voor het handelsregister.
 
- Doel van het programma Haal Centraal is om de verstrekking van basisgegevens aan binnengemeentelijke afnemers te outsourcen naar Landelijke Registraties (RvIG, Kadaster, KVK). Dit moet leiden tot een forse reductie van lokale kopieën bij gemeenten.
+De API is ontworpen met behulp van een [goals canvas](https://vng-realisatie.github.io/Haal-Centraal-HR-bevragen/goals-canvas) op basis van user stories. Je bent welkom hieraan bij te dragen in de vorm van issues of user stories.
 
-In principe willen we voor iedere activiteit op een lokale kopie een Haal Centraal alternatief te bieden in de vorm van een API.
+## Direct aan de slag?
+De HR bevragen API is nog niet beschikbaar. Je kan al wel de (concept) specificaties bekijken.
 
-# Planning Haal Centraal
-https://eu-rm.roadmunk.com/publish/29a13c572a0dfc79f1d0386fc572e15383afe11f
+* Bekijk de specificaties met [Swagger UI](https://vng-realisatie.github.io/Haal-Centraal-HR-bevragen/swagger-ui) of [Redoc](https://vng-realisatie.github.io/Haal-Centraal-HR-bevragen/redoc)
+* Download de [technische specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-BRK-bevragen/blob/develop/specificatie/genereervariant/openapi.yaml)
 
-### Toegevoegde waarde voor gemeenten
-- sneller aansluiten afnemers
-- goedkoper aansluiten afnemers (x aantal binnegemeentelijke aansluiters x 355 gemeenten)
-- lagere investeringen (geen lokale kopie/ gegevensmagazijn)
-- lagere beheerkosten (geen gegevensbeheer lokale kopieën)
-- hogere ROI: hergebruik API Landelijke Registratie door alle gemeenten
-- betere technologie-business alignment (Landelijke Registratie voert sneller een wijziging door dan 355 afzonderlijke gemeenten)
-- meer focus op de businessvraag van afnemers (i.p.v. op betrouwbaarheid etc. lokale kopieën)
-- maximale compliancy op de gemeentelijke softwaremarkt (aansluiting gemeente x = 100% herbruikbaar in gemeente y)
+## Bronnen
 
-### Toegevoegde waarde voor leveranciers
-- leveranciers kunnen zich richten op het bieden van toegevoegde waarde voor burgers, bedrijven en medewerkers i.p.v. plumbing concerns.
+* [Productvisie Haal Centraal](https://vng-realisatie.github.io/Haal-Centraal)
+* [API Design Visie](https://github.com/Geonovum/KP-APIs/tree/master/Werkgroep%20Design%20Visie)
+* [REST API Design Rules](https://docs.geostandaarden.nl/api/API-Designrules/)
+* [Landelijke API strategie voor de overheid](https://geonovum.github.io/KP-APIs/)
 
-## Context
-Haal Centraal is een G5 initiatief (Amsterdam, Rotterdam, Den Haag, Utrecht en Eindhoven). Het concept is getoetst in de BRK pilot van de gemeente Den Haag met het Kadaster op basis van de RSGB bevragingen standaard (voorloper BRP- en BRK-bevragen). De businesscase is gebaseerd op ervaringscijfers van de gemeente Den Haag en de softwareontwikkeling gedurende de pilot.
+## Contact
 
-## HR bevragen
-Deze repository beschrijft het project om tot een API voor de Basisregistratie Handelsregister (HR) te komen.
-
-## Documentatie
-
-* HR Bevragen: [Technische specificaties van de **resolved** versie](https://github.com/VNG-Realisatie/Haal-Centraal-HR-bevragen/tree/master/specificatie/genereervariant) (Open API Specificaties), [Technische specificaties van de **unresolved** versie](https://github.com/VNG-Realisatie/Haal-Centraal-HR-bevragen/tree/master/specificatie) (Open API versie) en ook in [Swagger-formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-HR-bevragen/master/specificatie/openapi.yaml)
-
-
-* Ontwerpkeuzes staan in het document **[Design decisions](https://github.com/VNG-Realisatie/HR-bevragingen/blob/master/docs/design_decisions.md)**
+* Product Owner: Cathy Dingemanse, [cathy.dingemanse@denhaag.nl](mailto:cathy.dingemanse@denhaag.nl)
+* Designer: Johan Boer, [johan.boer@vng.nl](mailto:johan.boer@vng.nl)
+* Designer: Robert Melskens, [robert.melskens@vng.nl](mailto:robert.melskens@vng.nl)
+* Customer zero: Melvin Lee, [melvin.lee@iswish.nl](mailto:melvin.lee@iswish.nl)
+* Tester: Frank Samwel, [frank.samwel@denhaag.nl](mailto:frank.samwel@denhaag.nl)
 
 ## Licentie
-Copyright &copy; VNG Realisatie 2018
-Licensed under the [EUPL](https://github.com/VNG-Realisatie/Haal-Centraal-HR-bevragen/blob/master/LICENCE.md)
+
+Copyright &copy; VNG Realisatie 2020
+Licensed under the [EUPL](./LICENCE.md)
