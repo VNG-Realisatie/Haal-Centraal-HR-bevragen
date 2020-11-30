@@ -35,4 +35,4 @@ De HR bevragen API is nog niet beschikbaar. Je kan al wel de (concept) specifica
 ## Licentie
 
 Copyright &copy; VNG Realisatie 2020
-Licensed under the [EUPL](https://github.com/VNG-Realisatie/Haal-Centraal-BRK-bevragen/blob/master/LICENCE.md){:target="_blank" rel="noopener"}
+Licensed under the [EUPL](https://github.com/VNG-Realisatie/Haal-Centraal-HR-bevragen/blob/master/LICENCE.md){:target="_blank" rel="noopener"}
