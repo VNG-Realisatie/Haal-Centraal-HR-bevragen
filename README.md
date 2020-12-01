@@ -1,13 +1,9 @@
 # Haal Centraal HR bevragen
 
 ## Introductie
-API voor het zoeken en raadplegen van gegevens uit het Handelsregister. 
+API voor het zoeken en raadplegen van gegevens uit het Handelsregister, in verkennende fase.
 
-De Haal Centraal HR Bevragen API is in ontwikkeling in het kader van een verkenning. Doel van de verkenning binnen het programma Haal Centraal is om de verstrekking van gegevens op basis van API’s, ontworpen vanuit het gebruikersperspectief, te verkennen voor het handelsregister.
-
-De API is ontworpen met behulp van een [goals canvas](https://vng-realisatie.github.io/Haal-Centraal-HR-bevragen/goals-canvas) op basis van user stories. Je bent welkom hieraan bij te dragen in de vorm van issues of user stories.
-
-## Direct aan de slag?
+## Direct uitproberen?
 De HR bevragen API is nog niet beschikbaar. Je kan al wel de (concept) specificaties bekijken.
 
 * Bekijk de specificaties met [Swagger UI](https://vng-realisatie.github.io/Haal-Centraal-HR-bevragen/swagger-ui) of [Redoc](https://vng-realisatie.github.io/Haal-Centraal-HR-bevragen/redoc)
