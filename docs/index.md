@@ -4,7 +4,6 @@ title: Haal Centraal HR bevragen
 ---
 # Haal Centraal HR bevragen
 
-## Introductie
 API voor het zoeken en raadplegen van gegevens uit het Handelsregister. 
 
 De Haal Centraal HR Bevragen API is in ontwikkeling in het kader van een verkenning. Doel van de verkenning binnen het programma Haal Centraal is om de verstrekking van gegevens op basis van API’s, ontworpen vanuit het gebruikersperspectief, te verkennen voor het handelsregister.
