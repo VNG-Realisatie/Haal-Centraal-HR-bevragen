@@ -11,12 +11,12 @@ nav:
     subnav:
       - title: Main
         path: /
-#      - title: Goals canvas
-#        path: /goals-canvas
-  - title: Specificaties v. 1.0 (IO)
+      - title: Goals canvas
+        path: /goals-canvas
+  - title: Specificaties (IO)
     subnav:
-      - title: Getting started
-        path: /getting-started
+#      - title: Getting started
+#        path: /getting-started
       - title: User stories
         url: https://github.com/VNG-Realisatie/Haal-Centraal-HR-bevragen/issues?q=is%3Aissue+label%3A%22user+story%22
         path: /user-stories
@@ -25,8 +25,8 @@ nav:
         path: /swagger-ui
       - title: Bevragen API (redoc)
         path: /redoc
-      - title: Features
-        path: /features
+#      - title: Features
+#        path: /features
 plugins:
   - jekyll-redirect-from
   - jekyll-remote-theme
