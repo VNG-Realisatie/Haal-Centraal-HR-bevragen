@@ -1,8 +1,8 @@
 # Haal Centraal HR bevragen
 
-![lint oas](https://github.com/VNG-Realisatie/Haal-Centraal-HR-bevragen/workflows/lint-oas/badge.svg)
-![generate sdks](https://github.com/VNG-Realisatie/Haal-Centraal-HR-bevragen/workflows/generate-sdks/badge.svg)
-![generate postman collection](https://github.com/VNG-Realisatie/Haal-Centraal-HR-bevragen/workflows/generate-postman-collection/badge.svg)
+![lint oas](https://github.com/VNG-Realisatie/Haal-Centraal-HR-bevragen/workflows/lint-oas/badge.svg?branch=develop)
+![generate sdks](https://github.com/VNG-Realisatie/Haal-Centraal-HR-bevragen/workflows/generate-sdks/badge.svg?branch=develop)
+![generate postman collection](https://github.com/VNG-Realisatie/Haal-Centraal-HR-bevragen/workflows/generate-postman-collection/badge.svg?branch=develop)
 
 API voor het zoeken en raadplegen van gegevens uit het Handelsregister. 
 
