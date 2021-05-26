@@ -29,7 +29,7 @@ paths:
         explode: true
         schema:
           type: string
-      - name: eigenaar_burgerservicenummer
+      - name: eigenaarBurgerservicenummer
         in: query
         description: Het burgerservicenummer van de ingeschreven persoon die eigenaar
           is van een onderneming.
@@ -39,7 +39,7 @@ paths:
         schema:
           maxLength: 9
           type: string
-      - name: bestuurder_burgerservicenummer
+      - name: bestuurderBurgerservicenummer
         in: query
         description: Het burgerservicenummer van de ingeschreven persoon die bestuurder
           is van een onderneming.
@@ -58,7 +58,7 @@ paths:
         explode: true
         schema:
           type: string
-      - name: nummeraanduidingidentificatie
+      - name: nummeraanduidingIdentificatie
         in: query
         description: De nummeraanduidingidentificatie van een adres van de maatschappelijke
           activiteit.
@@ -67,7 +67,7 @@ paths:
         explode: true
         schema:
           type: string
-      - name: adresseerbaarobjectidentificatie
+      - name: adresseerbaarObjectIdentificatie
         in: query
         description: De adresseerbaarobjectidentificatie van een adres van de maatschappelijke
           activiteit.
@@ -146,8 +146,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadRequestFoutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.1
-                  400 Bad Request
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
                 title: Ten minste één parameter moet worden opgegeven.
                 status: 400
                 detail: The request could not be understood by the server due to malformed
@@ -169,8 +168,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.2
-                  401 Unauthorized
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2
                 title: Niet correct geauthenticeerd.
                 status: 401
                 detail: The request requires user authentication. The response MUST
@@ -188,8 +186,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.4
-                  403 Forbidden
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4
                 title: U bent niet geautoriseerd voor deze operatie.
                 status: 403
                 detail: The server understood the request, but is refusing to fulfill
@@ -206,8 +203,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.7
-                  406 Not Acceptable
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.7
                 title: Gevraagde contenttype wordt niet ondersteund.
                 status: 406
                 detail: The resource identified by the request is only capable of
@@ -225,8 +221,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.10
-                  409 Conflict
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10
                 title: Conflict
                 status: 409
                 detail: The request could not be completed due to a conflict with
@@ -243,8 +238,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.11
-                  410 Gone
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.11
                 title: Gone
                 status: 410
                 detail: The request could not be completed due to a conflict with
@@ -261,8 +255,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.16
-                  415 Unsupported Media Type
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.16
                 title: Unsupported Media Type
                 status: 415
                 detail: The server is refusing the request because the entity of the
@@ -297,8 +290,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.1
-                  500 Internal server error
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1
                 title: Interne server fout.
                 status: 500
                 detail: The server encountered an unexpected condition which prevented
@@ -315,8 +307,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4
-                  503 Service Unavailable
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4
                 title: Bronservice {bron} is tijdelijk niet beschikbaar.
                 status: 503
                 detail: The service is currently unable to handle the request due
@@ -362,8 +353,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadRequestFoutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.1
-                  400 Bad Request
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
                 title: Ten minste één parameter moet worden opgegeven.
                 status: 400
                 detail: The request could not be understood by the server due to malformed
@@ -385,8 +375,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.2
-                  401 Unauthorized
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2
                 title: Niet correct geauthenticeerd.
                 status: 401
                 detail: The request requires user authentication. The response MUST
@@ -404,8 +393,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.4
-                  403 Forbidden
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4
                 title: U bent niet geautoriseerd voor deze operatie.
                 status: 403
                 detail: The server understood the request, but is refusing to fulfill
@@ -422,8 +410,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.5
-                  404 Not Found
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5
                 title: Opgevraagde resource bestaat niet.
                 status: 404
                 detail: The server has not found anything matching the Request-URI.
@@ -439,8 +426,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.7
-                  406 Not Acceptable
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.7
                 title: Gevraagde contenttype wordt niet ondersteund.
                 status: 406
                 detail: The resource identified by the request is only capable of
@@ -458,8 +444,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.11
-                  410 Gone
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.11
                 title: Gone
                 status: 410
                 detail: The request could not be completed due to a conflict with
@@ -476,8 +461,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.1
-                  500 Internal server error
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1
                 title: Interne server fout.
                 status: 500
                 detail: The server encountered an unexpected condition which prevented
@@ -494,8 +478,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4
-                  503 Service Unavailable
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4
                 title: Bronservice {bron} is tijdelijk niet beschikbaar.
                 status: 503
                 detail: The service is currently unable to handle the request due
@@ -542,8 +525,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadRequestFoutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.1
-                  400 Bad Request
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
                 title: Ten minste één parameter moet worden opgegeven.
                 status: 400
                 detail: The request could not be understood by the server due to malformed
@@ -565,8 +547,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.2
-                  401 Unauthorized
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2
                 title: Niet correct geauthenticeerd.
                 status: 401
                 detail: The request requires user authentication. The response MUST
@@ -584,8 +565,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.4
-                  403 Forbidden
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4
                 title: U bent niet geautoriseerd voor deze operatie.
                 status: 403
                 detail: The server understood the request, but is refusing to fulfill
@@ -602,8 +582,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.5
-                  404 Not Found
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5
                 title: Opgevraagde resource bestaat niet.
                 status: 404
                 detail: The server has not found anything matching the Request-URI.
@@ -619,8 +598,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.7
-                  406 Not Acceptable
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.7
                 title: Gevraagde contenttype wordt niet ondersteund.
                 status: 406
                 detail: The resource identified by the request is only capable of
@@ -638,8 +616,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.11
-                  410 Gone
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.11
                 title: Gone
                 status: 410
                 detail: The request could not be completed due to a conflict with
@@ -656,8 +633,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.1
-                  500 Internal server error
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1
                 title: Interne server fout.
                 status: 500
                 detail: The server encountered an unexpected condition which prevented
@@ -674,8 +650,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4
-                  503 Service Unavailable
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4
                 title: Bronservice {bron} is tijdelijk niet beschikbaar.
                 status: 503
                 detail: The service is currently unable to handle the request due
@@ -750,8 +725,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadRequestFoutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.1
-                  400 Bad Request
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
                 title: Ten minste één parameter moet worden opgegeven.
                 status: 400
                 detail: The request could not be understood by the server due to malformed
@@ -773,8 +747,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.2
-                  401 Unauthorized
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2
                 title: Niet correct geauthenticeerd.
                 status: 401
                 detail: The request requires user authentication. The response MUST
@@ -792,8 +765,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.4
-                  403 Forbidden
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4
                 title: U bent niet geautoriseerd voor deze operatie.
                 status: 403
                 detail: The server understood the request, but is refusing to fulfill
@@ -810,8 +782,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.7
-                  406 Not Acceptable
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.7
                 title: Gevraagde contenttype wordt niet ondersteund.
                 status: 406
                 detail: The resource identified by the request is only capable of
@@ -829,8 +800,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.10
-                  409 Conflict
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10
                 title: Conflict
                 status: 409
                 detail: The request could not be completed due to a conflict with
@@ -847,8 +817,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.11
-                  410 Gone
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.11
                 title: Gone
                 status: 410
                 detail: The request could not be completed due to a conflict with
@@ -865,8 +834,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.16
-                  415 Unsupported Media Type
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.16
                 title: Unsupported Media Type
                 status: 415
                 detail: The server is refusing the request because the entity of the
@@ -901,8 +869,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.1
-                  500 Internal server error
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1
                 title: Interne server fout.
                 status: 500
                 detail: The server encountered an unexpected condition which prevented
@@ -919,8 +886,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4
-                  503 Service Unavailable
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4
                 title: Bronservice {bron} is tijdelijk niet beschikbaar.
                 status: 503
                 detail: The service is currently unable to handle the request due
@@ -966,8 +932,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadRequestFoutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.1
-                  400 Bad Request
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
                 title: Ten minste één parameter moet worden opgegeven.
                 status: 400
                 detail: The request could not be understood by the server due to malformed
@@ -989,8 +954,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.2
-                  401 Unauthorized
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2
                 title: Niet correct geauthenticeerd.
                 status: 401
                 detail: The request requires user authentication. The response MUST
@@ -1008,8 +972,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.4
-                  403 Forbidden
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4
                 title: U bent niet geautoriseerd voor deze operatie.
                 status: 403
                 detail: The server understood the request, but is refusing to fulfill
@@ -1026,8 +989,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.5
-                  404 Not Found
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5
                 title: Opgevraagde resource bestaat niet.
                 status: 404
                 detail: The server has not found anything matching the Request-URI.
@@ -1043,8 +1005,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.7
-                  406 Not Acceptable
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.7
                 title: Gevraagde contenttype wordt niet ondersteund.
                 status: 406
                 detail: The resource identified by the request is only capable of
@@ -1062,8 +1023,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.11
-                  410 Gone
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.11
                 title: Gone
                 status: 410
                 detail: The request could not be completed due to a conflict with
@@ -1080,8 +1040,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.1
-                  500 Internal server error
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1
                 title: Interne server fout.
                 status: 500
                 detail: The server encountered an unexpected condition which prevented
@@ -1098,8 +1057,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4
-                  503 Service Unavailable
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4
                 title: Bronservice {bron} is tijdelijk niet beschikbaar.
                 status: 503
                 detail: The service is currently unable to handle the request due
@@ -1151,7 +1109,7 @@ paths:
           pattern: ^[1-9]{1}[0-9]{3}[A-Za-z]{2}$
           type: string
         example: 1234AZ
-      - name: statutairezetel
+      - name: statutaireZetel
         in: query
         required: false
         style: form
@@ -1180,8 +1138,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadRequestFoutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.1
-                  400 Bad Request
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
                 title: Ten minste één parameter moet worden opgegeven.
                 status: 400
                 detail: The request could not be understood by the server due to malformed
@@ -1203,8 +1160,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.2
-                  401 Unauthorized
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2
                 title: Niet correct geauthenticeerd.
                 status: 401
                 detail: The request requires user authentication. The response MUST
@@ -1222,8 +1178,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.4
-                  403 Forbidden
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4
                 title: U bent niet geautoriseerd voor deze operatie.
                 status: 403
                 detail: The server understood the request, but is refusing to fulfill
@@ -1240,8 +1195,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.7
-                  406 Not Acceptable
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.7
                 title: Gevraagde contenttype wordt niet ondersteund.
                 status: 406
                 detail: The resource identified by the request is only capable of
@@ -1259,8 +1213,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.10
-                  409 Conflict
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10
                 title: Conflict
                 status: 409
                 detail: The request could not be completed due to a conflict with
@@ -1277,8 +1230,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.11
-                  410 Gone
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.11
                 title: Gone
                 status: 410
                 detail: The request could not be completed due to a conflict with
@@ -1295,8 +1247,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.16
-                  415 Unsupported Media Type
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.16
                 title: Unsupported Media Type
                 status: 415
                 detail: The server is refusing the request because the entity of the
@@ -1331,8 +1282,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.1
-                  500 Internal server error
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1
                 title: Interne server fout.
                 status: 500
                 detail: The server encountered an unexpected condition which prevented
@@ -1349,8 +1299,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4
-                  503 Service Unavailable
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4
                 title: Bronservice {bron} is tijdelijk niet beschikbaar.
                 status: 503
                 detail: The service is currently unable to handle the request due
@@ -1395,8 +1344,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadRequestFoutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.1
-                  400 Bad Request
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
                 title: Ten minste één parameter moet worden opgegeven.
                 status: 400
                 detail: The request could not be understood by the server due to malformed
@@ -1418,8 +1366,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.2
-                  401 Unauthorized
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2
                 title: Niet correct geauthenticeerd.
                 status: 401
                 detail: The request requires user authentication. The response MUST
@@ -1437,8 +1384,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.4
-                  403 Forbidden
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4
                 title: U bent niet geautoriseerd voor deze operatie.
                 status: 403
                 detail: The server understood the request, but is refusing to fulfill
@@ -1455,8 +1401,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.5
-                  404 Not Found
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5
                 title: Opgevraagde resource bestaat niet.
                 status: 404
                 detail: The server has not found anything matching the Request-URI.
@@ -1472,8 +1417,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.7
-                  406 Not Acceptable
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.7
                 title: Gevraagde contenttype wordt niet ondersteund.
                 status: 406
                 detail: The resource identified by the request is only capable of
@@ -1491,8 +1435,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.11
-                  410 Gone
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.11
                 title: Gone
                 status: 410
                 detail: The request could not be completed due to a conflict with
@@ -1509,8 +1452,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.1
-                  500 Internal server error
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1
                 title: Interne server fout.
                 status: 500
                 detail: The server encountered an unexpected condition which prevented
@@ -1527,8 +1469,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4
-                  503 Service Unavailable
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4
                 title: Bronservice {bron} is tijdelijk niet beschikbaar.
                 status: 503
                 detail: The service is currently unable to handle the request due
@@ -1575,7 +1516,7 @@ paths:
         schema:
           pattern: ^[a-zA-Z]$
           type: string
-      - name: huisnummertoevoeging
+      - name: huisnummerToevoeging
         in: query
         required: false
         style: form
@@ -1636,8 +1577,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadRequestFoutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.1
-                  400 Bad Request
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
                 title: Ten minste één parameter moet worden opgegeven.
                 status: 400
                 detail: The request could not be understood by the server due to malformed
@@ -1659,8 +1599,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.2
-                  401 Unauthorized
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2
                 title: Niet correct geauthenticeerd.
                 status: 401
                 detail: The request requires user authentication. The response MUST
@@ -1678,8 +1617,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.4
-                  403 Forbidden
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4
                 title: U bent niet geautoriseerd voor deze operatie.
                 status: 403
                 detail: The server understood the request, but is refusing to fulfill
@@ -1696,8 +1634,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.7
-                  406 Not Acceptable
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.7
                 title: Gevraagde contenttype wordt niet ondersteund.
                 status: 406
                 detail: The resource identified by the request is only capable of
@@ -1715,8 +1652,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.11
-                  410 Gone
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.11
                 title: Gone
                 status: 410
                 detail: The request could not be completed due to a conflict with
@@ -1733,8 +1669,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.1
-                  500 Internal server error
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1
                 title: Interne server fout.
                 status: 500
                 detail: The server encountered an unexpected condition which prevented
@@ -1751,8 +1686,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4
-                  503 Service Unavailable
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4
                 title: Bronservice {bron} is tijdelijk niet beschikbaar.
                 status: 503
                 detail: The service is currently unable to handle the request due
@@ -1789,7 +1723,7 @@ components:
       properties:
         omschrijving:
           type: string
-        SBIActiviteiten:
+        sbiActiviteiten:
           type: array
           items:
             $ref: '#/components/schemas/SBIActiviteit'
@@ -2020,7 +1954,7 @@ components:
       properties:
         bedrag:
           $ref: '#/components/schemas/Bedrag'
-        Aandelen:
+        aandelen:
           $ref: '#/components/schemas/Aandeel'
     MaatschappelijkeActiviteit:
       type: object
@@ -2402,7 +2336,7 @@ components:
     SBIActiviteit:
       type: object
       properties:
-        SBIcode:
+        sbiCode:
           type: string
         indicatieHoofdactiviteit:
           type: boolean
@@ -2667,41 +2601,39 @@ components:
           example: Waarde is geen geldige integer.
       description: Details over fouten in opgegeven parameters
     Datum_onvolledig:
+      deprecated: true
+      allOf:
+      - $ref: '#/components/schemas/DatumOnvolledig'
+    DatumOnvolledig:
       type: object
       properties:
         dag:
-          title: dag
           maximum: 31
           minimum: 1
           type: integer
-          description: De dag. Als de dag van de datum bekend is wordt deze hier ingevuld.
-            Ook als de volledige datum bekend is.
+          description: Als de dag van de datum bekend is wordt dit element gevuld,
+            ook als de volledige datum bekend is.
           example: 3
         datum:
-          title: datum
           type: string
-          description: De volledige datum die in de `date` definitie past. Dit element
-            wordt alleen gevuld als de volledige datum bekend is.
+          description: Als de volledige datum bekend is wordt de datum gevuld die
+            in de date definitie past.
           format: date
           example: 1989-05-03
         jaar:
-          title: jaar
           maximum: 9999
           type: integer
-          description: Het jaar van de datum. Als het jaar bekend is wordt dit element
-            gevuld, ook als de volledige datum bekend is.
+          description: Als het jaar van de datum bekend is wordt dit element gevuld,
+            ook als de volledige datum bekend is.
           example: 1989
         maand:
-          title: maand
           maximum: 12
           minimum: 1
           type: integer
-          description: De maand. Als de maand van een datum bekend is wordt deze hier
-            ingevuld. Ook als de volledige datum is ingevuld.
+          description: Als de maand van een datum bekend is wordt dit element gevuld,
+            ook als de volledige datum bekend is.
           example: 5
-      description: Gegevens over de datums die mogelijk niet volledig zijn, maar waarvan
-        de bekende gedeeltes wel moeten kunnen worden uitgewisseld. Als de volledige
-        datum bekend is worden alle elementen gevuld.
+      description: Gegevens over de datums die mogelijk niet volledig zijn.
     Geboorte:
       allOf:
       - $ref: '#/components/schemas/Geboortedatum'
@@ -2712,73 +2644,79 @@ components:
             $ref: '#/components/schemas/Waardetabel'
           inOnderzoek:
             $ref: '#/components/schemas/GeboorteInOnderzoek'
-        description: "Gegevens over de geboorte van respectievelijk de persoon, de\
-          \ ouder, de echtgenoot/geregistreerd partner, de eerdere echtgenoot/geregistreerd\
-          \ partner of het kind. \n* **datum** : Datum waarop de persoon is geboren.\
-          \ \n* **land** : Land waar de persoon is geboren \n* **plaats** : De plaats\
-          \ waar een persoon is geboren. Voor een plaats buiten Nederland is gemeentecode=1999\
-          \ (RNI) en gemeentenaam de buitenlandse plaatsnaam of aanduiding."
+        description: |
+          Gegevens over de geboorte.
+          * **datum** : datum waarop de persoon is geboren.
+          * **land** : land waar de persoon is geboren
+          * **plaats** : gemeente waar de persoon is geboren. Is de persoon geboren buiten Nederland, dan bevat het antwoord alleen een buitenlandse plaatsnaam of aanduiding.
     Geboortedatum:
       type: object
       properties:
         datum:
-          $ref: '#/components/schemas/Datum_onvolledig'
-      description: |-
-        <body><p>Gegevens over de geboorte van respectievelijk de persoon, de ouder, de echtgenoot/geregistreerd partner, de eerdere echtgenoot/geregistreerd partner of het kind.</p><p>
-         <em>*</em> datum** : Datum waarop de persoon is geboren.</p><p>
-         <em>*</em> land** : Land waar de persoon is geboren</p><p>
-         <em>*</em> plaats** : De plaats waar een persoon is geboren. Voor een plaats buiten Nederland is gemeentecode=1999 (RNI) en gemeentenaam de buitenlandse plaatsnaam of aanduiding.</p></body>
+          $ref: '#/components/schemas/DatumOnvolledig'
+      description: |
+        Gegevens over de geboorte van respectievelijk de persoon, de ouder, de echtgenoot/geregistreerd partner, de eerdere echtgenoot/geregistreerd partner of het kind.
+        * **datum** : Datum waarop de persoon is geboren
+        * **land** : Land waar de persoon is geboren
+        * **plaats** : De plaats waar de persoon is geboren. Voor een plaats buiten Nederland is gemeentecode=1999 (RNI) en gemeentenaam de buitenlandse plaatsnaam of aanduiding.
     Waardetabel:
       type: object
       properties:
         code:
-          title: code
           type: string
           example: "6030"
         omschrijving:
-          title: omschrijving
           type: string
-          description: Voor mensen leesbare omschrijving van de waarde.
           example: Nederland
-      description: Generieke tabel met waarden om een code en omschrijving op te nemen.
     GeboorteInOnderzoek:
       type: object
       properties:
         datum:
-          title: datum
           type: boolean
-          description: Indicator die aangeeft of het corresponderende gegeven voor
-            deze persoon in onderzoek is.
         land:
-          title: land
           type: boolean
-          description: Indicator die aangeeft of het corresponderende gegeven voor
-            deze persoon in onderzoek is.
         plaats:
-          title: plaats
           type: boolean
-          description: Indicator die aangeeft of het corresponderende gegeven voor
-            deze persoon in onderzoek is.
         datumIngangOnderzoek:
-          $ref: '#/components/schemas/Datum_onvolledig'
-      description: Indicators over het in onderzoek zijn van gegevens over de geboorte
-        van de INGESCHREVEN NATUURLIJK PERSOON. Zie de [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/in_onderzoek.feature)
+          $ref: '#/components/schemas/DatumOnvolledig'
+      description: |
+        Geeft aan welke gegevens over de geboorte van de persoon in onderzoek zijn. Zie de [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-BRP-bevragen/blob/v1.1.0/features/in_onderzoek.feature)
     HalPaginationLinks:
+      description: |
+        HalPaginationLinks bevat de link properties die nodig zijn om te kunnen navigeren in een collectie:
+
+        - first: uri voor het opvragen van de eerste pagina van deze collectie
+        - previous: uri voor het opvragen van de vorige pagina van deze collectie
+        - next: uri voor het opvragen van de volgende pagina van deze collectie
+      example:
+        self:
+          href: /resourcenaam?page=4
+        first:
+          href: /resourcenaam?page=1
+          title: Eerste pagina
+        previous:
+          href: /resourcenaam?page=3
+          title: Vorige pagina
+        next:
+          href: /resourcenaam?page=5
+          title: Volgende pagina
       allOf:
       - $ref: '#/components/schemas/HalCollectionLinks'
       - type: object
         properties:
           first:
-            $ref: '#/components/schemas/HalPaginationLinks_first'
+            $ref: '#/components/schemas/HalLink'
           previous:
-            $ref: '#/components/schemas/HalPaginationLinks_previous'
+            $ref: '#/components/schemas/HalLink'
           next:
-            $ref: '#/components/schemas/HalPaginationLinks_next'
+            $ref: '#/components/schemas/HalLink'
     HalCollectionLinks:
       type: object
       properties:
         self:
           $ref: '#/components/schemas/HalLink'
+      description: |
+        HalCollectionLinks bevat de self link die elke HAL Resource minimaal moet hebben in zijn _links property
     HalLink:
       required:
       - href
@@ -2791,46 +2729,12 @@ components:
         title:
           type: string
           description: Voor mens leesbaar label bij de link
-      description: De Link Object zoals gespecificeerd in https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5
+      description: De Link Object zoals gespecificeerd in https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5;
+        Deze link kan als templated link worden aangeboden. [URI-templating is hier
+        beschreven](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/uri-templating.feature).
     Href:
       type: string
       example: https://datapunt.voorbeeldgemeente.nl/api/v{major-versie}/resourcename/{resource-identificatie}
-    HalPaginationLinks_first:
-      type: object
-      properties:
-        href:
-          type: string
-          example: /resourcenaam?page=1
-        templated:
-          type: boolean
-        title:
-          type: string
-          example: Eerste pagina
-      description: uri voor het opvragen van de eerste pagina van deze collectie
-    HalPaginationLinks_previous:
-      type: object
-      properties:
-        href:
-          type: string
-          example: /resourcenaam?page=3
-        templated:
-          type: boolean
-        title:
-          type: string
-          example: Vorige pagina
-      description: uri voor het opvragen van de vorige pagina van deze collectie
-    HalPaginationLinks_next:
-      type: object
-      properties:
-        href:
-          type: string
-          example: /resourcenaam?page=5
-        templated:
-          type: boolean
-        title:
-          type: string
-          example: Volgende pagina
-      description: uri voor het opvragen van de volgende pagina van deze collectie
   headers:
     api_version:
       schema:
